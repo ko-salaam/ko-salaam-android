@@ -1,8 +1,17 @@
 package com.kosalaamInc.kosalaam.Global
 
-class Application{
-    companion object{
-        val baseUrl = "" //baseUrl
-        val testUrl2 = ""
+import android.app.Application
+
+class Application : Application() {
+    companion object {
+        var BASE_URL = ""
+
+        // lateinit
+        var prefs = ""
     }
+
+    override fun onCreate() {
+        super.onCreate()
+    }
+
 }
