@@ -3,8 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/mainFragment">
+    app:startDestination="@id/quranFragment">
 
+
+    <fragment
+        android:id="@+id/prayerRoomFragment"
+        android:name="com.kosalaamInc.kosalaam.Feature.Main.PrayerRoomFragment.PrayerRoomFragment"
+        android:label="fragment_searchprayerroom"
+        tools:layout="@layout/fragment_searchprayerroom" />
+
+    <fragment
+        android:id="@+id/quranFragment"
+        android:name="com.kosalaamInc.kosalaam.Feature.Main.QuranFragment.QuranFragment"
+        android:label="fragment_quran"
+        tools:layout="@layout/fragment_quran" />
     <fragment
         android:id="@+id/mainFragment"
         android:name="com.kosalaamInc.kosalaam.Feature.Main.MainFragment.MainFragment"
@@ -15,19 +27,10 @@
         android:name="com.kosalaamInc.kosalaam.Feature.Main.CompassFragment.CompassFragment"
         android:label="fragment_compass"
         tools:layout="@layout/fragment_compass" />
+
     <fragment
         android:id="@+id/myPageFragment"
         android:name="com.kosalaamInc.kosalaam.Feature.Main.MyPageFragment.MyPageFragment"
         android:label="fragment_mypage"
         tools:layout="@layout/fragment_mypage" />
-    <fragment
-        android:id="@+id/quranFragment"
-        android:name="com.kosalaamInc.kosalaam.Feature.Main.QuranFragment.QuranFragment"
-        android:label="fragment_quran"
-        tools:layout="@layout/fragment_quran" />
-    <fragment
-        android:id="@+id/prayerRoomFragment"
-        android:name="com.kosalaamInc.kosalaam.Feature.Main.PrayerRoomFragment.PrayerRoomFragment"
-        android:label="fragment_searchprayerroom"
-        tools:layout="@layout/fragment_searchprayerroom" />
 </navigation>

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityMainBinding
 
@@ -18,12 +19,16 @@ class MainActivity : AppCompatActivity() {
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+        initBottomNav()
+
+    }
+
+    private fun initBottomNav(){
         // navigation host
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv_main) as NavHostFragment
-
         // navigation controller
         val navController = navHostFragment.navController
-
         NavigationUI.setupWithNavController(mBinding.bnvMain,navController)
+
     }
 }
