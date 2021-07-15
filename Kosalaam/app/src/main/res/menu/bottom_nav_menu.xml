@@ -1,7 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
+        android:title="searchPrayer"
+        android:id="@+id/prayer_fragment"
+        android:icon="@drawable/bottom_1"
+        />
+    <item
+        android:title="quran"
+        android:id="@+id/quran_fragment"
+        android:icon="@drawable/bottom_2"
+        />
+    <item
+        android:title="main"
         android:id="@+id/main_fragment"
-        android:title="홈"
+        android:icon="@drawable/bottom_3"
+        />
+    <item
+        android:title="compass"
+        android:id="@+id/compass_fragment"
+        android:icon="@drawable/bottom_4"
+        />
+    <item
+        android:title="userInfo"
+        android:id="@+id/user_fragment"
+        android:icon="@drawable/bottom_5"
         />
 </menu>
