@@ -2,27 +2,27 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:title="searchPrayer"
-        android:id="@+id/prayer_fragment"
+        android:id="@+id/prayerRoomFragment"
         android:icon="@drawable/bottom_1"
         />
     <item
         android:title="quran"
-        android:id="@+id/quran_fragment"
+        android:id="@+id/quranFragment"
         android:icon="@drawable/bottom_2"
         />
     <item
-        android:title="main"
-        android:id="@+id/main_fragment"
+        android:title="mainFragment"
+        android:id="@+id/mainFragment"
         android:icon="@drawable/bottom_3"
         />
     <item
         android:title="compass"
-        android:id="@+id/compass_fragment"
+        android:id="@+id/compassFragment"
         android:icon="@drawable/bottom_4"
         />
     <item
         android:title="userInfo"
-        android:id="@+id/user_fragment"
+        android:id="@+id/myPageFragment"
         android:icon="@drawable/bottom_5"
         />
 </menu>
