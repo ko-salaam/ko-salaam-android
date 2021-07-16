@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/quranFragment">
+    app:startDestination="@id/mainFragment">
 
 
     <fragment
@@ -21,7 +21,11 @@
         android:id="@+id/mainFragment"
         android:name="com.kosalaamInc.kosalaam.Feature.Main.MainFragment.MainFragment"
         android:label="fragment_main"
-        tools:layout="@layout/fragment_main" />
+        tools:layout="@layout/fragment_main" >
+        <action
+            android:id="@+id/action_mainFragment_to_prayerRoomFragment"
+            app:destination="@id/prayerRoomFragment" />
+    </fragment>
     <fragment
         android:id="@+id/compassFragment"
         android:name="com.kosalaamInc.kosalaam.Feature.Main.CompassFragment.CompassFragment"
