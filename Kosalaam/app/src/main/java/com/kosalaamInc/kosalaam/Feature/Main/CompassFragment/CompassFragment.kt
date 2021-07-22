@@ -1,22 +1,36 @@
 package com.kosalaamInc.kosalaam.Feature.Main.CompassFragment
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.location.Location
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.kosalaamInc.kosalaam.Util.LocationUtil
 
 import com.kosalaamInc.kosalaam.databinding.FragmentCompassBinding
 
 
 class CompassFragment : Fragment(){
+
+    val TAG : String = "CompassFragment"
+    private val REQUEST_CODE_PERMISSION: Int = 2
+
     private var mBinding : FragmentCompassBinding? = null
-    private lateinit var location : Location
+
+
+
+    private val viewModel : CompassViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,15 +38,12 @@ class CompassFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
         val binding = FragmentCompassBinding.inflate(inflater,container,false)
+        checkPermission()
+        viewModel.permissionRequest.observe(viewLifecycleOwner, Observer { permission ->
+            checkPermission()
+        })
 
         mBinding = binding
-        LocationUtil().getInstance(container!!.context)
-        LocationUtil().getLocation().observe(viewLifecycleOwner, Observer {loc: Location? ->
-            location = loc!!
-            // Yay! location recived. Do location related work here
-            Log.i("Compass","Location: ${location.latitude}  ${location.longitude}")
-
-        })
 
         return mBinding?.root
 
@@ -42,4 +53,27 @@ class CompassFragment : Fragment(){
         mBinding= null
         super.onDestroyView()
     }
+
+    @Suppress("DEPRECATION")
+    private fun checkPermission(){
+//        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+//            if(context?.checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED
+//                || context?.checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION)!=PackageManager.PERMISSION_GRANTED
+//            ){
+//                requestPermissions(arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),REQUEST_CODE_PERMISSION)
+//                //viewModel.onPermissionResult("ACCESS_FINE_LOCATION",false)
+//                checkPermission()
+//
+//            }
+//            else{
+//                //viewModel.onPermissionResult("ACCESS_FINE_LOCATION",true)
+//            }
+//
+//        }
+//        else{
+//            //viewModel.onPermissionResult("ACCESS_FINE_LOCATION",true)
+//        }
+   }
+
+
 }
