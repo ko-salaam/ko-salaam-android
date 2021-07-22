@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kosalaam">
         <activity android:name=".Feature.Main.MainActivity">
+
+        </activity>
+        <activity android:name=".Feature.Login.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
