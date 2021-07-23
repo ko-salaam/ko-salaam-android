@@ -6,20 +6,45 @@
     android:layout_height="match_parent"
     tools:context=".Feature.Login.LoginActivity"
     android:orientation="vertical">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginTop="@dimen/login_back_marginTopShort"
+            android:layout_marginLeft="@dimen/login_back_marginLeftLong"
+            android:background="@android:color/transparent"
+            android:layout_width="@dimen/login_back_width"
+            android:layout_height="@dimen/login_back_height"
+            android:src="@drawable/login_back"/>
+
+        <ImageView
+            android:layout_marginTop="@dimen/login_back_marginTopLong"
+            android:layout_marginLeft="@dimen/login_back_marginLeftShort"
+            android:background="@android:color/transparent"
+            android:layout_width="@dimen/login_back_width"
+            android:layout_height="@dimen/login_back_height"
+            android:src="@drawable/login_back"/>
+
+    </RelativeLayout>
 
 
-    <TextView
-        android:textSize="16sp"
-        android:textColor="#FFFFFF"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="Find the Best Way to Enjoy Your Travel in Korea"
-        android:paddingRight="27.5dp"
-        android:paddingLeft="27.5dp"
-        android:paddingTop="55.5dp"
-        android:paddingBottom="55.5dp"
-        android:background="@drawable/login_mainoval"
-        android:layout_width="150dp"
-        android:layout_height="250dp"/>
+
+
+<!--    <TextView-->
+<!--        android:textSize="16sp"-->
+<!--        android:textColor="#FFFFFF"-->
+<!--        android:fontFamily="@font/montserrat_semibold"-->
+<!--        android:text="Find the Best Way to Enjoy Your Travel in Korea"-->
+<!--        android:paddingRight="27.5dp"-->
+<!--        android:paddingLeft="27.5dp"-->
+<!--        android:paddingTop="55.5dp"-->
+<!--        android:paddingBottom="55.5dp"-->
+<!--        android:background="@drawable/login_mainoval"-->
+<!--        android:layout_width="150dp"-->
+<!--        android:layout_height="250dp"/>-->
+<!--    -->
+<!--    -->
 
 
 

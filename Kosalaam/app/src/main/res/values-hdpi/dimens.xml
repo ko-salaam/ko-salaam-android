@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <dimen name="login_back_width">75dp</dimen>
+    <dimen name="login_back_height">124.9dp</dimen>
+</resources>

@@ -1,2 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+<!--    Login-->
+    <dimen name="login_back_marginTopShort">24.4dp</dimen>
+    <dimen name="login_back_marginTopLong">85.6dp</dimen>
+    <dimen name="login_back_marginLeftShort">68dp</dimen>
+    <dimen name="login_back_marginLeftLong">143dp</dimen>
+    <dimen name="login_back_width">150dp</dimen>
+    <dimen name="login_back_height">250dp</dimen>
+</resources>
