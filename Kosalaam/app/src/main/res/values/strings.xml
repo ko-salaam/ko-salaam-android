@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Kosalaam</string>
+    <string name="login_signUp">Sign Up</string>
+    <string name = "login_findTravle">Find the\nBest Way\nto Enjoy\nYour Travel\nin Korea</string>
 </resources>

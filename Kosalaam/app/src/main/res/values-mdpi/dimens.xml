@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="login_back_width">50dp</dimen>
-    <dimen name="login_back_height">83.3dp</dimen>
+    <!--    Login-->
+    <dimen name="login_back_marginTopShort">8.13dp</dimen>
+    <dimen name="margin25.6">8.53dp</dimen>
+    <dimen name="text7sp">2.33sp</dimen>
 </resources>

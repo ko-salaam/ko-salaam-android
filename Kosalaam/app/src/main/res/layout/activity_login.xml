@@ -4,48 +4,263 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Feature.Login.LoginActivity"
-    android:orientation="vertical">
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:paddingTop="@dimen/login_back_marginTopShort"
+    tools:context=".Feature.Login.LoginActivity">
 
-        <ImageView
-            android:layout_marginTop="@dimen/login_back_marginTopShort"
-            android:layout_marginLeft="@dimen/login_back_marginLeftLong"
-            android:background="@android:color/transparent"
-            android:layout_width="@dimen/login_back_width"
-            android:layout_height="@dimen/login_back_height"
-            android:src="@drawable/login_back"/>
+    <androidx.constraintlayout.widget.ConstraintLayout
 
-        <ImageView
-            android:layout_marginTop="@dimen/login_back_marginTopLong"
-            android:layout_marginLeft="@dimen/login_back_marginLeftShort"
-            android:background="@android:color/transparent"
-            android:layout_width="@dimen/login_back_width"
-            android:layout_height="@dimen/login_back_height"
-            android:src="@drawable/login_back"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    </RelativeLayout>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/login_constraint1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.525"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.625">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.66">
+
+                <ImageView
+                    android:id="@+id/login_back2"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@android:color/transparent"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/login_back"
+                    app:layout_constraintDimensionRatio="H,3:5"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintWidth_percent="0.66">
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="H,3:5"
+                    app:layout_constraintLeft_toLeftOf="parent">
+
+                    <ImageView
+                        android:id="@+id/login_back1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/login_back2" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin25.6"
+                        android:layout_marginRight="@dimen/margin25.6"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:gravity="center_horizontal"
+                        android:letterSpacing="0.011"
+                        android:lineSpacingExtra="@dimen/text7sp"
+                        android:paddingTop="55.6dp"
+                        android:paddingBottom="55.6dp"
+                        android:text="@string/login_findTravle"
+                        android:textColor="#ffffff"
+                        android:textSize="16sp" />
+                </FrameLayout>
 
 
-<!--    <TextView-->
-<!--        android:textSize="16sp"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        android:fontFamily="@font/montserrat_semibold"-->
-<!--        android:text="Find the Best Way to Enjoy Your Travel in Korea"-->
-<!--        android:paddingRight="27.5dp"-->
-<!--        android:paddingLeft="27.5dp"-->
-<!--        android:paddingTop="55.5dp"-->
-<!--        android:paddingBottom="55.5dp"-->
-<!--        android:background="@drawable/login_mainoval"-->
-<!--        android:layout_width="150dp"-->
-<!--        android:layout_height="250dp"/>-->
-<!--    -->
-<!--    -->
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
+        <!--textview로 변경-->
+        <LinearLayout
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:id="@+id/login_rl3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/login_mainoval"
+            app:layout_constraintBottom_toTopOf="@id/login_view4"
+            app:layout_constraintHeight_percent="0.0625"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.83">
+            <TextView
+                android:layout_gravity="center_vertical"
+                android:textColor="#ffffff"
+                android:layout_marginLeft="7.6dp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:text="Log in with Email"
+                android:textSize="16sp"
+                />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/login_view4"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/login_rl2"
+            app:layout_constraintHeight_percent="0.023"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/login_rl2"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/login_facebook_back"
+            app:layout_constraintBottom_toTopOf="@id/login_view3"
+            app:layout_constraintHeight_percent="0.0625"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.83">
+            <ImageView
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:id="@+id/login_facebook_logo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login_facebook"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.6"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/login_facebook_text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.077" />
+
+            <TextView
+                android:textColor="#ffffff"
+                android:layout_marginLeft="7.6dp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:id="@+id/login_facebook_text"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:text="Continue with Facebook"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/login_facebook_logo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/login_view3"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/login_rl1"
+            app:layout_constraintHeight_percent="0.023"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/login_rl1"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/login_google_back"
+            app:layout_constraintBottom_toTopOf="@id/login_view2"
+            app:layout_constraintHeight_percent="0.0625"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.83">
+
+            <ImageView
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:id="@+id/login_google_logo"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/login_google"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/login_google_text"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.051" />
+
+            <TextView
+                android:layout_marginLeft="7.6dp"
+                app:layout_constraintHorizontal_chainStyle="packed"
+                android:id="@+id/login_google_text"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_vertical"
+                android:text="Continue with Google"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/login_google_logo"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:id="@+id/login_view2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/login_signUp"
+            app:layout_constraintHeight_percent="0.0625"
+            app:layout_constraintLeft_toLeftOf="parent" />
+        <!--TextView size-->
+        <TextView
+            android:id="@+id/login_signUp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/login_signup"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:letterSpacing="0.011"
+            android:text="@string/login_signUp"
+            android:textColor="#419070"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/login_view1"
+            app:layout_constraintHeight_percent="0.0625"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintWidth_percent="0.83" />
+
+        <View
+            android:id="@+id/login_view1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHeight_percent="0.039"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <!--    <TextView-->
+    <!--        android:textSize="16sp"-->
+    <!--        android:textColor="#FFFFFF"-->
+    <!--        android:fontFamily="@font/montserrat_semibold"-->
+    <!--        android:text="Find the Best Way to Enjoy Your Travel in Korea"-->
+    <!--        android:paddingRight="27.5dp"-->
+    <!--        android:paddingLeft="27.5dp"-->
+    <!--        android:paddingTop="55.5dp"-->
+    <!--        android:paddingBottom="55.5dp"-->
+    <!--        android:background="@drawable/login_mainoval"-->
+    <!--        android:layout_width="150dp"-->
+    <!--        android:layout_height="250dp"/>-->
+    <!--    -->
+    <!--    -->
 
 
 </LinearLayout>
