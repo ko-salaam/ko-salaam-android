@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+        <variable
+            name="signUpVm"
+            type="com.kosalaamInc.kosalaam.Feature.signUp.SignUpViewModel" />
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/tv_signup_signUp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="70dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center_vertical"
+                android:text="Sign Up"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.861" />
+
+            <EditText
+
+                android:id="@+id/et_login_editEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:background="@null"
+                android:fontFamily="@font/montserrat_medium"
+                android:hint="Enter your email Address"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:textColor="#191919"
+                android:textSize="16sp"
+                android:visibility="visible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_signup_signUp"
+                app:layout_constraintWidth_percent="0.861" />
+
+            <View
+                android:id="@+id/view_login_view1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="1.5dp"
+                android:background="#f1f1f5"
+                android:visibility="visible"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/et_login_editEmail"
+                app:layout_constraintWidth_percent="0.861" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_signup_hide1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_login_view1">
+
+                <EditText
+                    android:id="@+id/et_signup_hide1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="Enter the Verification number"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
+                    android:textColor="#191919"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintWidth_percent="0.861" />
+
+                <View
+                    android:id="@+id/view_signup_hide1"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="1.5dp"
+                    android:background="#f1f1f5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_signup_hide1"
+                    app:layout_constraintWidth_percent="0.861" />
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:fontFamily="@font/montserrat_regular"
+                    android:text="Wrong number!"
+                    android:textColor="#e50027"
+                    android:textSize="8sp"
+                    android:visibility="gone"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view_signup_hide1"
+                    app:layout_constraintWidth_percent="0.861" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+            <!-- Email Address-->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cl_signup_hide2"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
+                android:visibility="gone"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_signup_signUp"
+                app:layout_constraintWidth_percent="0.861">
+
+                <EditText
+                    android:id="@+id/login_editPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="Enter your Passwords"
+                    android:inputType="textPassword"
+                    android:textColor="#191919"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/login_offeye"
+                    android:layout_width="15.8dp"
+                    android:layout_height="13.6dp"
+                    android:layout_marginRight="5dp"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/login_eye_off"
+                    app:layout_constraintBottom_toBottomOf="@id/login_editPassword"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <View
+                    android:id="@+id/login_view2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="1.5dp"
+                    android:background="#f1f1f5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@id/login_editPassword" />
+
+                <EditText
+                    android:id="@+id/et_signup_hide2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="50dp"
+                    android:background="@null"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="Certify your passwords"
+                    android:inputType="textPassword"
+                    android:textColor="#191919"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/login_view2" />
+
+                <ImageView
+                    android:id="@+id/iv_signup_offeye_hide2"
+                    android:layout_width="15.8dp"
+                    android:layout_height="13.6dp"
+                    android:layout_marginRight="5dp"
+                    android:clickable="true"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/login_eye_off"
+                    app:layout_constraintBottom_toBottomOf="@id/et_signup_hide2"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="@id/et_signup_hide2" />
+
+                <View
+                    android:id="@+id/view_signup_hide2"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="1.5dp"
+                    android:background="#f1f1f5"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@id/et_signup_hide2" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:onClick="@{() -> signUpVm.onEmailClickEvent()}"
+                android:id="@+id/tv_signup_next"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/login_defaultback"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Next"
+                android:textColor="#f1f1f5"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toTopOf="@id/tv_signup_readyToLogin"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintWidth_percent="0.278" />
+
+            <TextView
+                android:id="@+id/tv_signup_readyToLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="51dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_horizontal"
+                android:text="I already have an account"
+                android:textColor="#191919"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0.8dp"
+                android:layout_marginBottom="2dp"
+                android:background="#191919"
+                app:layout_constraintBottom_toBottomOf="@id/tv_signup_readyToLogin"
+                app:layout_constraintLeft_toLeftOf="@id/tv_signup_readyToLogin"
+                app:layout_constraintRight_toRightOf="@id/tv_signup_readyToLogin" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
+</layout>

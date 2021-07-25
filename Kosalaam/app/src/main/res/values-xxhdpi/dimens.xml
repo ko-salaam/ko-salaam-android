@@ -4,5 +4,8 @@
     <dimen name="login_back_marginTopShort">24.4dp</dimen>
     <dimen name="margin25.6">25.6dp</dimen>
     <dimen name="text7sp">7sp</dimen>
+    <dimen name="text16sp">16sp</dimen>
+    <dimen name="padding55.6">55.6dp</dimen>
+    <dimen name="padding7.6">7.6dp</dimen>
 
 </resources>

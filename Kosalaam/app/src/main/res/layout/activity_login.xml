@@ -50,6 +50,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintWidth_percent="0.66">
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
@@ -74,11 +75,11 @@
                         android:gravity="center_horizontal"
                         android:letterSpacing="0.011"
                         android:lineSpacingExtra="@dimen/text7sp"
-                        android:paddingTop="55.6dp"
-                        android:paddingBottom="55.6dp"
+                        android:paddingTop="@dimen/padding55.6"
+                        android:paddingBottom="@dimen/padding55.6"
                         android:text="@string/login_findTravle"
                         android:textColor="#ffffff"
-                        android:textSize="16sp" />
+                        android:textSize="@dimen/text16sp" />
                 </FrameLayout>
 
 
@@ -87,29 +88,29 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
         <!--textview로 변경-->
         <LinearLayout
-            android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:id="@+id/login_rl3"
+            android:clickable="true"
+            android:id="@+id/login_signIn"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/login_mainoval"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
             app:layout_constraintBottom_toTopOf="@id/login_view4"
             app:layout_constraintHeight_percent="0.0625"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintWidth_percent="0.83">
+
             <TextView
-                android:layout_gravity="center_vertical"
-                android:textColor="#ffffff"
-                android:layout_marginLeft="7.6dp"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center_vertical"
-                android:text="Log in with Email"
-                android:textSize="16sp"
-                />
+                android:text="@string/login_signIn"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text16sp"
+                app:layout_constraintHorizontal_chainStyle="packed" />
         </LinearLayout>
 
         <View
@@ -121,6 +122,7 @@
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:clickable="true"
             android:id="@+id/login_rl2"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -130,8 +132,8 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintWidth_percent="0.83">
+
             <ImageView
-                app:layout_constraintHorizontal_chainStyle="packed"
                 android:id="@+id/login_facebook_logo"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -139,23 +141,24 @@
                 android:src="@drawable/login_facebook"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_percent="0.6"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/login_facebook_text"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.077" />
 
             <TextView
-                android:textColor="#ffffff"
-                android:layout_marginLeft="7.6dp"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 android:id="@+id/login_facebook_text"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/padding7.6"
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center_vertical"
-                android:text="Continue with Facebook"
-                android:textSize="16sp"
+                android:text="@string/login_facebook"
+                android:textColor="#ffffff"
+                android:textSize="@dimen/text16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toRightOf="@id/login_facebook_logo"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -170,6 +173,7 @@
             app:layout_constraintLeft_toLeftOf="parent" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:clickable="true"
             android:id="@+id/login_rl1"
             android:layout_width="0dp"
             android:layout_height="0dp"
@@ -181,7 +185,6 @@
             app:layout_constraintWidth_percent="0.83">
 
             <ImageView
-                app:layout_constraintHorizontal_chainStyle="packed"
                 android:id="@+id/login_google_logo"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -189,22 +192,23 @@
                 android:src="@drawable/login_google"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintHeight_percent="0.4"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toLeftOf="@id/login_google_text"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintWidth_percent="0.051" />
 
             <TextView
-                android:layout_marginLeft="7.6dp"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 android:id="@+id/login_google_text"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
+                android:layout_marginLeft="@dimen/padding7.6"
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center_vertical"
-                android:text="Continue with Google"
-                android:textSize="16sp"
+                android:text="@string/login_google"
+                android:textSize="@dimen/text16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintLeft_toRightOf="@id/login_google_logo"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -219,17 +223,19 @@
             app:layout_constraintHeight_percent="0.0625"
             app:layout_constraintLeft_toLeftOf="parent" />
         <!--TextView size-->
+
         <TextView
             android:id="@+id/login_signUp"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:background="@drawable/login_signup"
+            android:clickable="true"
             android:fontFamily="@font/montserrat_semibold"
             android:gravity="center"
             android:letterSpacing="0.011"
             android:text="@string/login_signUp"
             android:textColor="#419070"
-            android:textSize="16sp"
+            android:textSize="@dimen/text16sp"
             app:layout_constraintBottom_toTopOf="@id/login_view1"
             app:layout_constraintHeight_percent="0.0625"
             app:layout_constraintLeft_toLeftOf="parent"

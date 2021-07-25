@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mBinding.root)
+        setContentView(mBinding!!.root)
 
         initNavigationUI()
 
@@ -33,6 +33,11 @@ class MainActivity : AppCompatActivity() {
         // navigation controller
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(mBinding.bnvMain,navController)
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
 
     }
 //    fun mainBtEvent(){

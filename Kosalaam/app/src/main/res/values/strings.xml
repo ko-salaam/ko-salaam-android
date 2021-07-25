@@ -1,5 +1,8 @@
 <resources>
     <string name="app_name">Kosalaam</string>
     <string name="login_signUp">Sign Up</string>
+    <string name="login_signIn">Log in with Email</string>
+    <string name="login_facebook">Continue with Facebook</string>
+    <string name="login_google">Continue with Google</string>
     <string name = "login_findTravle">Find the\nBest Way\nto Enjoy\nYour Travel\nin Korea</string>
 </resources>
