@@ -1,22 +1,21 @@
-package com.kosalaamInc.kosalaam.Feature.Main.PrayerRoomFragment
+package com.kosalaamInc.kosalaam.feature.Main.QuranFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.kosalaamInc.kosalaam.databinding.FragmentSearchprayerroomBinding
+import com.kosalaamInc.kosalaam.databinding.FragmentQuranBinding
 
-
-class PrayerRoomFragment : Fragment(){
-    private var mBinding : FragmentSearchprayerroomBinding? = null
+class QuranFragment : Fragment(){
+    private var mBinding : FragmentQuranBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentSearchprayerroomBinding.inflate(inflater,container,false)
+    val binding = FragmentQuranBinding.inflate(inflater,container,false)
 
         mBinding = binding
 

@@ -1,13 +1,11 @@
-package com.kosalaamInc.kosalaam.Feature.Main
+package com.kosalaamInc.kosalaam.feature.Main
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
-import androidx.navigation.NavHostController
 
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
-import com.kosalaamInc.kosalaam.Feature.Main.MyPageFragment.MyPageFragment
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityMainBinding
 

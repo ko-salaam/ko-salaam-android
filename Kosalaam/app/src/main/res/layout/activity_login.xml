@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingTop="@dimen/login_back_marginTopShort"
-    tools:context=".Feature.Login.LoginActivity">
+    tools:context=".feature.Login.LoginActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
 

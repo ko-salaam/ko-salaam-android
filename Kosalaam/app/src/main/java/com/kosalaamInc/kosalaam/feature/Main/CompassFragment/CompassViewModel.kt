@@ -1,4 +1,4 @@
-package com.kosalaamInc.kosalaam.Feature.Main.CompassFragment
+package com.kosalaamInc.kosalaam.feature.Main.CompassFragment
 
 import android.location.Location
 import androidx.lifecycle.MutableLiveData

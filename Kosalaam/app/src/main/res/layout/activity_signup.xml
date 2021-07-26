@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="signUpVm"
-            type="com.kosalaamInc.kosalaam.Feature.signUp.SignUpViewModel" />
+            type="com.kosalaamInc.kosalaam.feature.signUp.SignUpViewModel" />
 
     </data>
 
@@ -33,15 +35,16 @@
                 app:layout_constraintWidth_percent="0.861" />
 
             <EditText
-
                 android:id="@+id/et_login_editEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
+                android:afterTextChanged="@{(arg0)->signUpVm.onEmailCheck(arg0)}"
                 android:background="@null"
                 android:fontFamily="@font/montserrat_medium"
                 android:hint="Enter your email Address"
                 android:inputType="textEmailAddress"
+                android:onTextChanged="@{(text, start, before, count) -> signUpVm.onEmailChanged(text)}"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:textColor="#191919"
@@ -78,9 +81,11 @@
                     android:id="@+id/et_signup_hide1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:afterTextChanged="@{(arg0)->signUpVm.onVerifyCheckAfter(arg0)}"
                     android:background="@null"
                     android:fontFamily="@font/montserrat_medium"
                     android:hint="Enter the Verification number"
+                    android:inputType="number"
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:textColor="#191919"
@@ -102,6 +107,7 @@
                     app:layout_constraintWidth_percent="0.861" />
 
                 <TextView
+                    android:id="@+id/tv_signup_wrong"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
@@ -130,6 +136,7 @@
                 app:layout_constraintWidth_percent="0.861">
 
                 <EditText
+                    android:afterTextChanged="@{(arg0)->signUpVm.onPassWordChanged(arg0)}"
                     android:id="@+id/login_editPassword"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -144,12 +151,13 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
+                    android:onClick="@{() -> signUpVm.onPassWordVisible()}"
                     android:id="@+id/login_offeye"
                     android:layout_width="15.8dp"
                     android:layout_height="13.6dp"
                     android:layout_marginRight="5dp"
                     android:clickable="true"
-                    android:scaleType="centerCrop"
+
                     android:src="@drawable/login_eye_off"
                     app:layout_constraintBottom_toBottomOf="@id/login_editPassword"
                     app:layout_constraintRight_toRightOf="parent"
@@ -167,6 +175,7 @@
                     app:layout_constraintTop_toBottomOf="@id/login_editPassword" />
 
                 <EditText
+                    android:afterTextChanged="@{(arg0)->signUpVm.onPassWordCheckChanged(arg0)}"
                     android:id="@+id/et_signup_hide2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -183,12 +192,12 @@
                     app:layout_constraintTop_toBottomOf="@id/login_view2" />
 
                 <ImageView
+                    android:onClick="@{() -> signUpVm.onPassWordVisible2()}"
                     android:id="@+id/iv_signup_offeye_hide2"
                     android:layout_width="15.8dp"
                     android:layout_height="13.6dp"
                     android:layout_marginRight="5dp"
                     android:clickable="true"
-                    android:scaleType="centerCrop"
                     android:src="@drawable/login_eye_off"
                     app:layout_constraintBottom_toBottomOf="@id/et_signup_hide2"
                     app:layout_constraintRight_toRightOf="parent"
@@ -208,14 +217,15 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
-                android:onClick="@{() -> signUpVm.onEmailClickEvent()}"
                 android:id="@+id/tv_signup_next"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/login_defaultback"
+                android:clickable="false"
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center_horizontal"
+                android:onClick="@{() -> signUpVm.onEmailClickEvent()}"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
                 android:text="Next"

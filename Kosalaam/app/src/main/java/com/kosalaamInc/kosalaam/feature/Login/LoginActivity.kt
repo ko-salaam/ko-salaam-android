@@ -1,9 +1,9 @@
-package com.kosalaamInc.kosalaam.Feature.Login
+package com.kosalaamInc.kosalaam.feature.Login
 
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.kosalaamInc.kosalaam.Feature.signUp.SignUpActivity
+import com.kosalaamInc.kosalaam.feature.signUp.SignUpActivity
 import com.kosalaamInc.kosalaam.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity(){

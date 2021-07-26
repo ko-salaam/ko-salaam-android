@@ -1,13 +1,11 @@
-package com.kosalaamInc.kosalaam.Feature.Main.MainFragment
+package com.kosalaamInc.kosalaam.feature.Main.MainFragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.kosalaamInc.kosalaam.Feature.Main.MainActivity
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentMainBinding
 
@@ -18,7 +16,7 @@ class MainFragment : Fragment(){
     }
 
     private var mBinding : FragmentMainBinding? = null
-    val MainActivity = com.kosalaamInc.kosalaam.Feature.Main.MainActivity()
+    val MainActivity = com.kosalaamInc.kosalaam.feature.Main.MainActivity()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
