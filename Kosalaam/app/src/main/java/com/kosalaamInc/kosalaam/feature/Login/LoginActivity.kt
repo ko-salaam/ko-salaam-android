@@ -5,6 +5,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.kosalaamInc.kosalaam.feature.signUp.SignUpActivity
 import com.kosalaamInc.kosalaam.databinding.ActivityLoginBinding
+import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
 
 class LoginActivity : AppCompatActivity(){
     private var mBinding : ActivityLoginBinding? = null
@@ -18,7 +19,7 @@ class LoginActivity : AppCompatActivity(){
     }
     private fun signInBtInit(){
         mBinding!!.loginSignIn.setOnClickListener {
-            val intent = Intent(this,LoginInActivity::class.java)
+            val intent = Intent(this, LoginInActivity::class.java)
             startActivity(intent)
         }
     }

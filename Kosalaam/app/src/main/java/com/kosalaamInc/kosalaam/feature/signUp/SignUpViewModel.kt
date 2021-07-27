@@ -49,6 +49,7 @@ class SignUpViewModel : ViewModel() {
     val passWordVisible : LiveData<Event<Boolean>> get() = _passwordVisible
     val passWordVisible2 : LiveData<Event<Boolean>> get() = _passwordVisible2
 
+
     fun onEmailClickEvent() { // NextBt
         _emailBtEvent.value = Event(true)
     }
@@ -72,7 +73,6 @@ class SignUpViewModel : ViewModel() {
         }
         _emailCheckEvent.value=Event(text.toString())
 
-
     }
 
     fun onEmailChanged(text: CharSequence) {
@@ -91,14 +91,12 @@ class SignUpViewModel : ViewModel() {
         var password = text.toString().trim()
         val p = Pattern.matches(passwordValidaion,password)
         if(p){
-            Log.d("signup","success1")
             passWordCheck = true
         }
         else{
             passWordCheck= false
-        _passwordEventAfter.value = Event(text.toString())
-
         }
+        _passwordEventAfter.value = Event(text.toString())
     }
 
     fun onPassWordCheckChanged(text: CharSequence){
@@ -106,7 +104,6 @@ class SignUpViewModel : ViewModel() {
         var password = text.toString().trim()
         val p = Pattern.matches(passwordValidaion,password)
         if(p){
-            Log.d("signup","success")
             passWordCheck2 = true
         }
         else{

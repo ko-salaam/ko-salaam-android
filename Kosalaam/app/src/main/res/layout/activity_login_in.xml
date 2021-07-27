@@ -1,150 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
+    >
+    <data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+        <variable
+            name="loginInVm"
+            type="com.kosalaamInc.kosalaam.feature.loginIn.LoginInViewModel" />
+
+    </data>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-
-            android:id="@+id/login_login"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="70dp"
-            android:fontFamily="@font/montserrat_bold"
-            android:gravity="center_vertical"
-            android:text="Log in"
-            android:textColor="#000000"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintWidth_percent="0.861" />
-
-        <EditText
-            android:id="@+id/login_editEmail"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="35dp"
-            android:background="@null"
-            android:fontFamily="@font/montserrat_medium"
-            android:hint="Enter your email"
-            android:inputType="textEmailAddress"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:textColor="#191919"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_login"
-            app:layout_constraintWidth_percent="0.861" />
-
-        <View
-            android:id="@+id/login_view1"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="1.5dp"
-            android:background="#f1f1f5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_editEmail"
-            app:layout_constraintWidth_percent="0.861" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/login_constraint1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="84.4dp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_view1"
-            app:layout_constraintWidth_percent="0.861">
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <EditText
-                android:id="@+id/login_editPassword"
+            <TextView
+
+                android:id="@+id/login_login"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
+                android:layout_marginTop="70dp"
+                android:fontFamily="@font/montserrat_bold"
+                android:gravity="center_vertical"
+                android:text="Log in"
+                android:textColor="#000000"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintWidth_percent="0.861" />
+
+            <EditText
+                android:afterTextChanged="@{(arg0)->loginInVm.onEmailChanged(arg0)}"
+                android:id="@+id/login_editEmail"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="35dp"
                 android:background="@null"
                 android:fontFamily="@font/montserrat_medium"
-                android:hint="Enter your Password"
-                android:inputType="textPassword"
+                android:hint="Enter your email"
+                android:inputType="textEmailAddress"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
                 android:textColor="#191919"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <ImageView
-                android:id="@+id/login_offeye"
-                android:layout_width="15.8dp"
-                android:layout_height="13.6dp"
-                android:layout_marginRight="5dp"
-                android:clickable="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/login_eye_off"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@id/login_login"
+                app:layout_constraintWidth_percent="0.861" />
+
+            <View
+                android:id="@+id/login_view1"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="1.5dp"
+                android:background="#f1f1f5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_editEmail"
+                app:layout_constraintWidth_percent="0.861" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/login_constraint1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="84.4dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_view1"
+                app:layout_constraintWidth_percent="0.861">
+
+                <EditText
+                    android:afterTextChanged="@{(arg0)->loginInVm.onPassWordChanged(arg0)}"
+                    android:id="@+id/login_editPassword"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:background="@null"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="Enter your Password"
+                    android:inputType="textPassword"
+                    android:textColor="#191919"
+                    android:textSize="16sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:onClick="@{() -> loginInVm.onPassWordVisible()}"
+                    android:id="@+id/login_offeye"
+                    android:layout_width="15.8dp"
+                    android:layout_height="13.6dp"
+                    android:layout_marginRight="5dp"
+                    android:clickable="true"
+                    android:src="@drawable/login_eye_off"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <View
+                android:id="@+id/login_view2"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginTop="1.5dp"
+                android:background="#f1f1f5"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_constraint1"
+                app:layout_constraintWidth_percent="0.861" />
+
+            <TextView
+                android:id="@+id/tv_login_loginbt"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/login_defaultback"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_horizontal"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Log in"
+                android:textColor="#f1f1f5"
+                android:textSize="16sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_view2"
+                app:layout_constraintWidth_percent="0.278" />
+
+            <TextView
+                android:id="@+id/tv_login_forgotpassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="center_horizontal"
+                android:text="Forgot Passwords"
+                android:textColor="#191919"
+                android:textSize="12sp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_login_loginbt" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0.8dp"
+                android:layout_marginBottom="2dp"
+                android:background="#191919"
+                app:layout_constraintBottom_toBottomOf="@id/tv_login_forgotpassword"
+                app:layout_constraintLeft_toLeftOf="@id/tv_login_forgotpassword"
+                app:layout_constraintRight_toRightOf="@id/tv_login_forgotpassword" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <View
-            android:id="@+id/login_view2"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_marginTop="1.5dp"
-            android:background="#f1f1f5"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_constraint1"
-            app:layout_constraintWidth_percent="0.861" />
-
-        <TextView
-            android:id="@+id/tv_login_loginbt"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:background="@drawable/login_defaultback"
-            android:fontFamily="@font/montserrat_semibold"
-            android:gravity="center_horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="10dp"
-            android:text="Log in"
-            android:textColor="#f1f1f5"
-            android:textSize="16sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/login_view2"
-            app:layout_constraintWidth_percent="0.278" />
-
-        <TextView
-            android:id="@+id/tv_login_forgotpassword"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:fontFamily="@font/montserrat_semibold"
-            android:gravity="center_horizontal"
-            android:text="Forgot Passwords"
-            android:textColor="#191919"
-            android:textSize="12sp"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_login_loginbt" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0.8dp"
-            android:layout_marginBottom="2dp"
-            android:background="#191919"
-            app:layout_constraintBottom_toBottomOf="@id/tv_login_forgotpassword"
-            app:layout_constraintLeft_toLeftOf="@id/tv_login_forgotpassword"
-            app:layout_constraintRight_toRightOf="@id/tv_login_forgotpassword" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</LinearLayout>
+    </LinearLayout>
+</layout>

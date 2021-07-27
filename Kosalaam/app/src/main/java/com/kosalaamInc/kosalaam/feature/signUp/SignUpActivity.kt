@@ -172,6 +172,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        this.finish()
         SignUpViewModel.passwordVisible2=false
         SignUpViewModel.passwordVisible=false
         SignUpViewModel.click = 0
@@ -183,7 +184,8 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 }
-private object BiggerDotPasswordTransformationMethod : PasswordTransformationMethod() {
+
+object BiggerDotPasswordTransformationMethod : PasswordTransformationMethod() {
 
     override fun getTransformation(source: CharSequence, view: View): CharSequence {
         return PasswordCharSequence(super.getTransformation(source, view))
