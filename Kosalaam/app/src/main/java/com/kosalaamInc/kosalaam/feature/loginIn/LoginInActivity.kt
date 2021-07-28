@@ -2,6 +2,8 @@ package com.kosalaamInc.kosalaam.feature.loginIn
 
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -16,10 +18,10 @@ import com.kosalaamInc.kosalaam.feature.signUp.SignUpViewModel
 class LoginInActivity : AppCompatActivity(){
     private var binding : ActivityLoginInBinding? = null
 
-
     private val viewModel :LoginInViewModel by lazy{
         ViewModelProvider(this).get(LoginInViewModel::class.java)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

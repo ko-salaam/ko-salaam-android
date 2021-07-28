@@ -8,6 +8,8 @@ import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
@@ -21,6 +23,7 @@ import java.util.regex.Pattern
 class SignUpActivity : AppCompatActivity() {
 
     private var binding: ActivitySignupBinding? = null
+    private lateinit var wrongAnim : Animation
 
 
     private val viewModel: SignUpViewModel by lazy {
@@ -38,6 +41,7 @@ class SignUpActivity : AppCompatActivity() {
         }
         binding!!.etSignupHide2.transformationMethod =BiggerDotPasswordTransformationMethod
         binding!!.loginEditPassword.transformationMethod =BiggerDotPasswordTransformationMethod
+        wrongAnim = AnimationUtils.loadAnimation(applicationContext,R.anim.signup_wrong_anim)
         initViewObserve()
 
     }
@@ -60,6 +64,7 @@ class SignUpActivity : AppCompatActivity() {
                         1 -> {
                             if (SignUpViewModel.verifyCheck == false) {
                                 binding!!.tvSignupWrong.visibility = View.VISIBLE
+                                binding!!.tvSignupWrong.startAnimation(wrongAnim)
                             } else {
                                 binding!!.tvSignupWrong.visibility = View.GONE
                                 binding!!.clSignupHide1.visibility = View.GONE
