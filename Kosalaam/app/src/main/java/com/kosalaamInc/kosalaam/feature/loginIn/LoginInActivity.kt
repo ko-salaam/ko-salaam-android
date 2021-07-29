@@ -22,6 +22,7 @@ class LoginInActivity : AppCompatActivity(){
         ViewModelProvider(this).get(LoginInViewModel::class.java)
     }
 
+    // Delete backstack after login
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,6 +77,7 @@ class LoginInActivity : AppCompatActivity(){
                     }
                 }
             })
+
         }
 
     }

@@ -39,6 +39,8 @@ class SignUpViewModel : ViewModel() {
     private val _passwordCheckEventAfter = MutableLiveData<Event<String>>()
     private val _passwordVisible = MutableLiveData<Event<Boolean>>()
     private val _passwordVisible2 = MutableLiveData<Event<Boolean>>()
+    private val _alreadyBtEvent = MutableLiveData<Event<Boolean>>()
+
 
     val email_BtEvent: LiveData<Event<Boolean>> get() = _emailBtEvent
     val edit_email: LiveData<Event<String>> get() = _emailEvent
@@ -48,6 +50,11 @@ class SignUpViewModel : ViewModel() {
     val passwordCheck_after : LiveData<Event<String>> get() = _passwordCheckEventAfter
     val passWordVisible : LiveData<Event<Boolean>> get() = _passwordVisible
     val passWordVisible2 : LiveData<Event<Boolean>> get() = _passwordVisible2
+    val already_BtEvent: LiveData<Event<Boolean>> get() = _alreadyBtEvent
+
+    fun onAlreayBtClickEvent(){
+        _alreadyBtEvent.value = Event(true)
+    }
 
 
     fun onEmailClickEvent() { // NextBt

@@ -5,4 +5,16 @@
     <string name="login_facebook">Continue with Facebook</string>
     <string name="login_google">Continue with Google</string>
     <string name = "login_findTravle">Find the\nBest Way\nto Enjoy\nYour Travel\nin Korea</string>
+    <string name="signUp_sign_up">Sign Up</string>
+    <string name="signUp_enter_email">Enter your email Address</string>
+    <string name="signUp_enter_verification">Enter the Verification number</string>
+    <string name="signUp_wrong_num">Wrong number!</string>
+    <string name="signUp_enter_password">Enter your Passwords</string>
+    <string name="signUp_certify_password">Certify your passwords</string>
+    <string name="signUp_next">Next</string>
+    <string name="signUp_already">I already have an account</string>
+    <string name="loginIn_login">Log in</string>
+    <string name="loginIn_enter_email">Enter your email</string>
+    <string name="loginIn_forgot_password">Forgot Passwords</string>
+    
 </resources>

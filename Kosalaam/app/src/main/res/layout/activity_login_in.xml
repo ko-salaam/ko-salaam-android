@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    >
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
 
         <variable
@@ -28,7 +28,7 @@
                 android:layout_marginTop="70dp"
                 android:fontFamily="@font/montserrat_bold"
                 android:gravity="center_vertical"
-                android:text="Log in"
+                android:text="@string/loginIn_login"
                 android:textColor="#000000"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -37,14 +37,14 @@
                 app:layout_constraintWidth_percent="0.861" />
 
             <EditText
-                android:afterTextChanged="@{(arg0)->loginInVm.onEmailChanged(arg0)}"
                 android:id="@+id/login_editEmail"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="35dp"
+                android:afterTextChanged="@{(arg0)->loginInVm.onEmailChanged(arg0)}"
                 android:background="@null"
                 android:fontFamily="@font/montserrat_medium"
-                android:hint="Enter your email"
+                android:hint="@string/loginIn_enter_email"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
@@ -77,14 +77,14 @@
                 app:layout_constraintWidth_percent="0.861">
 
                 <EditText
-                    android:afterTextChanged="@{(arg0)->loginInVm.onPassWordChanged(arg0)}"
                     android:id="@+id/login_editPassword"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:afterTextChanged="@{(arg0)->loginInVm.onPassWordChanged(arg0)}"
                     android:background="@null"
                     android:fontFamily="@font/montserrat_medium"
-                    android:hint="Enter your Password"
+                    android:hint="@string/signUp_enter_password"
                     android:inputType="textPassword"
                     android:textColor="#191919"
                     android:textSize="16sp"
@@ -92,12 +92,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:onClick="@{() -> loginInVm.onPassWordVisible()}"
                     android:id="@+id/login_offeye"
                     android:layout_width="15.8dp"
                     android:layout_height="13.6dp"
                     android:layout_marginRight="5dp"
                     android:clickable="true"
+                    android:onClick="@{() -> loginInVm.onPassWordVisible()}"
                     android:src="@drawable/login_eye_off"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
@@ -126,7 +126,7 @@
                 android:gravity="center_horizontal"
                 android:paddingTop="10dp"
                 android:paddingBottom="10dp"
-                android:text="Log in"
+                android:text="@string/loginIn_login"
                 android:textColor="#f1f1f5"
                 android:textSize="16sp"
                 app:layout_constraintLeft_toLeftOf="parent"
@@ -135,13 +135,14 @@
                 app:layout_constraintWidth_percent="0.278" />
 
             <TextView
+
                 android:id="@+id/tv_login_forgotpassword"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center_horizontal"
-                android:text="Forgot Passwords"
+                android:text="@string/loginIn_forgot_password"
                 android:textColor="#191919"
                 android:textSize="12sp"
                 app:layout_constraintLeft_toLeftOf="parent"

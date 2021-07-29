@@ -1,5 +1,6 @@
 package com.kosalaamInc.kosalaam.feature.signUp
 
+import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
@@ -17,6 +18,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
+import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
 import java.util.regex.Pattern
 
 
@@ -170,6 +172,13 @@ class SignUpActivity : AppCompatActivity() {
                         binding!!.tvSignupNext.background = getDrawable(R.drawable.login_defaultback)
                         binding!!.tvSignupNext.isClickable = false
                     }
+                }
+            })
+            already_BtEvent.observe(this@SignUpActivity, Observer {
+                it.getContentIfNotHandled()?.let{
+                    val intent = Intent(this@SignUpActivity,LoginInActivity::class.java)
+                    startActivity(intent)
+                    this@SignUpActivity.finish()
                 }
             })
         }

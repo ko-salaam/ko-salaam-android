@@ -26,6 +26,9 @@ class LoginInViewModel : ViewModel(){
     private val _passwordEventAfter = MutableLiveData<Event<String>>()
     private val _passwordVisible = MutableLiveData<Event<Boolean>>()
 
+
+
+
     val email_text_after: LiveData<Event<String>> get() = _emailTextAfter
     val password_after : LiveData<Event<String>> get() = _passwordEventAfter
     val passWordVisible : LiveData<Event<Boolean>> get() = _passwordVisible
