@@ -1,8 +1,6 @@
 package com.kosalaamInc.kosalaam.feature.signUp
 
 import android.content.Intent
-import android.graphics.Color
-import android.os.Build
 import android.os.Bundle
 import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
