@@ -23,6 +23,8 @@ class SignUpViewModel : ViewModel() {
         var passWordCheck2 : Boolean = false
         var passWordText : String? = null
         var passWordText2 : String? = null
+        var getEmail : String? = null
+        var getPassword : String? = null
     }
 
     private val emailValidation =
@@ -85,6 +87,7 @@ class SignUpViewModel : ViewModel() {
     fun onEmailChanged(text: CharSequence) {
         _emailEvent.value = Event(text.toString())
         var email = text.toString().trim()
+        getEmail = email
         val p = Pattern.matches(emailValidation, email)
         if (p) {
             emailCheck = true
@@ -109,6 +112,7 @@ class SignUpViewModel : ViewModel() {
     fun onPassWordCheckChanged(text: CharSequence){
         passWordText2 = text.toString()
         var password = text.toString().trim()
+        getPassword = password
         val p = Pattern.matches(passwordValidaion,password)
         if(p){
             passWordCheck2 = true

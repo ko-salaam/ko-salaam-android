@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "346505103318",
+    "project_id": "kosalaam-f9434",
+    "storage_bucket": "kosalaam-f9434.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:346505103318:android:30ae9661807318a1df8677",
+        "android_client_info": {
+          "package_name": "com.kosalaamInc.kosalaam"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "346505103318-96kgk3tbatga402cda3b8evgj75e24kf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kosalaamInc.kosalaam",
+            "certificate_hash": "658e23ad76977e8ae757f16a06f25e198edf006c"
+          }
+        },
+        {
+          "client_id": "346505103318-rfokksl32ek16823f1dhcp7kgeeir3kr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCtcXcgh-QMZZ_xTuubETTPJIXzbWjqORw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "346505103318-rfokksl32ek16823f1dhcp7kgeeir3kr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

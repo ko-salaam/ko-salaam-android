@@ -11,11 +11,16 @@ import android.util.Log
 import android.view.View
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
+
+import com.google.firebase.ktx.initialize
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
@@ -23,9 +28,10 @@ import java.util.regex.Pattern
 
 
 class SignUpActivity : AppCompatActivity() {
-
+    private lateinit var auth: FirebaseAuth
     private var binding: ActivitySignupBinding? = null
     private lateinit var wrongAnim : Animation
+    val TAG = "SignUpActivity"
 
 
     private val viewModel: SignUpViewModel by lazy {
@@ -33,8 +39,10 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
         binding = DataBindingUtil.setContentView<ActivitySignupBinding>(
             this, R.layout.activity_signup
         ).apply {
@@ -46,6 +54,26 @@ class SignUpActivity : AppCompatActivity() {
         wrongAnim = AnimationUtils.loadAnimation(applicationContext,R.anim.signup_wrong_anim)
         initViewObserve()
 
+    }
+
+    private fun createAccount(email: String, password: String) {
+        // [START create_user_with_email]
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+
+                }
+            }
+        // [END create_user_with_email]
     }
 
     private fun initViewObserve() {
@@ -79,6 +107,9 @@ class SignUpActivity : AppCompatActivity() {
                                 binding!!.tvSignupNext.setText("Sign in")
                                 SignUpViewModel.click += 1
                             }
+                        }
+                        2-> {
+                            createAccount(SignUpViewModel.getEmail!!,SignUpViewModel.getPassword!!)
                         }
                     }
                 }

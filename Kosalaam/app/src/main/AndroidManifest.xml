@@ -18,15 +18,21 @@
         <activity android:name=".feature.Main.MainActivity">
 
         </activity>
-        <activity android:name=".feature.Login.LoginActivity">
+        <activity
+            android:name=".feature.Login.LoginActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".feature.loginIn.LoginInActivity"/>
-        <activity android:name=".feature.signUp.SignUpActivity"/>
+        <activity
+            android:name=".feature.loginIn.LoginInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".feature.signUp.SignUpActivity"
+            android:screenOrientation="portrait" />
     </application>
 
 </manifest>
