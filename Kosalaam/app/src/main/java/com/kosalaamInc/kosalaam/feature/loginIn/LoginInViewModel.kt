@@ -21,17 +21,16 @@ class LoginInViewModel : ViewModel(){
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
     private val passwordValidaion =
         "^((?=.*[a-zA-Z])(?=.*[0-9])(?=.*[^a-zA-Z0-9가-힣]).{8,})$"
+    private val _signInBt = MutableLiveData<Event<Boolean>>()
 
     private val _emailTextAfter = MutableLiveData<Event<String>>()
     private val _passwordEventAfter = MutableLiveData<Event<String>>()
     private val _passwordVisible = MutableLiveData<Event<Boolean>>()
 
-
-
-
     val email_text_after: LiveData<Event<String>> get() = _emailTextAfter
     val password_after : LiveData<Event<String>> get() = _passwordEventAfter
     val passWordVisible : LiveData<Event<Boolean>> get() = _passwordVisible
+    val signIn_Bt: LiveData<Event<Boolean>> get() = _signInBt
 
     fun onEmailChanged(text: Editable) {
 
@@ -60,5 +59,8 @@ class LoginInViewModel : ViewModel(){
     }
     fun onPassWordVisible(){
         _passwordVisible.value = Event(true)
+    }
+    fun onSignInBtEvent(){
+        _signInBt.value = Event(true)
     }
 }

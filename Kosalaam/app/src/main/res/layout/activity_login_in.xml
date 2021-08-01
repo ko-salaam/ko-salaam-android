@@ -117,6 +117,8 @@
                 app:layout_constraintWidth_percent="0.861" />
 
             <TextView
+                android:onClick="@{() -> loginInVm.onSignInBtEvent()}"
+                android:clickable="false"
                 android:id="@+id/tv_login_loginbt"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"

@@ -2,18 +2,13 @@ package com.kosalaamInc.kosalaam.feature.loginIn
 
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
-import android.view.animation.Animation
-import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityLoginInBinding
-import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
-import com.kosalaamInc.kosalaam.feature.Login.LoginViewModel
 import com.kosalaamInc.kosalaam.feature.signUp.BiggerDotPasswordTransformationMethod
-import com.kosalaamInc.kosalaam.feature.signUp.SignUpViewModel
 
 class LoginInActivity : AppCompatActivity(){
     private var binding : ActivityLoginInBinding? = null
@@ -33,6 +28,7 @@ class LoginInActivity : AppCompatActivity(){
             loginInVm = viewModel
         }
         binding!!.loginEditPassword.transformationMethod = BiggerDotPasswordTransformationMethod
+        binding!!.loginEditEmail.transformationMethod = BiggerDotPasswordTransformationMethod
         initobserve()
     }
 
@@ -75,6 +71,11 @@ class LoginInActivity : AppCompatActivity(){
                         binding!!.loginOffeye.setImageDrawable(getDrawable(R.drawable.login_eye_off))
                         binding!!.loginEditPassword.transformationMethod =BiggerDotPasswordTransformationMethod
                     }
+                }
+            })
+            signIn_Bt.observe(this@LoginInActivity, Observer {
+                it.getContentIfNotHandled()?.let {
+
                 }
             })
 
