@@ -20,22 +20,27 @@ import com.google.firebase.ktx.Firebase
 
 import com.google.firebase.ktx.initialize
 import com.kosalaamInc.kosalaam.R
+import com.kosalaamInc.kosalaam.Util.SendMailVerification
 import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
 import java.util.regex.Pattern
+import kotlin.random.Random
 
 
 class SignUpActivity : AppCompatActivity() {
+
     private lateinit var auth: FirebaseAuth
     private var binding: ActivitySignupBinding? = null
     private lateinit var wrongAnim : Animation
     val TAG = "SignUpActivity"
 
+    companion object{
+        var EmailverifyCode = ""
+    }
 
     private val viewModel: SignUpViewModel by lazy {
         ViewModelProvider(this).get(SignUpViewModel::class.java)
     }
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,18 +60,17 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     private fun createAccount(email: String, password: String) {
-        // [START create_user_with_email]
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
+                    startActivity(Intent(this,LoginInActivity::class.java))
 
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "Authentication failed.",
+                    Toast.makeText(baseContext, "already in use by another account",
                         Toast.LENGTH_SHORT).show()
 
                 }
@@ -86,6 +90,10 @@ class SignUpActivity : AppCompatActivity() {
                             binding!!.tvSignupNext.background =
                                 getDrawable(R.drawable.login_defaultback)
                             binding!!.tvSignupNext.setText("Verify")
+                            createEmailCode()
+                            Log.d(TAG,getString(R.string.kosalaamGmail))
+                            SendMailVerification().sendEmail("Kosalaam Verify Code",
+                               "Kosalaam Verify Code is :  " + EmailverifyCode,SignUpViewModel.getEmail.toString(),getString(R.string.kosalaamGmail))
                             SignUpViewModel.click += 1
                         }
                         // add email check func
@@ -103,6 +111,7 @@ class SignUpActivity : AppCompatActivity() {
                                 binding!!.viewLoginView1.visibility = View.GONE
                                 binding!!.clSignupHide2.visibility = View.VISIBLE
                                 binding!!.tvSignupNext.setText("Sign in")
+
                                 SignUpViewModel.click += 1
                             }
                         }
@@ -224,6 +233,14 @@ class SignUpActivity : AppCompatActivity() {
         SignUpViewModel.passWordCheck = false
         SignUpViewModel.passWordCheck2 = false
         binding = null
+    }
+    private fun createEmailCode() {
+        EmailverifyCode=""
+        val codelist = listOf<String>("0","1","2","3","4","5","6","7","8","9")
+        for(i in 0..5){
+            val random  = Random.nextInt(10)
+            EmailverifyCode += codelist[random]
+        }
     }
 
 }

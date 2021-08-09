@@ -1,17 +1,30 @@
 package com.kosalaamInc.kosalaam.feature.loginIn
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseNetworkException
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityLoginInBinding
+import com.kosalaamInc.kosalaam.feature.Main.MainActivity
 import com.kosalaamInc.kosalaam.feature.signUp.BiggerDotPasswordTransformationMethod
 
 class LoginInActivity : AppCompatActivity(){
     private var binding : ActivityLoginInBinding? = null
+    private lateinit var auth: FirebaseAuth
+    val TAG : String = "LoginInActivity"
 
     private val viewModel :LoginInViewModel by lazy{
         ViewModelProvider(this).get(LoginInViewModel::class.java)
@@ -21,6 +34,7 @@ class LoginInActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
         binding = DataBindingUtil.setContentView<ActivityLoginInBinding>(
             this, R.layout.activity_login_in
         ).apply {
@@ -28,9 +42,16 @@ class LoginInActivity : AppCompatActivity(){
             loginInVm = viewModel
         }
         binding!!.loginEditPassword.transformationMethod = BiggerDotPasswordTransformationMethod
-        binding!!.loginEditEmail.transformationMethod = BiggerDotPasswordTransformationMethod
         initobserve()
     }
+    public override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if(currentUser != null){
+            //reload();
+        }
+    }
+
 
     private fun initobserve(){
         with(viewModel){
@@ -75,11 +96,36 @@ class LoginInActivity : AppCompatActivity(){
             })
             signIn_Bt.observe(this@LoginInActivity, Observer {
                 it.getContentIfNotHandled()?.let {
-
+                    signIn()
                 }
             })
 
         }
+
+    }
+    private fun signIn(){
+        try{
+            auth.signInWithEmailAndPassword(LoginInViewModel.emailString, LoginInViewModel.passwordString)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d(TAG, "signInWithEmail:success")
+                        val user = auth.currentUser
+                        updateUI(user)
+                    } else {
+                        Log.w(TAG, "signInWithEmail:failure", task.exception)
+                        Toast.makeText(baseContext, "Authentication failed.",
+                            Toast.LENGTH_SHORT).show()
+                        updateUI(null)
+                    }
+                }
+        }
+        catch (e : FirebaseNetworkException){
+
+        }
+        catch (e: FirebaseAuthException){
+
+        }
+
 
     }
 
@@ -89,6 +135,15 @@ class LoginInActivity : AppCompatActivity(){
         LoginInViewModel.passWordCheck=false
         LoginInViewModel.passwordVisible=false
         binding=null
+    }
+    private fun updateUI(user : FirebaseUser?){
+        if(user!= null){
+            startActivity(Intent(this,MainActivity::class.java))
+        }
+        else{
+
+            // user is null
+        }
     }
 
 }

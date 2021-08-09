@@ -12,6 +12,8 @@ import java.util.regex.Pattern
 class LoginInViewModel : ViewModel(){
 
     companion object{
+        var emailString = ""
+        var passwordString = ""
         var emailCheck = false
         var passWordCheck = false
         var passwordVisible : Boolean = false
@@ -35,6 +37,7 @@ class LoginInViewModel : ViewModel(){
     fun onEmailChanged(text: Editable) {
 
         var email = text.toString().trim()
+        emailString = email
         val p = Pattern.matches(emailValidation, email)
         if (p) {
            emailCheck = true
@@ -46,6 +49,7 @@ class LoginInViewModel : ViewModel(){
     // aftertextchange 확인
     fun onPassWordChanged(text: Editable){
         var password = text.toString().trim()
+        passwordString = password
         val p = Pattern.matches(passwordValidaion,password)
         if(p){
             passWordCheck = true

@@ -64,7 +64,7 @@ class SignUpViewModel : ViewModel() {
     }
     fun onVerifyCheckAfter(text: Editable){
         _verifyCheckEventAfter.value = Event(text.toString())
-        if(text.toString() == "000000"){
+        if(text.toString() == SignUpActivity.EmailverifyCode){
             verifyCheck = true
         }
         else{
@@ -133,15 +133,3 @@ class SignUpViewModel : ViewModel() {
     }
 }
 
-inline fun <T> LiveData<Event<T>>.eventObserve(
-    owner: LifecycleOwner,
-    crossinline onChanged: (T) -> Unit
-): Observer<Event<T>> {
-    val wrappedObserver = Observer<Event<T>> { t ->
-        t.getContentIfNotHandled()?.let {
-            onChanged.invoke(it)
-        }
-    }
-    observe(owner, wrappedObserver)
-    return wrappedObserver
-}
