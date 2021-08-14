@@ -1,6 +1,6 @@
-package com.kosalaamInc.kosalaam.Model.Network.API
+package com.kosalaamInc.kosalaam.model.network.api
 
-import com.kosalaamInc.kosalaam.Model.Network.Response.RestauarntResponse
+import com.kosalaamInc.kosalaam.model.network.response.RestauarntResponse
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -8,7 +8,7 @@ interface KosalaamAPI {
 
 
     @GET("/api/user/{uid}")
-    fun getUser(@Path("uid") uid : String)
+    fun getUser(@Header("Authorization") authorization : String ,@Path("uid") uid : String)
 
     // restaurant list
     @GET("/api/restaurant")
@@ -20,7 +20,7 @@ interface KosalaamAPI {
     @GET("/api/restaurant/{id}}")
     fun getRestaurantInfo(@Path("id") id : String) : Call<RestauarntResponse>
 
-    //?
+    //
     @POST("/api/restaurant")
     fun registerResturant()
 
