@@ -2,7 +2,6 @@ package com.kosalaamInc.kosalaam.feature.signUp
 
 import android.content.Intent
 import android.os.Bundle
-import android.text.InputType
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
 import android.util.Log
@@ -18,12 +17,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
-import com.google.firebase.ktx.initialize
 import com.kosalaamInc.kosalaam.R
-import com.kosalaamInc.kosalaam.Util.SendMailVerification
+import com.kosalaamInc.kosalaam.util.SendMailVerification
 import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
-import java.util.regex.Pattern
 import kotlin.random.Random
 
 

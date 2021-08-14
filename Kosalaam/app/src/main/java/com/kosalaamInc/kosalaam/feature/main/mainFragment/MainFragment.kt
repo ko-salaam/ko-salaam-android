@@ -1,4 +1,4 @@
-package com.kosalaamInc.kosalaam.feature.Main.MainFragment
+package com.kosalaamInc.kosalaam.feature.main.mainFragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -16,7 +16,7 @@ class MainFragment : Fragment(){
     }
 
     private var mBinding : FragmentMainBinding? = null
-    val MainActivity = com.kosalaamInc.kosalaam.feature.Main.MainActivity()
+    val MainActivity = com.kosalaamInc.kosalaam.feature.main.MainActivity()
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

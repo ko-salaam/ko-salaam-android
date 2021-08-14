@@ -1,4 +1,4 @@
-package com.kosalaamInc.kosalaam.Util
+package com.kosalaamInc.kosalaam.util
 
 class Event<out T>(private val content: T) {
 

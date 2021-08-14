@@ -1,12 +1,10 @@
 package com.kosalaamInc.kosalaam.feature.loginIn
 
 import android.text.Editable
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.kosalaamInc.kosalaam.Util.Event
-import com.kosalaamInc.kosalaam.feature.signUp.SignUpViewModel
+import com.kosalaamInc.kosalaam.util.Event
 import java.util.regex.Pattern
 
 class LoginInViewModel : ViewModel(){

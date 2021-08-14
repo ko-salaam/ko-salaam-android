@@ -8,18 +8,18 @@
 
     <fragment
         android:id="@+id/prayerRoomFragment"
-        android:name="com.kosalaamInc.kosalaam.feature.Main.PrayerRoomFragment.PrayerRoomFragment"
+        android:name="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment"
         android:label="fragment_searchprayerroom"
         tools:layout="@layout/fragment_searchprayerroom" />
 
     <fragment
         android:id="@+id/quranFragment"
-        android:name="com.kosalaamInc.kosalaam.feature.Main.QuranFragment.QuranFragment"
+        android:name="com.kosalaamInc.kosalaam.feature.main.quranFragment.QuranFragment"
         android:label="fragment_quran"
         tools:layout="@layout/fragment_quran" />
     <fragment
         android:id="@+id/mainFragment"
-        android:name="com.kosalaamInc.kosalaam.feature.Main.MainFragment.MainFragment"
+        android:name="com.kosalaamInc.kosalaam.feature.main.mainFragment.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main" >
         <action
@@ -28,13 +28,13 @@
     </fragment>
     <fragment
         android:id="@+id/compassFragment"
-        android:name="com.kosalaamInc.kosalaam.feature.Main.CompassFragment.CompassFragment"
+        android:name="com.kosalaamInc.kosalaam.feature.main.compassFragment.CompassFragment"
         android:label="fragment_compass"
         tools:layout="@layout/fragment_compass" />
 
     <fragment
         android:id="@+id/myPageFragment"
-        android:name="com.kosalaamInc.kosalaam.feature.Main.MyPageFragment.MyPageFragment"
+        android:name="com.kosalaamInc.kosalaam.feature.main.myPageFragment.MyPageFragment"
         android:label="fragment_mypage"
         tools:layout="@layout/fragment_mypage" />
 </navigation>

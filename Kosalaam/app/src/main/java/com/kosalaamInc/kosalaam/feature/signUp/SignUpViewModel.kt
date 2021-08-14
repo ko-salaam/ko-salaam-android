@@ -1,12 +1,8 @@
 package com.kosalaamInc.kosalaam.feature.signUp
 
-import android.graphics.Color
-import android.os.Build
 import android.text.Editable
-import android.util.Log
 import androidx.lifecycle.*
-import com.kosalaamInc.kosalaam.R
-import com.kosalaamInc.kosalaam.Util.Event
+import com.kosalaamInc.kosalaam.util.Event
 import java.util.regex.Pattern
 
 

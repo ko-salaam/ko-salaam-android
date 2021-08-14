@@ -1,28 +1,22 @@
-package com.kosalaamInc.kosalaam.feature.Main.MyPageFragment
+package com.kosalaamInc.kosalaam.feature.main.quranFragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.kosalaamInc.kosalaam.databinding.FragmentMypageBinding
+import com.kosalaamInc.kosalaam.databinding.FragmentQuranBinding
 
-
-class MyPageFragment : Fragment(){
-    private var mBinding : FragmentMypageBinding? = null
-
-    companion object{
-        const val Tag = "MyPageFragment"
-    }
+class QuranFragment : Fragment(){
+    private var mBinding : FragmentQuranBinding? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMypageBinding.inflate(inflater,container,false)
-        Log.d(Tag,"OnCreateView")
+    val binding = FragmentQuranBinding.inflate(inflater,container,false)
+
         mBinding = binding
 
         return mBinding?.root

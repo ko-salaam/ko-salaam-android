@@ -1,10 +1,5 @@
-package com.kosalaamInc.kosalaam.Util
+package com.kosalaamInc.kosalaam.util
 
-import android.app.Activity
-import android.app.Application
-import android.content.Context
-import android.content.res.Resources
-import com.kosalaamInc.kosalaam.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch

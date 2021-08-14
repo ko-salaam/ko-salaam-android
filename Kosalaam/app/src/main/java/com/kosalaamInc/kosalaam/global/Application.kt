@@ -1,4 +1,4 @@
-package com.kosalaamInc.kosalaam.Global
+package com.kosalaamInc.kosalaam.global
 
 import android.app.Application
 
