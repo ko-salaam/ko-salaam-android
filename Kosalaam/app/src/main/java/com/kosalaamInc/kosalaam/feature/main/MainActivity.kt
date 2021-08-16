@@ -1,5 +1,6 @@
 package com.kosalaamInc.kosalaam.feature.main
 
+import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController

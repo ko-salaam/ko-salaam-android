@@ -27,7 +27,7 @@ class MainFragment : Fragment(){
 
         mBinding = binding
 
-        initPrayerBt()
+
 
         return mBinding?.root
     }
@@ -37,9 +37,5 @@ class MainFragment : Fragment(){
         super.onDestroyView()
     }
 
-    private fun initPrayerBt(){
-        mBinding!!.btMainTest.setOnClickListener {
-            it.findNavController().navigate(R.id.action_mainFragment_to_prayerRoomFragment)
-        }
-    }
+
 }

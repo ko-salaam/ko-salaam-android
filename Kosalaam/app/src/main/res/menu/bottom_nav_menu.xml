@@ -1,28 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
+        app:showAsAction="ifRoom"
         android:title="searchPrayer"
         android:id="@+id/prayerRoomFragment"
-        android:icon="@drawable/bottom_1"
+        android:icon="@drawable/main_search"
         />
     <item
+        app:showAsAction="ifRoom"
         android:title="quran"
         android:id="@+id/quranFragment"
-        android:icon="@drawable/bottom_2"
+        android:icon="@drawable/main_quran"
         />
     <item
+        app:showAsAction="ifRoom"
         android:title="mainFragment"
         android:id="@+id/mainFragment"
-        android:icon="@drawable/bottom_3"
+        android:icon="@drawable/main_home"
         />
     <item
+        app:showAsAction="ifRoom"
         android:title="compass"
         android:id="@+id/compassFragment"
-        android:icon="@drawable/bottom_4"
+        android:icon="@drawable/main_compass"
         />
     <item
+        app:showAsAction="ifRoom"
         android:title="userInfo"
         android:id="@+id/myPageFragment"
-        android:icon="@drawable/bottom_5"
+        android:icon="@drawable/main_person"
         />
 </menu>

@@ -16,5 +16,20 @@
     <string name="loginIn_login">Log in</string>
     <string name="loginIn_enter_email">Enter your email</string>
     <string name="loginIn_forgot_password">Forgot Passwords</string>
+    <string name="main_assalam">As-salamu\nalaykum!</string>
+    <string name="main_welcomeTo">Welecome to Korea</string>
+    <string name="main_search_nearby">Search Nearby</string>
+    <string name="main_prayer_room">Prayer Room</string>
+    <string name="main_hotel">Hotel</string>
+    <string name="main_restaurant">Restaurant</string>
+    <string name="main_prayer_time">Pray Time</string>
+    <string name="main_activities">Activities</string>
+    <string name="main_travel_magazine">Travel Magazine</string>
+    <string name="main_magazine_newMagazine">New Magazine</string>
+    <string name="main_magazine_mostView">Most viewed</string>
+    <string name="main_magazine_tour">Tour</string>
+    <string name="main_magazine_food">food</string>
+    <string name="main_magazine_kpop">K-POP</string>
+    <string name="main_top_rate_magazine">Top-rated Prayer Room</string>
     
 </resources>
