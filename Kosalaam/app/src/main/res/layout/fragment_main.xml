@@ -180,6 +180,7 @@
                         app:layout_constraintWidth_percent="0.216" />
 
                     <TextView
+                        android:lineSpacingExtra="0.8sp"
                         android:id="@+id/tv_main_restaurant"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -222,6 +223,7 @@
                         app:layout_constraintWidth_percent="0.35" />
 
                     <TextView
+                        android:lineSpacingExtra="0.8sp"
                         android:id="@+id/tv_main_praytime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
