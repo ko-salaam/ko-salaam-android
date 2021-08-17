@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
 class CompassViewModel : ViewModel(){
+
     val permissionRequest = MutableLiveData<String>() // check location permission
     val locationRequest = MutableLiveData<Location>()
 

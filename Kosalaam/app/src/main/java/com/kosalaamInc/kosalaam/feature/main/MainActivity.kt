@@ -9,21 +9,20 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityMainBinding
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.MyPageFragment
 
 // bottom navigation view
 class MainActivity : AppCompatActivity() {
-    private lateinit var mBinding : ActivityMainBinding
+
+    private lateinit var binding : ActivityMainBinding
     private lateinit var navController : NavController
     private lateinit var navHostFragment: NavHostFragment
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        mBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(mBinding!!.root)
-
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding!!.root)
         initNavigationUI()
-
-
-
     }
 
     private fun initNavigationUI(){
@@ -31,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         navHostFragment = supportFragmentManager.findFragmentById(R.id.fcv_main) as NavHostFragment
         // navigation controller
         navController = navHostFragment.navController
-        NavigationUI.setupWithNavController(mBinding.bnvMain,navController)
+        NavigationUI.setupWithNavController(binding.bnvMain,navController)
 
     }
 
@@ -39,9 +38,13 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
     }
-//    fun mainBtEvent(){
-//        var navHostFragment = supportFragmentManager.beginTransaction().replace(R.id.fcv_main,MyPageFragment()).commit()
-//        NavigationUI.setupWithNavController(mBinding.bnvMain,navController)
-//    }
+    fun initObserve(){
+
+    }
+    fun mainBtEvent(){
+        var navHostFragment = supportFragmentManager.beginTransaction().replace(R.id.fcv_main,
+            MyPageFragment()).commit()
+        NavigationUI.setupWithNavController(binding.bnvMain,navController)
+    }
     //mainFragment 이벤트를 여기로 전해줄수 있도록
 }

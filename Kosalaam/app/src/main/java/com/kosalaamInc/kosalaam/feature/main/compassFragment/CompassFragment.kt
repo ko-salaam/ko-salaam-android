@@ -18,8 +18,6 @@ class CompassFragment : Fragment(){
 
     private var mBinding : FragmentCompassBinding? = null
 
-
-
     private val viewModel : CompassViewModel by viewModels()
 
     override fun onCreateView(

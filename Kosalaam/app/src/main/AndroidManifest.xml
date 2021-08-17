@@ -60,6 +60,14 @@
         <activity
             android:name=".feature.signUp.SignUpActivity"
             android:screenOrientation="portrait" />
+        <activity android:name=".feature.hotelSearch.HotelSearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".feature.restaurantSearch.RestaurantSearchActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".feature.prayerTime.PraytimeActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".feature.activitySearch.ActivitiesSearchActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

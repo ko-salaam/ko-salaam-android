@@ -11,7 +11,6 @@ import com.kosalaamInc.kosalaam.databinding.FragmentMypageBinding
 
 class MyPageFragment : Fragment(){
     private var mBinding : FragmentMypageBinding? = null
-
     companion object{
         const val Tag = "MyPageFragment"
     }
@@ -24,7 +23,6 @@ class MyPageFragment : Fragment(){
         val binding = FragmentMypageBinding.inflate(inflater,container,false)
         Log.d(Tag,"OnCreateView")
         mBinding = binding
-
         return mBinding?.root
 
     }
