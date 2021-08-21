@@ -10,7 +10,6 @@ class CompassViewModel : ViewModel(){
     val locationRequest = MutableLiveData<Location>()
 
     fun onPermissionResult(permission: String, granted: Boolean) {
-        TODO("whatever you need to do")
         if (granted==true){
 
         }

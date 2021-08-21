@@ -16,6 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Kosalaam">
         <meta-data
+            android:name="com.kakao.sdk.AppKey" android:value="@string/kakaoSDK"/>
+        <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
 

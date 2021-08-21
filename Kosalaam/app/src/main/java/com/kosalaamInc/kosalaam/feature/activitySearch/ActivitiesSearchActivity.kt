@@ -6,8 +6,6 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityActivitiesSearchBinding
-import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
-import com.kosalaamInc.kosalaam.feature.signUp.SignUpViewModel
 
 class ActivitiesSearchActivity : AppCompatActivity(){
 

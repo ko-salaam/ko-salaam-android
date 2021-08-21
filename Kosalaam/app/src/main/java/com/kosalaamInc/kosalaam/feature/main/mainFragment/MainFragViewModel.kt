@@ -3,7 +3,6 @@ package com.kosalaamInc.kosalaam.feature.main.mainFragment
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.facebook.internal.Mutable
 import com.kosalaamInc.kosalaam.util.Event
 
 class MainFragViewModel :ViewModel(){
@@ -18,8 +17,10 @@ class MainFragViewModel :ViewModel(){
     private val _tourBtEvent = MutableLiveData<Event<Boolean>>()
     private val _foodBtEvent = MutableLiveData<Event<Boolean>>()
     private val _kpopBtEvent = MutableLiveData<Event<Boolean>>()
+    private val _magazineList = MutableLiveData<ArrayList<MagazineData>>()
 
 
+    val magzineList get( )= _magazineList
     val prayerRoom_BtEvent: LiveData<Event<Boolean>> get() = _prayerRoomBtEvent
     val hotel_BtEvent: LiveData<Event<Boolean>> get() = _hotelBtEvent
     val restaurant_BtEvent : LiveData<Event<Boolean>> get() = _restaurantBtEvent
@@ -30,7 +31,6 @@ class MainFragViewModel :ViewModel(){
     val tour_BtEvent : LiveData<Event<Boolean>> get() = _tourBtEvent
     val food_BtEvent : LiveData<Event<Boolean>> get() = _foodBtEvent
     val kpop_BtEvent : LiveData<Event<Boolean>> get() = _kpopBtEvent
-
 
     fun onPrayerRoomBtEvent() {
         _prayerRoomBtEvent.value = Event(true)
@@ -67,4 +67,10 @@ class MainFragViewModel :ViewModel(){
     fun onKpopBtEvent(){
         _kpopBtEvent.value = Event(true)
     }
+
 }
+
+
+data class MagazineData (
+    val post : String?
+)

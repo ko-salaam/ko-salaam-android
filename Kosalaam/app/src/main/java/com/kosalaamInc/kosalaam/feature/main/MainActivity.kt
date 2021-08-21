@@ -1,8 +1,13 @@
 package com.kosalaamInc.kosalaam.feature.main
 
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
+import android.content.pm.Signature
 import android.content.res.Resources
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Base64
+import android.util.Log
 import androidx.navigation.NavController
 
 import androidx.navigation.fragment.NavHostFragment
@@ -10,6 +15,8 @@ import androidx.navigation.ui.NavigationUI
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityMainBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.MyPageFragment
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 
 // bottom navigation view
 class MainActivity : AppCompatActivity() {
@@ -23,7 +30,10 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         initNavigationUI()
+
+
     }
+
 
     private fun initNavigationUI(){
         // navigation host

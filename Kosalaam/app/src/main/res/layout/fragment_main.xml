@@ -6,7 +6,6 @@
     tools:context="com.kosalaamInc.kosalaam.feature.main.mainFragment.MainFragment">
 
     <data>
-
         <variable
             name="mainFragVm"
             type="com.kosalaamInc.kosalaam.feature.main.mainFragment.MainFragViewModel" />
@@ -161,7 +160,7 @@
                             android:lineSpacingExtra="0.8sp"
                             android:text="@string/main_hotel"
                             android:textColor="#419070"
-                            android:textSize="8sp"
+                            android:textSize="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
@@ -206,7 +205,7 @@
                             android:lineSpacingExtra="0.8sp"
                             android:text="@string/main_restaurant"
                             android:textColor="#419070"
-                            android:textSize="8sp"
+                            android:textSize="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintLeft_toLeftOf="parent"
                             app:layout_constraintRight_toRightOf="parent"
@@ -294,7 +293,7 @@
                             android:layout_marginTop="3dp"
                             android:fontFamily="@font/montserrat_semibold"
                             android:lineSpacingExtra="0.8sp"
-                            android:text="@string/main_hotel"
+                            android:text="@string/main_activities"
                             android:textColor="#419070"
                             android:textSize="8dp"
                             app:layout_constraintBottom_toBottomOf="parent"
@@ -484,24 +483,78 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <ImageView
+                            <FrameLayout
                                 android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
-                                android:src="@drawable/magazine_seoul" />
-
-                            <ImageView
+                                android:layout_height="160dp">
+                                <ImageView
+                                    android:src="@drawable/magazine_seoul"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:lineSpacingExtra="1.8sp"
+                                    android:layout_marginBottom="21dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:fontFamily="@font/montserrat_bold"
+                                    android:lineHeight="19sp"
+                                    android:textColor="#ffffff"
+                                    android:textSize="15.6dp"
+                                    android:layout_gravity="bottom|left"
+                                    android:text="TOP 10
+            Places
+            to visit
+            in Seoul"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_marginLeft="30dp"
                                 android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
-                                android:src="@drawable/magazine_busan" />
-
-                            <ImageView
+                                android:layout_height="160dp">
+                                <ImageView
+                                    android:src="@drawable/magazine_busan"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:lineSpacingExtra="1.8sp"
+                                    android:layout_marginBottom="21dp"
+                                    android:layout_marginLeft="10dp"
+                                    android:fontFamily="@font/montserrat_bold"
+                                    android:lineHeight="19sp"
+                                    android:textColor="#ffffff"
+                                    android:textSize="15.6dp"
+                                    android:layout_gravity="bottom|left"
+                                    android:text="TOP 10
+            Places
+            to visit
+            in Korea"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </FrameLayout>
+                            <FrameLayout
+                                android:layout_marginLeft="30dp"
                                 android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
-                                android:src="@drawable/magazine_korea" />
+                                android:layout_height="160dp">
+                                <ImageView
+                                    android:src="@drawable/magazine_korea"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:lineSpacingExtra="1.8sp"
+                                    android:layout_marginBottom="19dp"
+                                    android:layout_marginLeft="12dp"
+                                    android:fontFamily="@font/montserrat_bold"
+                                    android:lineHeight="19sp"
+                                    android:textColor="#ffffff"
+                                    android:textSize="15.6dp"
+                                    android:layout_gravity="bottom|left"
+                                    android:text="What you
+Must eat
+\nin Korea"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </FrameLayout>
+
+
 
                         </LinearLayout>
 
@@ -522,7 +575,6 @@
                         app:layout_constraintTop_toBottomOf="@id/scrollView_maingazineImage" />
 
                     <HorizontalScrollView
-
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="12.4dp"
@@ -535,31 +587,86 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
-
-                            <ImageView
+                            <FrameLayout
                                 android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
-                                android:src="@drawable/magazine_seoul" />
+                                android:layout_height="160dp"
+                                tools:ignore="MissingConstraints">
+                                <ImageView
+                                    android:src="@drawable/prayer_seoul"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:lineSpacingExtra="1.8sp"
+                                    android:layout_marginBottom="19dp"
+                                    android:layout_marginLeft="11dp"
+                                    android:fontFamily="@font/montserrat_bold"
+                                    android:lineHeight="19sp"
+                                    android:textColor="#ffffff"
+                                    android:textSize="15.6dp"
+                                    android:layout_gravity="bottom|left"
+                                    android:text="TOP 10
+            Places
+            to visit
+            in Seoul"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </FrameLayout>
 
-                            <ImageView
+                            <FrameLayout
+                                android:layout_marginLeft="30dp"
                                 android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
-                                android:src="@drawable/magazine_busan" />
+                                android:layout_height="160dp">
+                                <ImageView
+                                    android:src="@drawable/prayer_busan"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:lineSpacingExtra="1.8sp"
+                                    android:layout_marginBottom="21dp"
+                                    android:layout_marginLeft="9dp"
+                                    android:fontFamily="@font/montserrat_bold"
+                                    android:lineHeight="19sp"
+                                    android:textColor="#ffffff"
+                                    android:textSize="15.6dp"
+                                    android:layout_gravity="bottom|left"
+                                    android:text="TOP 10
+            Places
+            to visit
+            in Busan"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </FrameLayout>
 
-                            <ImageView
+                            <FrameLayout
+                                android:layout_marginLeft="30dp"
                                 android:layout_width="120dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="20dp"
-                                android:src="@drawable/magazine_korea" />
+                                android:layout_height="160dp">
+                                <ImageView
+                                    android:src="@drawable/player_korea"
+                                    android:layout_width="120dp"
+                                    android:layout_height="wrap_content"/>
+                                <TextView
+                                    android:lineSpacingExtra="1.8sp"
+                                    android:gravity="center_vertical"
+                                    android:layout_marginBottom="21dp"
+                                    android:layout_marginLeft="9dp"
+                                    android:fontFamily="@font/montserrat_bold"
+                                    android:lineHeight="19sp"
+                                    android:textColor="#ffffff"
+                                    android:textSize="15.6dp"
+                                    android:layout_gravity="bottom|left"
+                                    android:text="TOP 10
+            Places
+            to visit
+            in Korea"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </FrameLayout>
 
                         </LinearLayout>
                     </HorizontalScrollView>
 
-
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 

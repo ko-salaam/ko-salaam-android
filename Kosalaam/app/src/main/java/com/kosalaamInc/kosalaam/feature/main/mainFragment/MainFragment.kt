@@ -6,15 +6,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.kosalaamInc.kosalaam.R
-import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
 import com.kosalaamInc.kosalaam.databinding.FragmentMainBinding
 import com.kosalaamInc.kosalaam.feature.activitySearch.ActivitiesSearchActivity
 import com.kosalaamInc.kosalaam.feature.hotelSearch.HotelSearchActivity
@@ -62,7 +59,7 @@ class MainFragment : Fragment(){
         with(viewModel){
             prayerRoom_BtEvent.observe(viewLifecycleOwner, Observer {
                 it.getContentIfNotHandled()?.let {
-                    //MainActivity().mainBtEvent()
+                    findNavController().navigate(R.id.action_mainFragment_to_prayerRoomFragment)
                 }
             })
             hotel_BtEvent.observe(viewLifecycleOwner, Observer {
@@ -137,6 +134,5 @@ class MainFragment : Fragment(){
         }
 
     }
-
 
 }
