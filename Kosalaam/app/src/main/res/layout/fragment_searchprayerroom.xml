@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+    <data>
+        <variable
+            name="prayerRoomVm"
+            type="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomViewModel" />
+    </data>
     <RelativeLayout
+        android:id="@+id/search_mapview"
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
