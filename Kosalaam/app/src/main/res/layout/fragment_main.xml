@@ -484,12 +484,14 @@
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <FrameLayout
+                                android:background="@drawable/magazine_gradient"
                                 android:layout_width="120dp"
                                 android:layout_height="160dp">
+
                                 <ImageView
                                     android:src="@drawable/magazine_seoul"
                                     android:layout_width="120dp"
-                                    android:layout_height="wrap_content"/>
+                                    android:layout_height="160dp"/>
                                 <TextView
                                     android:lineSpacingExtra="1.8sp"
                                     android:layout_marginBottom="21dp"
@@ -507,6 +509,7 @@
                                     android:layout_height="wrap_content"/>
                             </FrameLayout>
                             <FrameLayout
+                                android:background="@drawable/magazine_gradient"
                                 android:layout_marginLeft="30dp"
                                 android:layout_width="120dp"
                                 android:layout_height="160dp">
@@ -531,6 +534,7 @@
                                     android:layout_height="wrap_content"/>
                             </FrameLayout>
                             <FrameLayout
+                                android:background="@drawable/magazine_gradient"
                                 android:layout_marginLeft="30dp"
                                 android:layout_width="120dp"
                                 android:layout_height="160dp">
@@ -588,9 +592,10 @@ Must eat
                             android:layout_height="wrap_content"
                             android:orientation="horizontal">
                             <FrameLayout
+                                android:background="@drawable/magazine_gradient"
                                 android:layout_width="120dp"
                                 android:layout_height="160dp"
-                                tools:ignore="MissingConstraints">
+                               >
                                 <ImageView
                                     android:src="@drawable/prayer_seoul"
                                     android:layout_width="120dp"
@@ -613,6 +618,7 @@ Must eat
                             </FrameLayout>
 
                             <FrameLayout
+                                android:background="@drawable/magazine_gradient"
                                 android:layout_marginLeft="30dp"
                                 android:layout_width="120dp"
                                 android:layout_height="160dp">
@@ -638,9 +644,11 @@ Must eat
                             </FrameLayout>
 
                             <FrameLayout
+                                android:background="@drawable/magazine_gradient"
                                 android:layout_marginLeft="30dp"
                                 android:layout_width="120dp"
                                 android:layout_height="160dp">
+
                                 <ImageView
                                     android:src="@drawable/player_korea"
                                     android:layout_width="120dp"

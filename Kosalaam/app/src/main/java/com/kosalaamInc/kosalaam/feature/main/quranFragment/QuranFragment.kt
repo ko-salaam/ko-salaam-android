@@ -16,11 +16,8 @@ class QuranFragment : Fragment(){
         savedInstanceState: Bundle?
     ): View? {
     val binding = FragmentQuranBinding.inflate(inflater,container,false)
-
         mBinding = binding
-
         return mBinding?.root
-
     }
 
     override fun onDestroyView() {
