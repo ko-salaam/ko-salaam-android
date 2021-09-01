@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         app:showAsAction="ifRoom"
-        android:title="searchPrayer"
+        android:title="search"
         android:id="@+id/prayerRoomFragment"
         android:icon="@drawable/main_search"
         />
@@ -15,7 +15,7 @@
         />
     <item
         app:showAsAction="ifRoom"
-        android:title="mainFragment"
+        android:title="main"
         android:id="@+id/mainFragment"
         android:icon="@drawable/main_home"
         />

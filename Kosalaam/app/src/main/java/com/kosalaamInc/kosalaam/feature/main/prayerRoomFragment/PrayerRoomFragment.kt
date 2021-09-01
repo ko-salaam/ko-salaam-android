@@ -23,14 +23,11 @@ import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
-
 class PrayerRoomFragment : Fragment(),MapView.MapViewEventListener{
     private lateinit var mapView : MapView
-
     private var binding : FragmentSearchprayerroomBinding? = null
     private lateinit var viewModel : PrayerRoomViewModel
     lateinit var mapViewContainer : RelativeLayout
-
     private val TAG = "PrayerRoomFragment"
     val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
 
@@ -42,33 +39,31 @@ class PrayerRoomFragment : Fragment(),MapView.MapViewEventListener{
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_searchprayerroom,container,false)
         initMapVIew()
         checkPermission()
-
         return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(PrayerRoomViewModel::class.java)
-        binding!!.lifecycleOwner=viewLifecycleOwner
-        binding!!.prayerRoomVm= viewModel
+        binding!!.lifecycleOwner = viewLifecycleOwner
+        binding!!.prayerRoomVm = viewModel
     }
 
     override fun onDestroyView() {
         binding = null
         super.onDestroyView()
     }
+
     private fun initObserve(){
         with(viewModel){
-
         }
     }
 
     // TODO Neither network gps ->  ?
     val permReqLuncher = registerForActivityResult(ActivityResultContracts.RequestPermission()){
         if (it) {
-
             mapViewContainer.addView(mapView)
-            for(i in 1..500){
+            for(i in 1..300){
                 addTestPOIItem(i)
             }
             initObserve()
@@ -97,7 +92,6 @@ class PrayerRoomFragment : Fragment(),MapView.MapViewEventListener{
         mapView.addPOIItem(marker)
     }
 
-
     override fun onMapViewInitialized(p0: MapView?) {
 
     }
@@ -111,7 +105,7 @@ class PrayerRoomFragment : Fragment(),MapView.MapViewEventListener{
     }
 
     override fun onMapViewSingleTapped(p0: MapView?, p1: MapPoint?) {
-        Log.d(TAG,p1.toString())
+
     }
 
     override fun onMapViewDoubleTapped(p0: MapView?, p1: MapPoint?) {
@@ -133,8 +127,4 @@ class PrayerRoomFragment : Fragment(),MapView.MapViewEventListener{
     override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {
 
     }
-
-
-
-
 }

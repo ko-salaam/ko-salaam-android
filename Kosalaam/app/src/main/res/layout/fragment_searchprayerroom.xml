@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
             name="prayerRoomVm"
             type="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomViewModel" />
     </data>
-    <RelativeLayout
-        android:id="@+id/search_mapview"
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment">
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/search_mapview"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:context="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment">
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </FrameLayout>
+
 </layout>

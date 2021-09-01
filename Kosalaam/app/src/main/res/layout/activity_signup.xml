@@ -110,6 +110,7 @@
                     android:id="@+id/tv_signup_wrong"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/montserrat_regular"
                     android:text="@string/signUp_wrong_num"
@@ -136,11 +137,11 @@
                 app:layout_constraintWidth_percent="0.861">
 
                 <EditText
-                    android:afterTextChanged="@{(arg0)->signUpVm.onPassWordChanged(arg0)}"
                     android:id="@+id/login_editPassword"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
+                    android:afterTextChanged="@{(arg0)->signUpVm.onPassWordChanged(arg0)}"
                     android:background="@null"
                     android:fontFamily="@font/montserrat_medium"
                     android:hint="@string/signUp_enter_password"
@@ -151,12 +152,12 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:onClick="@{() -> signUpVm.onPassWordVisible()}"
                     android:id="@+id/login_offeye"
                     android:layout_width="15.8dp"
                     android:layout_height="13.6dp"
                     android:layout_marginRight="5dp"
                     android:clickable="true"
+                    android:onClick="@{() -> signUpVm.onPassWordVisible()}"
 
                     android:src="@drawable/login_eye_off"
                     app:layout_constraintBottom_toBottomOf="@id/login_editPassword"
@@ -175,12 +176,12 @@
                     app:layout_constraintTop_toBottomOf="@id/login_editPassword" />
 
                 <EditText
-                    android:afterTextChanged="@{(arg0)->signUpVm.onPassWordCheckChanged(arg0)}"
                     android:id="@+id/et_signup_hide2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="50dp"
+                    android:afterTextChanged="@{(arg0)->signUpVm.onPassWordCheckChanged(arg0)}"
                     android:background="@null"
                     android:fontFamily="@font/montserrat_medium"
                     android:hint="@string/signUp_certify_password"
@@ -192,12 +193,12 @@
                     app:layout_constraintTop_toBottomOf="@id/login_view2" />
 
                 <ImageView
-                    android:onClick="@{() -> signUpVm.onPassWordVisible2()}"
                     android:id="@+id/iv_signup_offeye_hide2"
                     android:layout_width="15.8dp"
                     android:layout_height="13.6dp"
                     android:layout_marginRight="5dp"
                     android:clickable="true"
+                    android:onClick="@{() -> signUpVm.onPassWordVisible2()}"
                     android:src="@drawable/login_eye_off"
                     app:layout_constraintBottom_toBottomOf="@id/et_signup_hide2"
                     app:layout_constraintRight_toRightOf="parent"
@@ -237,7 +238,6 @@
                 app:layout_constraintWidth_percent="0.278" />
 
             <TextView
-                android:onClick="@{() -> signUpVm.onAlreayBtClickEvent()}"
                 android:id="@+id/tv_signup_readyToLogin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -245,6 +245,7 @@
                 android:layout_marginBottom="51dp"
                 android:fontFamily="@font/montserrat_semibold"
                 android:gravity="center_horizontal"
+                android:onClick="@{() -> signUpVm.onAlreayBtClickEvent()}"
                 android:text="@string/signUp_already"
                 android:textColor="#191919"
                 android:textSize="12sp"

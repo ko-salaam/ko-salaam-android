@@ -9,6 +9,7 @@
         tools:context=".feature.main.MainActivity">
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
+
             app:layout_constraintBottom_toBottomOf="parent"
             app:itemIconTint="@drawable/bnv_foreground_color"
             android:id="@+id/bnv_main"

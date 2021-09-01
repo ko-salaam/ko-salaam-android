@@ -13,6 +13,7 @@ class CompassViewModel : ViewModel(){
         if (granted==true){
 
         }
+
         else{
 
         }
