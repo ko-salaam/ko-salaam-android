@@ -140,7 +140,6 @@ class LoginInActivity : AppCompatActivity(){
             startActivity(Intent(this,MainActivity::class.java))
         }
         else{
-
             // user is null
         }
     }

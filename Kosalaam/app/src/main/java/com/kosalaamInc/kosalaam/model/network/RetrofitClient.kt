@@ -13,11 +13,10 @@ object RetrofitClient{
     val interceptor: AccessTokenInterceptor = AccessTokenInterceptor()
     val client = OkHttpClient.Builder().addInterceptor(interceptor).build()
 
-
     private val retrofit : Retrofit = Retrofit.Builder()
         .baseUrl(Application.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
-      //  .client(client)
+//        .client(client)
         .build()
 
     val APIservice : KosalaamAPI = retrofit.create(KosalaamAPI::class.java)

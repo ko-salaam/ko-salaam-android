@@ -175,8 +175,24 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-                    getUserToken(user)
-                     updateUI(user)
+                    var token : String? = null
+                    user!!.getIdToken(true)
+                        .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                            override fun onComplete(task: Task<GetTokenResult?>) {
+                                if (task.isSuccessful()) {
+                                    val idToken: String? = task.getResult()?.getToken()
+                                    Log.d(TAG,idToken!!)
+                                    token = idToken
+                                    viewModel.signIn(idToken!!)
+                                    // Send token to your backend via HTTPS
+                                    // ...
+                                } else {
+                                    // Handle error -> task.getException();
+                                    token = null
+                                }
+                            }
+                        })
+                    updateUI(user)
                 } else {
 
                     // If sign in fails, display a message to the user.
@@ -200,7 +216,24 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-                    getUserToken(user)
+                    var token : String? = null
+                    user!!.getIdToken(true)
+                        .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                            override fun onComplete(task: Task<GetTokenResult?>) {
+                                if (task.isSuccessful()) {
+                                    val idToken: String? = task.getResult()?.getToken()
+                                    Log.d(TAG,idToken!!)
+                                    token = idToken
+                                    Log.d("CheckSignIn",idToken!!)
+                                    viewModel.signIn(idToken!!)
+                                    // Send token to your backend via HTTPS
+                                    // ...
+                                } else {
+                                    // Handle error -> task.getException();
+                                    token = null
+                                }
+                            }
+                        })
                     updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
