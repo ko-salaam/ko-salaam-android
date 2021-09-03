@@ -21,10 +21,13 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.util.SendMailVerification
 import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
+import kotlinx.coroutines.Job
 import kotlin.random.Random
 
 
 class SignUpActivity : AppCompatActivity() {
+
+    var UserSendJob: Job? = null
 
     private lateinit var auth: FirebaseAuth
     private var binding: ActivitySignupBinding? = null

@@ -183,7 +183,8 @@ class LoginActivity : AppCompatActivity() {
                                     val idToken: String? = task.getResult()?.getToken()
                                     Log.d(TAG,idToken!!)
                                     token = idToken
-                                    viewModel.signIn(idToken!!)
+                                    Log.d("CheckSignInFaceBook",idToken)
+                                    viewModel.signUp(idToken!!)
                                     // Send token to your backend via HTTPS
                                     // ...
                                 } else {
@@ -225,7 +226,7 @@ class LoginActivity : AppCompatActivity() {
                                     Log.d(TAG,idToken!!)
                                     token = idToken
                                     Log.d("CheckSignIn",idToken!!)
-                                    viewModel.signIn(idToken!!)
+                                    viewModel.signUp(idToken!!)
                                     // Send token to your backend via HTTPS
                                     // ...
                                 } else {

@@ -1,13 +1,21 @@
 package com.kosalaamInc.kosalaam.feature.signUp
 
 import android.text.Editable
+import android.util.Log
 import androidx.lifecycle.*
+import com.kosalaamInc.kosalaam.repository.UserRepository
 import com.kosalaamInc.kosalaam.util.Event
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
 
 //add email textchange?
 class SignUpViewModel : ViewModel() {
+
+    var UserSendJob: Job? = null
 
     companion object {
         var click: Int = 0
@@ -21,6 +29,26 @@ class SignUpViewModel : ViewModel() {
         var passWordText2 : String? = null
         var getEmail : String? = null
         var getPassword : String? = null
+    }
+
+    fun signIn(token : String){
+        var checkSuccess : Boolean = false
+        UserSendJob = CoroutineScope(Dispatchers.IO).launch {
+//            try{
+            UserRepository().signIn("Bearer " +token)?.let{ response ->
+                if(response.isSuccessful){
+                    checkSuccess= true
+                    Log.d("CheckSignIn","Success")
+                }
+                Log.d("CheckSignIn","1"+response.message().toString())
+                Log.d("CheckSignIn",response.code().toString())
+            }
+//            }
+//            catch(e : Throwable){
+//                Log.d("CheckSignIn",e.message.toString())
+//            }
+        }
+        Log.d("CheckSignIn","fail")
     }
 
     private val emailValidation =

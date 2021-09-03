@@ -12,10 +12,10 @@ interface KosalaamAPI {
     fun getUser(@Header("Authorization") authorization : String ,@Path("uid") uid : String)
 
     @POST("/api/auth")
-    fun login(@Header("Authorization") authorization : String)
+    fun signIn(@Header("Authorization") authorization : String)
 
     @POST("/api/auth/new")
-    suspend fun signIn(@Header("Authorization") authorization : String) :Response<SignInResponse>
+    suspend fun signUp(@Header("Authorization") authorization : String) :Response<SignInResponse>
 
     // restaurant list
     @GET("/api/restaurant")

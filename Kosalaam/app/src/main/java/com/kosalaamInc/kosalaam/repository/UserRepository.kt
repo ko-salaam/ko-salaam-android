@@ -7,5 +7,5 @@ class UserRepository {
 
     fun sendUser(token: String,query : String) = userClient.getUser(token,query)
 
-    suspend fun signIn(token : String) = userClient.signIn(token)
+    suspend fun signUp(token : String) = userClient.signUp(token)
 }

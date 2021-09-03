@@ -27,11 +27,11 @@ class LoginViewModel : ViewModel(){
     val facebook_Bt: LiveData<Event<Boolean>> get() = _facebookBt
     val google_Bt: LiveData<Event<Boolean>> get() = _googleBt
 
-    fun signIn(token : String){
+    fun signUp(token : String){
         var checkSuccess : Boolean = false
         UserSendJob = CoroutineScope(Dispatchers.IO).launch {
 //            try{
-                UserRepository().signIn("Bearer " +token)?.let{ response ->
+                UserRepository().signUp("Bearer " +token)?.let{ response ->
                     if(response.isSuccessful){
                         checkSuccess= true
                         Log.d("CheckSignIn","Success")
