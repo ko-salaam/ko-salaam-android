@@ -13,13 +13,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.util.SendMailVerification
 import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
+import com.kosalaamInc.kosalaam.feature.login.LoginActivity
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
 import kotlinx.coroutines.Job
 import kotlin.random.Random
@@ -65,6 +69,17 @@ class SignUpActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     Log.d(TAG, "createUserWithEmail:success")
                     val user = auth.currentUser
+                    user!!.getIdToken(true)
+                        .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                            override fun onComplete(task: Task<GetTokenResult?>) {
+                                if (task.isSuccessful()) {
+                                    val idToken: String? = task.getResult()?.getToken()
+                                    viewModel.signIn(idToken!!)
+                                } else {
+                                    // Handle error -> task.getException();
+                                }
+                            }
+                        })
                     startActivity(Intent(this,LoginInActivity::class.java))
 
                 } else {

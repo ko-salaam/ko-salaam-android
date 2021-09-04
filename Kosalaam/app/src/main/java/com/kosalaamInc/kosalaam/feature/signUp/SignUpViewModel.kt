@@ -35,7 +35,7 @@ class SignUpViewModel : ViewModel() {
         var checkSuccess : Boolean = false
         UserSendJob = CoroutineScope(Dispatchers.IO).launch {
 //            try{
-            UserRepository().signIn("Bearer " +token)?.let{ response ->
+            UserRepository().signUp("Bearer " +token)?.let{ response ->
                 if(response.isSuccessful){
                     checkSuccess= true
                     Log.d("CheckSignIn","Success")

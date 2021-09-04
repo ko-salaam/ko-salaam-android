@@ -174,8 +174,9 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
+                    var user = auth.currentUser
                     var token : String? = null
+                    Log.d("CheckFaceboodToken",token!!)
                     user!!.getIdToken(true)
                         .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
                             override fun onComplete(task: Task<GetTokenResult?>) {
@@ -183,13 +184,10 @@ class LoginActivity : AppCompatActivity() {
                                     val idToken: String? = task.getResult()?.getToken()
                                     Log.d(TAG,idToken!!)
                                     token = idToken
-                                    Log.d("CheckSignInFaceBook",idToken)
                                     viewModel.signUp(idToken!!)
-                                    // Send token to your backend via HTTPS
-                                    // ...
                                 } else {
-                                    // Handle error -> task.getException();
                                     token = null
+                                    user = null
                                 }
                             }
                         })
@@ -214,8 +212,6 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
                     var token : String? = null
                     user!!.getIdToken(true)
@@ -223,19 +219,16 @@ class LoginActivity : AppCompatActivity() {
                             override fun onComplete(task: Task<GetTokenResult?>) {
                                 if (task.isSuccessful()) {
                                     val idToken: String? = task.getResult()?.getToken()
-                                    Log.d(TAG,idToken!!)
-                                    token = idToken
                                     Log.d("CheckSignIn",idToken!!)
                                     viewModel.signUp(idToken!!)
                                     // Send token to your backend via HTTPS
                                     // ...
                                 } else {
                                     // Handle error -> task.getException();
-                                    token = null
                                 }
                             }
                         })
-                    updateUI(user)
+
                 } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
@@ -251,26 +244,6 @@ class LoginActivity : AppCompatActivity() {
             // how to show
         }
 
-    }
-    fun getUserToken(user: FirebaseUser?) : String?{
-        var token : String? = null
-        user!!.getIdToken(true)
-            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
-                override fun onComplete(task: Task<GetTokenResult?>) {
-                    if (task.isSuccessful()) {
-                        val idToken: String? = task.getResult()?.getToken()
-                        Log.d("LoginFacebook",idToken!!)
-                        token = idToken
-                        // Send token to your backend via HTTPS
-                        // ...
-                    } else {
-                        Log.d("LoginFacebook","error")
-                        // Handle error -> task.getException();
-                        token = null
-                    }
-                }
-            })
-        return token
     }
 
 }

@@ -22,31 +22,29 @@ class LoginViewModel : ViewModel(){
     private val _facebookBt = MutableLiveData<Event<Boolean>>()
     private val _googleBt = MutableLiveData<Event<Boolean>>()
 
+    private val _signUpBoolean = MutableLiveData<Boolean>()
+
     val signIn_Bt: LiveData<Event<Boolean>> get() = _signInBt
     val signUp_Bt: LiveData<Event<Boolean>> get() = _signUpBt
     val facebook_Bt: LiveData<Event<Boolean>> get() = _facebookBt
     val google_Bt: LiveData<Event<Boolean>> get() = _googleBt
+    val signUpBoolean : LiveData<Boolean> get() = _signUpBoolean
 
     fun signUp(token : String){
-        var checkSuccess : Boolean = false
         UserSendJob = CoroutineScope(Dispatchers.IO).launch {
-//            try{
                 UserRepository().signUp("Bearer " +token)?.let{ response ->
                     if(response.isSuccessful){
-                        checkSuccess= true
                         Log.d("CheckSignIn","Success")
+                        _signUpBoolean.value=true
                     }
-                    Log.d("CheckSignIn","1"+response.message().toString())
-                    Log.d("CheckSignIn",response.code().toString())
-                }
-//            }
-//            catch(e : Throwable){
-//                Log.d("CheckSignIn",e.message.toString())
-//            }
-        }
-        Log.d("CheckSignIn","fail")
-    }
+                    else{
 
+                    }
+                    Log.d("CheckSignIn",response.code().toString())
+                    _signUpBoolean.value=false
+                }
+        }
+    }
 
     fun onSignInBtEvent(){
         _signInBt.value = Event(true)
