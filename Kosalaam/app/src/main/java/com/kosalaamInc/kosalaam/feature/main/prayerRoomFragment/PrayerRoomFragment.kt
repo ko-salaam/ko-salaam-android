@@ -80,6 +80,7 @@ class PrayerRoomFragment : Fragment(),MapView.MapViewEventListener{
         mapView = MapView(context)
         mapViewContainer = binding!!.searchMapview
         mapView.setMapViewEventListener(this)
+
     }
 
     private fun addTestPOIItem(i : Int){

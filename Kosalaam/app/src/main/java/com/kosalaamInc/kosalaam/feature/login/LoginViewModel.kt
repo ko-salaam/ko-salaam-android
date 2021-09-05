@@ -35,13 +35,13 @@ class LoginViewModel : ViewModel(){
                 UserRepository().signUp("Bearer " +token)?.let{ response ->
                     if(response.isSuccessful){
                         Log.d("CheckSignIn","Success")
-                        _signUpBoolean.value=true
+                        _signUpBoolean.postValue(true)
                     }
                     else{
 
                     }
                     Log.d("CheckSignIn",response.code().toString())
-                    _signUpBoolean.value=false
+                    _signUpBoolean.postValue(false)
                 }
         }
     }
