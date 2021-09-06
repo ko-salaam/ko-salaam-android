@@ -1,6 +1,9 @@
 package com.kosalaamInc.kosalaam.feature.signUp
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.text.method.PasswordTransformationMethod
@@ -16,6 +19,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GetTokenResult
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -25,6 +29,7 @@ import com.kosalaamInc.kosalaam.util.SendMailVerification
 import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
 import com.kosalaamInc.kosalaam.feature.login.LoginActivity
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
+import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import kotlinx.coroutines.Job
 import kotlin.random.Random
 
@@ -67,27 +72,46 @@ class SignUpActivity : AppCompatActivity() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    Log.d(TAG, "createUserWithEmail:success")
-                    val user = auth.currentUser
-                    user!!.getIdToken(true)
-                        .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
-                            override fun onComplete(task: Task<GetTokenResult?>) {
-                                if (task.isSuccessful()) {
-                                    val idToken: String? = task.getResult()?.getToken()
-                                    viewModel.signIn(idToken!!)
-                                } else {
-                                    // Handle error -> task.getException();
+                    // Sign in success, update UI with the signed-in user's information
+                    val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
+                    var user = auth.currentUser
+                    if (isNew == true) {
+                        var token: String? = null
+                        user!!.getIdToken(true)
+                            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                                override fun onComplete(task: Task<GetTokenResult?>) {
+                                    if (task.isSuccessful()) {
+                                        val idToken: String? = task.getResult()?.getToken()
+                                        Log.d(TAG, idToken!!)
+                                        token = idToken
+                                        try {
+                                            viewModel.signUp(idToken!!)
+                                            initSignUpObserve(user)
+                                        } catch (t: Throwable) {
+                                            deleteUser(user!!)
+                                            //Toast message
+                                        }
+
+                                    } else {
+                                        //Toast message
+                                        deleteUser(user!!)
+                                    }
                                 }
-                            }
-                        })
-                    startActivity(Intent(this,LoginInActivity::class.java))
+                            })
+                    } else {
+                        updateUI(user)
+                    }
+                    Log.d(TAG, "signInWithCredential:success")
 
                 } else {
                     // If sign in fails, display a message to the user.
-                    Log.w(TAG, "createUserWithEmail:failure", task.exception)
-                    Toast.makeText(baseContext, "already in use by another account",
-                        Toast.LENGTH_SHORT).show()
-
+                    Log.w(TAG, "signInWithCredential:failure", task.exception)
+                    Toast.makeText(
+                        baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                    auth.signOut()
+                    updateUI(null)
                 }
             }
         // [END create_user_with_email]
@@ -249,6 +273,7 @@ class SignUpActivity : AppCompatActivity() {
         SignUpViewModel.passWordCheck2 = false
         binding = null
     }
+
     private fun createEmailCode() {
         EmailverifyCode=""
         val codelist = listOf<String>("0","1","2","3","4","5","6","7","8","9")
@@ -256,6 +281,42 @@ class SignUpActivity : AppCompatActivity() {
             val random  = Random.nextInt(10)
             EmailverifyCode += codelist[random]
         }
+    }
+
+    private fun updateUI(user: FirebaseUser?) {
+        if (user != null) {
+            startActivity(Intent(this, LoginInActivity::class.java))
+        } else {
+            // how to show
+        }
+    }
+
+    @Suppress("DEPRECATION")
+    private fun checkInternet(): Boolean {
+        val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        return isConnected
+    }
+
+    private fun initSignUpObserve(user: FirebaseUser?) {
+        viewModel.signUpBoolean.observe(this, Observer<Boolean> {
+            Log.d("CheckBoolean", it.toString())
+            if (it == true) {
+                updateUI(user)
+            } else {
+                deleteUser(user!!)
+            }
+        })
+    }
+
+    private fun deleteUser(user: FirebaseUser?) {
+        user!!.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(LoginActivity.TAG, "User account deleted.")
+                }
+            }
     }
 
 }

@@ -33,15 +33,17 @@ class LoginViewModel : ViewModel(){
     fun signUp(token : String){
         UserSendJob = CoroutineScope(Dispatchers.IO).launch {
                 UserRepository().signUp("Bearer " +token)?.let{ response ->
-                    if(response.isSuccessful){
-                        Log.d("CheckSignIn","Success")
-                        _signUpBoolean.postValue(true)
-                    }
-                    else{
+                        if(response.isSuccessful){
+                            Log.d("CheckSignUp","Success")
+                            if(response.code().toString()=="200"){
+                                _signUpBoolean.postValue(true)
+                            }
+                        }
+                        else{
+                            _signUpBoolean.postValue(false)
+                        }
+                        Log.d("CheckSignUp",response.code().toString())
 
-                    }
-                    Log.d("CheckSignIn",response.code().toString())
-                    _signUpBoolean.postValue(false)
                 }
         }
     }

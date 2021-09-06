@@ -38,7 +38,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private var binding: ActivityLoginBinding? = null
-
     private val RC_SIGN_IN = 9001
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -52,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         LoginManager.getInstance().logOut()
         auth = Firebase.auth
-
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
             this, R.layout.activity_login
         ).apply {
@@ -203,12 +201,14 @@ class LoginActivity : AppCompatActivity() {
                                         try {
                                             viewModel.signUp(idToken!!)
                                             initSignUpObserve(user)
-                                        }
-                                        catch (t : Throwable){
-
+                                        } catch (t: Throwable) {
+                                            deleteUser(user!!)
+                                            //Toast message
                                         }
 
                                     } else {
+                                        //Toast message
+                                        deleteUser(user!!)
                                     }
                                 }
                             })
@@ -218,7 +218,6 @@ class LoginActivity : AppCompatActivity() {
                     Log.d(TAG, "signInWithCredential:success")
 
                 } else {
-
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
@@ -238,22 +237,35 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {
                     val user = auth.currentUser
                     var token: String? = null
-                    user!!.getIdToken(true)
-                        .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
-                            override fun onComplete(task: Task<GetTokenResult?>) {
-                                if (task.isSuccessful()) {
-                                    val idToken: String? = task.getResult()?.getToken()
-                                    Log.d("CheckSignIn", idToken!!)
-                                    viewModel.signUp(idToken!!)
-                                    // Send token to your backend via HTTPS
-                                    // ...
-                                } else {
-                                    // Handle error -> task.getException();
+                    val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
+                    if (isNew == true) {
+                        var token: String? = null
+                        user!!.getIdToken(true)
+                            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                                override fun onComplete(task: Task<GetTokenResult?>) {
+                                    if (task.isSuccessful()) {
+                                        val idToken: String? = task.getResult()?.getToken()
+                                        Log.d(TAG, idToken!!)
+                                        token = idToken
+                                        try {
+                                            viewModel.signUp(idToken!!)
+                                            initSignUpObserve(user)
+                                        } catch (t: Throwable) {
+                                            deleteUser(user!!)
+                                            //Toast message
+                                        }
+
+                                    } else {
+                                        //toast message
+                                        deleteUser(user!!)
+                                    }
                                 }
-                            }
-                        })
+                            })
+                    } else {
+                        updateUI(user)
+                    }
                 } else {
-                    // If sign in fails, display a message to the user.
+                    // Toast message
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     updateUI(null)
                 }
@@ -266,7 +278,6 @@ class LoginActivity : AppCompatActivity() {
         } else {
             // how to show
         }
-
     }
 
     @Suppress("DEPRECATION")
@@ -277,16 +288,24 @@ class LoginActivity : AppCompatActivity() {
         return isConnected
     }
 
-    private fun initSignUpObserve(user: FirebaseUser?){
-        viewModel.signUpBoolean.observe(this, Observer {
-            Log.d("CheckBoolean",it.toString())
-            if(it==true){
+    private fun initSignUpObserve(user: FirebaseUser?) {
+        viewModel.signUpBoolean.observe(this, Observer<Boolean> {
+            Log.d("CheckBoolean", it.toString())
+            if (it == true) {
                 updateUI(user)
-            }
-            else{
-
+            } else {
+                deleteUser(user!!)
             }
         })
+    }
+
+    private fun deleteUser(user: FirebaseUser?) {
+        user!!.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User account deleted.")
+                }
+            }
     }
 
 }
