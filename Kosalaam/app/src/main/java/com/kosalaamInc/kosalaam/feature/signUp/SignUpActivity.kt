@@ -101,6 +101,10 @@ class SignUpActivity : AppCompatActivity() {
                     } else {
                         updateUI(user)
                     }
+                    Toast.makeText(
+                        baseContext, "Sign Up Success.",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     Log.d(TAG, "signInWithCredential:success")
 
                 } else {
