@@ -1,6 +1,9 @@
 package com.kosalaamInc.kosalaam.feature.login
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
@@ -30,12 +33,11 @@ import java.util.*
 
 class LoginActivity : AppCompatActivity() {
 
-    companion object{
+    companion object {
         val TAG = "loginActivity"
     }
 
     private var binding: ActivityLoginBinding? = null
-
     private val RC_SIGN_IN = 9001
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
@@ -49,7 +51,6 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         LoginManager.getInstance().logOut()
         auth = Firebase.auth
-
         binding = DataBindingUtil.setContentView<ActivityLoginBinding>(
             this, R.layout.activity_login
         ).apply {
@@ -79,12 +80,26 @@ class LoginActivity : AppCompatActivity() {
             })
             facebook_Bt.observe(this@LoginActivity, Observer {
                 it.getContentIfNotHandled()?.let {
-                    facebookBtInit()
+                    if (checkInternet() == true) {
+                        facebookBtInit()
+                    } else {
+                        Toast.makeText(this@LoginActivity,
+                            "Check your Internet",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             })
             google_Bt.observe(this@LoginActivity, Observer {
                 it.getContentIfNotHandled()?.let {
-                    googleBtInit()
+                    if (checkInternet() == true) {
+                        googleBtInit()
+                    } else {
+                        Toast.makeText(this@LoginActivity,
+                            "Check your Internet",
+                            Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             })
         }
@@ -144,7 +159,6 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-
     private fun facebookLogin() {
         LoginManager.getInstance()
             .logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
@@ -173,29 +187,37 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
-                    val user = auth.currentUser
-                    var token : String? = null
-                    user!!.getIdToken(true)
-                        .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
-                            override fun onComplete(task: Task<GetTokenResult?>) {
-                                if (task.isSuccessful()) {
-                                    val idToken: String? = task.getResult()?.getToken()
-                                    Log.d(TAG,idToken!!)
-                                    token = idToken
-                                    Log.d("CheckSignInFaceBook",idToken)
-                                    viewModel.signUp(idToken!!)
-                                    // Send token to your backend via HTTPS
-                                    // ...
-                                } else {
-                                    // Handle error -> task.getException();
-                                    token = null
-                                }
-                            }
-                        })
-                    updateUI(user)
-                } else {
+                    val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
+                    var user = auth.currentUser
+                    if (isNew == true) {
+                        var token: String? = null
+                        user!!.getIdToken(true)
+                            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                                override fun onComplete(task: Task<GetTokenResult?>) {
+                                    if (task.isSuccessful()) {
+                                        val idToken: String? = task.getResult()?.getToken()
+                                        Log.d(TAG, idToken!!)
+                                        token = idToken
+                                        try {
+                                            viewModel.signUp(idToken!!)
+                                            initSignUpObserve(user)
+                                        } catch (t: Throwable) {
+                                            deleteUser(user!!)
+                                            //Toast message
+                                        }
 
+                                    } else {
+                                        //Toast message
+                                        deleteUser(user!!)
+                                    }
+                                }
+                            })
+                    } else {
+                        updateUI(user)
+                    }
+                    Log.d(TAG, "signInWithCredential:success")
+
+                } else {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
@@ -213,64 +235,77 @@ class LoginActivity : AppCompatActivity() {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-                    val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
-                    // Sign in success, update UI with the signed-in user's information
-                    Log.d(TAG, "signInWithCredential:success")
                     val user = auth.currentUser
-                    var token : String? = null
-                    user!!.getIdToken(true)
-                        .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
-                            override fun onComplete(task: Task<GetTokenResult?>) {
-                                if (task.isSuccessful()) {
-                                    val idToken: String? = task.getResult()?.getToken()
-                                    Log.d(TAG,idToken!!)
-                                    token = idToken
-                                    Log.d("CheckSignIn",idToken!!)
-                                    viewModel.signUp(idToken!!)
-                                    // Send token to your backend via HTTPS
-                                    // ...
-                                } else {
-                                    // Handle error -> task.getException();
-                                    token = null
+                    var token: String? = null
+                    val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
+                    if (isNew == true) {
+                        var token: String? = null
+                        user!!.getIdToken(true)
+                            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                                override fun onComplete(task: Task<GetTokenResult?>) {
+                                    if (task.isSuccessful()) {
+                                        val idToken: String? = task.getResult()?.getToken()
+                                        Log.d(TAG, idToken!!)
+                                        token = idToken
+                                        try {
+                                            viewModel.signUp(idToken!!)
+                                            initSignUpObserve(user)
+                                        } catch (t: Throwable) {
+                                            deleteUser(user!!)
+                                            //Toast message
+                                        }
+
+                                    } else {
+                                        //toast message
+                                        deleteUser(user!!)
+                                    }
                                 }
-                            }
-                        })
-                    updateUI(user)
+                            })
+                    } else {
+                        updateUI(user)
+                    }
                 } else {
-                    // If sign in fails, display a message to the user.
+                    // Toast message
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     updateUI(null)
                 }
             }
     }
-    fun updateUI(user: FirebaseUser?){
-        if(user!= null){
+
+    private fun updateUI(user: FirebaseUser?) {
+        if (user != null) {
             startActivity(Intent(this, MainActivity::class.java))
-        }
-        else{
+        } else {
             // how to show
         }
-
     }
-    fun getUserToken(user: FirebaseUser?) : String?{
-        var token : String? = null
-        user!!.getIdToken(true)
-            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
-                override fun onComplete(task: Task<GetTokenResult?>) {
-                    if (task.isSuccessful()) {
-                        val idToken: String? = task.getResult()?.getToken()
-                        Log.d("LoginFacebook",idToken!!)
-                        token = idToken
-                        // Send token to your backend via HTTPS
-                        // ...
-                    } else {
-                        Log.d("LoginFacebook","error")
-                        // Handle error -> task.getException();
-                        token = null
-                    }
+
+    @Suppress("DEPRECATION")
+    private fun checkInternet(): Boolean {
+        val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        return isConnected
+    }
+
+    private fun initSignUpObserve(user: FirebaseUser?) {
+        viewModel.signUpBoolean.observe(this, Observer<Boolean> {
+            Log.d("CheckBoolean", it.toString())
+            if (it == true) {
+                updateUI(user)
+            } else {
+                deleteUser(user!!)
+            }
+        })
+    }
+
+    private fun deleteUser(user: FirebaseUser?) {
+        user!!.delete()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    Log.d(TAG, "User account deleted.")
                 }
-            })
-        return token
+            }
     }
 
 }

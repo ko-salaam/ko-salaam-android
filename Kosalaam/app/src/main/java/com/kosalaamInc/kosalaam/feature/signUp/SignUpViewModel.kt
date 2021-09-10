@@ -17,6 +17,8 @@ class SignUpViewModel : ViewModel() {
 
     var UserSendJob: Job? = null
 
+
+
     companion object {
         var click: Int = 0
         var emailCheck: Boolean = false
@@ -31,25 +33,7 @@ class SignUpViewModel : ViewModel() {
         var getPassword : String? = null
     }
 
-    fun signIn(token : String){
-        var checkSuccess : Boolean = false
-        UserSendJob = CoroutineScope(Dispatchers.IO).launch {
-//            try{
-            UserRepository().signIn("Bearer " +token)?.let{ response ->
-                if(response.isSuccessful){
-                    checkSuccess= true
-                    Log.d("CheckSignIn","Success")
-                }
-                Log.d("CheckSignIn","1"+response.message().toString())
-                Log.d("CheckSignIn",response.code().toString())
-            }
-//            }
-//            catch(e : Throwable){
-//                Log.d("CheckSignIn",e.message.toString())
-//            }
-        }
-        Log.d("CheckSignIn","fail")
-    }
+
 
     private val emailValidation =
         "^[_A-Za-z0-9-]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$"
@@ -80,6 +64,27 @@ class SignUpViewModel : ViewModel() {
 
     fun onAlreayBtClickEvent(){
         _alreadyBtEvent.value = Event(true)
+    }
+
+    private val _signUpBoolean = MutableLiveData<Boolean>()
+    val signUpBoolean : LiveData<Boolean> get() = _signUpBoolean
+
+    fun signUp(token : String){
+        UserSendJob = CoroutineScope(Dispatchers.IO).launch {
+            UserRepository().signUp("Bearer " +token)?.let{ response ->
+                if(response.isSuccessful){
+                    Log.d("CheckSignUp","Success")
+                    if(response.code().toString()=="200"){
+                        _signUpBoolean.postValue(true)
+                    }
+                }
+                else{
+                    _signUpBoolean.postValue(false)
+                }
+                Log.d("CheckSignUp",response.code().toString())
+
+            }
+        }
     }
 
 

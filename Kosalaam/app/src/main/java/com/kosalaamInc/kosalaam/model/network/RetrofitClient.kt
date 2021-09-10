@@ -15,6 +15,7 @@ object RetrofitClient{
 
     private val retrofit : Retrofit = Retrofit.Builder()
         .baseUrl(Application.BASE_URL)
+        .addConverterFactory(NullOnEmptyConverterFactory())
         .addConverterFactory(GsonConverterFactory.create())
 //        .client(client)
         .build()

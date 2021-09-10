@@ -1,5 +1,6 @@
 package com.kosalaamInc.kosalaam.util
 
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -44,10 +45,8 @@ class SendMailVerification{
         message.setText(body)
 
         // 전송
-        GlobalScope.launch(Dispatchers.IO) {
-            launch {
-                Transport.send(message)
-            }
+        CoroutineScope(Dispatchers.IO).launch {
+            Transport.send(message)
         }
 
     }

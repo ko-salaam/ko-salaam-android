@@ -31,5 +31,18 @@
     <string name="main_magazine_food">food</string>
     <string name="main_magazine_kpop">K-POP</string>
     <string name="main_top_rate_magazine">Top-rated Prayer Room</string>
+    <string name="search_recent">Recent Search</string>
+    <string name="search_searchHint">Search Place</string>
+    <string name="search_default">Search a Place or address</string>
+    <string name="search_redo">Redo Search in This Area</string>
+    <string name="restaurantInfo_affinity">Affinity</string>
+    <string name="restaurantInfo_contact">Contact</string>
+    <string name="restaurantInfo_openTime">Open Time</string>
+    <string name="restaurantInfo_parkable">Parkable</string>
+    <string name="restaurantInfo_gallery">Gallery</string>
+    <string name="restaurantInfo_map">Map</string>
+    <string name="restaurantInfo_review">Review</string>
+
+
     
 </resources>
