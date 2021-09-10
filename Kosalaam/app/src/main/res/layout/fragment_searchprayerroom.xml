@@ -1,145 +1,236 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
     <data>
+
         <variable
             name="prayerRoomVm"
             type="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomViewModel" />
     </data>
-    <FrameLayout
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
-            android:visibility="invisible"
-            android:id="@+id/search_mapview"
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:tools="http://schemas.android.com/tools"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment">
-        </RelativeLayout>
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:visibility="visible"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"/>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:background="@android:color/transparent"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:elevation="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:background="@drawable/search_back"
-                android:layout_marginTop="42.4dp"
-                app:layout_constraintWidth_percent="0.861"
-                app:layout_constraintHeight_percent="0.0625"
-                app:layout_constraintTop_toTopOf="parent"
+            <FrameLayout
+                android:id="@+id/fl_search"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:focusableInTouchMode="true">
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    xmlns:tools="http://schemas.android.com/tools"
+                    android:id="@+id/search_mapview"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    tools:context="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment"></RelativeLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_search_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/white"
+                    android:visibility="invisible" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_search_search"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="42.4dp"
+                        android:background="@drawable/search_back"
+                        android:clickable="true"
+                        android:elevation="12dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        app:layout_constraintHeight_percent="0.0625"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.861">
+
+                        <View
+                            android:id="@+id/view_search_1"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.048" />
+
+                        <ImageView
+                            android:id="@+id/iv_search_back"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:onClick="@{() -> prayerRoomVm.onBack1Event()}"
+                            android:src="@drawable/back_arrow"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/view_search_1"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.0309" />
+
+                        <View
+                            android:id="@+id/view_search_2"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.048" />
+
+                        <ImageView
+                            android:id="@+id/iv_search_filter"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/search_filter"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/view_search_2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.0567" />
+
+                        <View
+                            android:id="@+id/view_search_3"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/iv_search_back"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.048" />
+
+                        <View
+                            android:id="@+id/view_search_4"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/iv_search_filter"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.048" />
+
+                        <EditText
+                            android:onEditorAction="@{(view, actionId, event) -> prayerRoomVm.searchKey(view, actionId, event)}"
+                            android:id="@+id/et_search_searchEdit"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="@null"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:hint="@string/search_searchHint"
+                            android:imeOptions="actionSearch"
+                            android:inputType="text"
+                            android:onFocusChange="@{() -> prayerRoomVm.onFocusEvent()}"
+                            android:textColor="#191919"
+                            android:textCursorDrawable="@drawable/edittext_cursor"
+                            android:textSize="12sp"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintLeft_toRightOf="@id/view_search_3"
+                            app:layout_constraintRight_toLeftOf="@id/view_search_4"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <ImageView
+                        android:id="@+id/iv_search_currentLocation"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:clickable="true"
+                        android:elevation="12dp"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:src="@drawable/current_location"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintWidth_percent="0.11">
+
+                    </ImageView>
+
+                    <TextView
+                        android:id="@+id/tv_search_recent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/search_recent"
+                        android:textColor="#999999"
+                        android:textSize="8sp"
+                        android:visibility="invisible"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/cl_search_search" />
+
+                    <ImageView
+                        android:id="@+id/iv_search_default"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="25dp"
+                        android:src="@drawable/search_error"
+                        android:visibility="invisible"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_recent"
+                        app:layout_constraintWidth_percent="0.11" />
+
+                    <TextView
+                        android:id="@+id/tv_search_default"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/search_default"
+                        android:textColor="#999999"
+                        android:textSize="12sp"
+                        android:visibility="invisible"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/iv_search_default" />
+
+                    <androidx.coordinatorlayout.widget.CoordinatorLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent">
+
+                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </FrameLayout>
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:visibility="gone"
+            android:id="@+id/search_bottomSheet"
+            android:layout_width="match_parent"
+            android:layout_height="539.6dp"
+            android:background="@drawable/bottomsheet_back"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            app:behavior_hideable="false"
+            app:behavior_peekHeight="50dp"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
+
+            <View
+                android:layout_width="40dp"
+                android:layout_height="2.4dp"
+                android:layout_marginTop="11.6dp"
+                android:background="@drawable/bottomsheet_miniback"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                android:layout_width="0dp"
-                android:layout_height="0dp">
-
-                <View
-                    android:id="@+id/view_search_1"
-                    app:layout_constraintWidth_percent="0.048"
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
-
-                <ImageView
-                    android:id="@+id/iv_search_back"
-                    android:src="@drawable/back_arrow"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintLeft_toRightOf="@id/view_search_1"
-                    app:layout_constraintWidth_percent="0.0309"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-                <View
-                    android:id="@+id/view_search_2"
-                    app:layout_constraintWidth_percent="0.048"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toRightOf="parent"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
-                <ImageView
-                    android:id="@+id/iv_search_filter"
-                    app:layout_constraintWidth_percent="0.0567"
-                    android:src="@drawable/search_filter"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/view_search_2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-                <View
-                    android:id="@+id/view_search_3"
-                    app:layout_constraintLeft_toRightOf="@id/iv_search_back"
-                    app:layout_constraintWidth_percent="0.048"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
-                <View
-                    android:id="@+id/view_search_4"
-                    app:layout_constraintRight_toLeftOf="@id/iv_search_filter"
-                    app:layout_constraintWidth_percent="0.048"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"/>
-
-                <EditText
-
-                    android:textCursorDrawable="@drawable/edittext_cursor"
-                    android:background="@null"
-                    android:inputType="text"
-                    android:imeOptions="actionSearch"
-                    android:fontFamily="@font/montserrat_medium"
-                    android:textSize="12sp"
-                    android:textColor="#191919"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintRight_toLeftOf="@id/view_search_4"
-                    app:layout_constraintLeft_toRightOf="@id/view_search_3"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
-
-
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <ImageView
-                android:id="@+id/iv_search_currentLocation"
-                android:elevation="12dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:focusableInTouchMode="true"
-                android:src="@drawable/current_location"
-                app:layout_constraintDimensionRatio="H,1:1"
-                app:layout_constraintWidth_percent="0.11"
-                android:layout_marginRight="25dp"
-                android:layout_marginBottom="78dp"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_width="0dp"
-                android:layout_height="0dp">
-
-            </ImageView>
-
+                app:layout_constraintTop_toTopOf="parent" />
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-    </FrameLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 </layout>
