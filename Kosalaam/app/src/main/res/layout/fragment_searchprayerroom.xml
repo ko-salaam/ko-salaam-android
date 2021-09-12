@@ -99,6 +99,15 @@
                             app:layout_constraintRight_toLeftOf="@id/view_search_2"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintWidth_percent="0.0567" />
+                        <ImageView
+                            android:visibility="gone"
+                            android:id="@+id/iv_search_cancel"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintRight_toLeftOf="@id/view_search_2"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintWidth_percent="0.0567" />
 
                         <View
                             android:id="@+id/view_search_3"

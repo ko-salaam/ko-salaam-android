@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
+import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
@@ -32,6 +33,8 @@ import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
 class PrayerRoomFragment : Fragment(),MapView.MapViewEventListener{
+    private lateinit var callback: OnBackPressedCallback
+
     private lateinit var mapView : MapView
     private var binding : FragmentSearchprayerroomBinding? = null
     private lateinit var viewModel : PrayerRoomViewModel
@@ -277,5 +280,25 @@ class PrayerRoomFragment : Fragment(),MapView.MapViewEventListener{
 
     override fun onMapViewMoveFinished(p0: MapView?, p1: MapPoint?) {
 
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        callback = object : OnBackPressedCallback(true){
+            override fun handleOnBackPressed() {
+                if(displayStatus==3){
+                    changeDisplay(2)
+                }
+                else if(displayStatus==2){
+                    changeDisplay(1)
+
+                }
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+    override fun onDetach() {
+        super.onDetach()
+        callback.remove()
     }
 }
