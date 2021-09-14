@@ -53,6 +53,9 @@ dependencies {
     implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
 
+    implementation 'androidx.room:room-runtime:2.2.6'
+    kapt 'androidx.room:room-compiler:2.2.6'
+
     // viewmodel livedata
     def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
@@ -86,6 +89,7 @@ dependencies {
 
     // SSLHandshakeException: Handshake failed
     implementation 'org.conscrypt:conscrypt-android:2.5.0'
+
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'

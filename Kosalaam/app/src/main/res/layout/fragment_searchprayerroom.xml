@@ -30,7 +30,9 @@
                     android:id="@+id/search_mapview"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    tools:context="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment"></RelativeLayout>
+                    tools:context="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment">
+
+                </RelativeLayout>
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:id="@+id/cl_search_white"
@@ -99,11 +101,12 @@
                             app:layout_constraintRight_toLeftOf="@id/view_search_2"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintWidth_percent="0.0567" />
+
                         <ImageView
-                            android:visibility="gone"
                             android:id="@+id/iv_search_cancel"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintRight_toLeftOf="@id/view_search_2"
                             app:layout_constraintTop_toTopOf="parent"
@@ -128,7 +131,6 @@
                             app:layout_constraintWidth_percent="0.048" />
 
                         <EditText
-                            android:onEditorAction="@{(view, actionId, event) -> prayerRoomVm.searchKey(view, actionId, event)}"
                             android:id="@+id/et_search_searchEdit"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -137,6 +139,7 @@
                             android:hint="@string/search_searchHint"
                             android:imeOptions="actionSearch"
                             android:inputType="text"
+                            android:onEditorAction="@{(view, actionId, event) -> prayerRoomVm.searchKey(view, actionId, event)}"
                             android:onFocusChange="@{() -> prayerRoomVm.onFocusEvent()}"
                             android:textColor="#191919"
                             android:textCursorDrawable="@drawable/edittext_cursor"
@@ -147,6 +150,30 @@
                             app:layout_constraintTop_toTopOf="parent" />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_recent_search"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_search_recent"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <TextView
+                        android:onClick="@{() -> prayerRoomVm.onRecentDeleteEvent()}"
+                        android:id="@+id/tv_search_delete"
+                        android:clickable="true"
+                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:text="@string/search_deleteHistory"
+                        android:textColor="#419070"
+                        android:textSize="8sp"
+                        app:layout_constraintRight_toRightOf="@id/rv_recent_search"
+                        app:layout_constraintTop_toBottomOf="@id/rv_recent_search" />
 
                     <ImageView
                         android:id="@+id/iv_search_currentLocation"
@@ -165,6 +192,7 @@
                     </ImageView>
 
                     <TextView
+                        android:clickable="true"
                         android:id="@+id/tv_search_recent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -205,33 +233,26 @@
                         app:layout_constraintRight_toRightOf="parent"
                         app:layout_constraintTop_toBottomOf="@id/iv_search_default" />
 
-                    <androidx.coordinatorlayout.widget.CoordinatorLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent">
-
-                    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
             </FrameLayout>
         </LinearLayout>
-
+        <!-- bottom Sheet View-->
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:visibility="gone"
             android:id="@+id/search_bottomSheet"
             android:layout_width="match_parent"
             android:layout_height="539.6dp"
             android:background="@drawable/bottomsheet_back"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:visibility="visible"
             app:behavior_hideable="false"
             app:behavior_peekHeight="50dp"
             app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
             <View
+                android:id="@+id/view_search_5"
                 android:layout_width="40dp"
                 android:layout_height="2.4dp"
                 android:layout_marginTop="11.6dp"
@@ -239,6 +260,14 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/view_search_5" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
