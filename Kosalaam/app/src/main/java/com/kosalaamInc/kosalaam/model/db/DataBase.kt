@@ -8,7 +8,7 @@ import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 //import com.kosalaamInc.kosalaam.model.db.search.RecentSearch
 import com.kosalaamInc.kosalaam.model.db.search.RecentSearchDAO
 
-@Database(entities = [RecentSearchData::class], version = 1, exportSchema = false)
+@Database(entities = [RecentSearchData::class], version = 2, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun recentSearchDao(): RecentSearchDAO
 
@@ -23,7 +23,7 @@ abstract class AppDatabase : RoomDatabase() {
                         context.applicationContext,
                         AppDatabase::class.java,
                         "database-name"
-                    ).build()
+                    ).fallbackToDestructiveMigration().build()
                 }
             }
             return instance

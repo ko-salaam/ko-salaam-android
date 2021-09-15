@@ -5,13 +5,13 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.*
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.repository.RecentSearchRepository
 import com.kosalaamInc.kosalaam.util.Event
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 class PrayerRoomViewModel(application : Application) : AndroidViewModel(application){
 
@@ -60,7 +60,7 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
         return items
     }
     fun deleteAll(){
-
+        recentRepository.deleteAll()
     }
 
 

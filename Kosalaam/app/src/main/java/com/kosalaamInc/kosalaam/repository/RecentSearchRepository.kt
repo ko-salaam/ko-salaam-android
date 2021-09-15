@@ -28,6 +28,6 @@ class RecentSearchRepository(application: Application){
     }
 
     fun deleteAll()  {
-        recentList.value
+        recentSearchDao.deleteAll()
     }
 }

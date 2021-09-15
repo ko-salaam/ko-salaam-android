@@ -31,16 +31,17 @@ import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 import net.daum.android.map.MapViewEventListener
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
-class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener,OnItemClick {
+class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick {
 
     private lateinit var callback: OnBackPressedCallback
-    private lateinit var adapter : RecentSearchRvAdapter
+    private lateinit var adapter: RecentSearchRvAdapter
     private lateinit var mapView: MapView
     private var binding: FragmentSearchprayerroomBinding? = null
     private lateinit var viewModel: PrayerRoomViewModel
@@ -111,27 +112,30 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener,OnItemClick 
 
             searchKey_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
-                    changeDisplay(3)
                     hideKeyboard()
-                    lifecycleScope.launch(Dispatchers.IO){
-                        viewModel.insert(RecentSearchData(binding!!.etSearchSearchEdit.text.toString()))
+                    CoroutineScope(Dispatchers.Main).launch() {
+                        CoroutineScope(Dispatchers.IO).async {
+                            viewModel.insert(RecentSearchData(binding!!.etSearchSearchEdit.text.toString()))
+                        }
+                        changeDisplay(3)
                     }
                 }
             })
             recentDelete_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
+                    lifecycleScope.launch(Dispatchers.IO) {
+                        viewModel.deleteAll()
+                    }
                     binding!!.ivSearchDefault.visibility = View.VISIBLE
                     binding!!.tvSearchDefault.visibility = View.VISIBLE
                     binding!!.rvRecentSearch.visibility = View.GONE
+                    binding!!.tvSearchDelete.visibility = View.GONE
                     adapter.deleteList()
-                    binding!!.rvRecentSearch.adapter=adapter
+                    binding!!.rvRecentSearch.adapter = adapter
                     adapter.notifyDataSetChanged()
                     binding!!.rvRecentSearch.adapter!!.notifyDataSetChanged()
                 }
             })
-
-
-
         }
     }
 
@@ -149,6 +153,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener,OnItemClick 
             binding!!.flSearch.requestFocus()
             binding!!.searchBottomSheet.visibility = View.VISIBLE
             binding!!.rvRecentSearch.visibility = View.GONE
+            binding!!.tvSearchDelete.visibility = View.GONE
+
             hideKeyboard()
         } else if (status == 2) {
             displayStatus = 2
@@ -156,31 +162,45 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener,OnItemClick 
             binding!!.searchMapview.visibility = View.INVISIBLE
             binding!!.ivSearchCurrentLocation.visibility = View.INVISIBLE
             binding!!.tvSearchRecent.visibility = View.VISIBLE
-
             binding!!.searchBottomSheet.visibility = View.GONE
-            binding!!.tvSearchDelete.visibility=View.GONE
+            binding!!.tvSearchDelete.visibility = View.GONE
+            binding!!.rvRecentSearch.visibility = View.VISIBLE
+            binding!!.tvSearchDelete.visibility = View.VISIBLE
+            viewModel.getAll().observe(this@PrayerRoomFragment, Observer {
+                if (displayStatus == 2) {
+                    if (it.size == 0) {
+                        binding!!.ivSearchDefault.visibility = View.VISIBLE
+                        binding!!.tvSearchDefault.visibility = View.VISIBLE
+                        binding!!.rvRecentSearch.visibility = View.GONE
+                        binding!!.tvSearchDelete.visibility = View.GONE
+                    } else {
+                        adapter.setList(it)
+                        binding!!.tvSearchDefault.visibility = View.GONE
+                        binding!!.rvRecentSearch.adapter = adapter
+                        adapter.notifyDataSetChanged()
+                        binding!!.rvRecentSearch.adapter!!.notifyDataSetChanged()
+
+                    }
+                    Log.d(TAG, "This is getAll")
+                } else {
+                    binding!!.tvSearchRecent.visibility = View.INVISIBLE
+                    binding!!.ivSearchDefault.visibility = View.INVISIBLE
+                    binding!!.tvSearchDefault.visibility = View.INVISIBLE
+                    binding!!.clSearchWhite.visibility = View.INVISIBLE
+                    binding!!.searchMapview.visibility = View.VISIBLE
+                    binding!!.ivSearchCurrentLocation.visibility = View.VISIBLE
+                    binding!!.etSearchSearchEdit.clearFocus()
+                    binding!!.flSearch.requestFocus()
+                    binding!!.searchBottomSheet.visibility = View.VISIBLE
+                    binding!!.rvRecentSearch.visibility = View.GONE
+                    binding!!.tvSearchDelete.visibility = View.GONE
+                }
+            })
             //
 
-            viewModel.getAll().observe(this@PrayerRoomFragment, Observer {
-                if(it.size==0){
-                    binding!!.ivSearchDefault.visibility = View.VISIBLE
-                    binding!!.tvSearchDefault.visibility = View.VISIBLE
-                    binding!!.rvRecentSearch.visibility = View.GONE
-                }
-                else{
-                    adapter.setList(it)
-                    binding!!.ivSearchDefault.visibility = View.GONE
-                    binding!!.tvSearchDefault.visibility = View.GONE
-                    binding!!.rvRecentSearch.visibility = View.VISIBLE
-                    binding!!.rvRecentSearch.adapter=adapter
-                    adapter.notifyDataSetChanged()
-                    binding!!.rvRecentSearch.adapter!!.notifyDataSetChanged()
-                    binding!!.tvSearchDelete.visibility=View.VISIBLE
-                }
-                Log.d(TAG,"This is getAll")
 
-            })
         } else if (status == 3) {
+            Log.d(TAG,"This is 3status")
             displayStatus = 3
             binding!!.etSearchSearchEdit.clearFocus()
             binding!!.flSearch.requestFocus()
@@ -193,7 +213,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener,OnItemClick 
             binding!!.ivSearchCurrentLocation.visibility = View.VISIBLE
             binding!!.searchBottomSheet.visibility = View.VISIBLE
             binding!!.rvRecentSearch.visibility = View.GONE
-            binding!!.tvSearchDelete.visibility=View.GONE
+            binding!!.tvSearchDelete.visibility = View.GONE
 
         }
 
@@ -358,14 +378,14 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener,OnItemClick 
         callback.remove()
     }
 
-    fun initRecentRecyclerView(){
+    fun initRecentRecyclerView() {
         adapter = RecentSearchRvAdapter(this)
-        binding!!.rvRecentSearch.adapter= adapter
+        binding!!.rvRecentSearch.adapter = adapter
         binding!!.rvRecentSearch.layoutManager = LinearLayoutManager(this.activity)
     }
 
     override fun deleteRecent(recentSearch: RecentSearchData) {
-        lifecycleScope.launch(Dispatchers.IO){
+        lifecycleScope.launch(Dispatchers.IO) {
             viewModel.delete(recentSearch)
         }
     }

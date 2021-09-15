@@ -9,7 +9,7 @@ interface RecentSearchDAO {
     @Query ("SELECT * FROM RecentSearchData")
     fun getAll() : LiveData<List<RecentSearchData>>
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insert(recentSearch: RecentSearchData)
 
     @Delete
@@ -17,6 +17,9 @@ interface RecentSearchDAO {
 
     @Update
     fun update(recentSearch: RecentSearchData)
+
+    @Query("Delete FROM recentsearchdata")
+    fun deleteAll()
 
 
 
