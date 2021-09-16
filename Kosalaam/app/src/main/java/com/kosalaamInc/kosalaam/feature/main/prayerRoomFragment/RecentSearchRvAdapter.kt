@@ -12,8 +12,14 @@ import com.kosalaamInc.kosalaam.R.layout.recycler_item_recentsearch
 import com.kosalaamInc.kosalaam.databinding.RecyclerItemRecentsearchBinding
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 
-class RecentSearchRvAdapter(listener : OnItemClick) : RecyclerView.Adapter<RecentSearchRvAdapter.RecentViewHolder>(){
+class RecentSearchRvAdapter() : RecyclerView.Adapter<RecentSearchRvAdapter.RecentViewHolder>(){
     private val items = ArrayList<RecentSearchData>()
+    var itemClick : OnItemClick? = null
+    private val limit = 12
+
+    interface OnItemClick {
+        fun onClick(view: View, position: Int,text : String)
+    }
 
     inner class RecentViewHolder(private val binding: RecyclerItemRecentsearchBinding) : RecyclerView.ViewHolder(binding.root){
         fun bind(item : RecentSearchData){
@@ -30,18 +36,29 @@ class RecentSearchRvAdapter(listener : OnItemClick) : RecyclerView.Adapter<Recen
 
     override fun onBindViewHolder(holder: RecentViewHolder, position: Int) {
         Log.d("RvAdapter","onBindViewHolder")
+        if(itemClick!= null){
+            holder.itemView?.setOnClickListener {
+                itemClick!!.onClick(it,position,items[position].text)
+            }
+        }
         holder.bind(items[position])
     }
 
     override fun getItemCount(): Int {
         Log.d("RvAdapter",items.size.toString())
-        return items.size
+        if(items.size>limit){
+            return limit
+        }
+        else{
+            return items.size
+        }
     }
 
     fun setList(recentSearch : List<RecentSearchData>){
         items.clear()
         items.addAll(recentSearch)
     }
+
     fun deleteList(){
         items.clear()
     }

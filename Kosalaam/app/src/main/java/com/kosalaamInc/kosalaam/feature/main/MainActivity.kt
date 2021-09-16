@@ -5,9 +5,11 @@ import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
 import android.content.pm.Signature
 import android.content.res.Resources
+import android.graphics.Point
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Base64
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.MenuItem
 import android.view.MotionEvent
@@ -30,13 +32,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding : ActivityMainBinding
     private lateinit var navController : NavController
     private lateinit var navHostFragment: NavHostFragment
+    companion object{
+        var desity : Float = 0.0F
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
+        desity= resources.displayMetrics.density
         initNavigationUI()
-        Log.d("CheckDpValue",getBottomNavHeight().toString())
+        getBottomNavHeight()
+        getDisplayHeightPixel()
 
     }
 
@@ -57,28 +64,34 @@ class MainActivity : AppCompatActivity() {
     fun initObserve(){
 
     }
-
-    fun mainBtEvent(){
-        var navHostFragment = supportFragmentManager.beginTransaction().replace(R.id.fcv_main,
-            MyPageFragment()).commit()
-        NavigationUI.setupWithNavController(binding.bnvMain,navController)
-    }
-
     fun getBottomNavHeight() {
         val resourceId : Int = resources.getIdentifier("design_bottom_navigation_height","dimen",this.packageName)
         var height : Int = 0
         if(resourceId>0){
             height =resources.getDimensionPixelSize(resourceId)
         }
-        val desity : Float = resources.displayMetrics.density
+
         val dp = height/desity
         PrayerRoomFragment.margin = dp
     }
 
+
+    // editText 외부 클릭시 keyboard 내림
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val imm: InputMethodManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(currentFocus?.windowToken, 0)
         return true
+    }
+    fun getDisplayHeightPixel(){
+
+        val display = windowManager.defaultDisplay
+
+        val size = Point()
+        display.getSize(size)
+        val displayMetrics = DisplayMetrics()
+//        windowManager.defaultDisplay.getMetrics(displayMetrics)
+//        var height = displayMetrics.heightPixels
+        PrayerRoomFragment.displayHeightDp = (size.y/desity).toInt()
     }
 
 

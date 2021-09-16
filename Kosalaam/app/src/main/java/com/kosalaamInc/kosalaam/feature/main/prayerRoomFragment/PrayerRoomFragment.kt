@@ -5,12 +5,10 @@ import android.content.Context
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.view.WindowManager
+import android.view.*
 import android.view.inputmethod.InputMethodManager
 import android.widget.LinearLayout
 import android.widget.RelativeLayout
@@ -38,7 +36,7 @@ import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
-class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick {
+class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
     private lateinit var callback: OnBackPressedCallback
     private lateinit var adapter: RecentSearchRvAdapter
@@ -53,6 +51,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
 
     companion object {
         var margin: Float = 0.0f
+        var displayHeightDp : Int = 0
     }
 
     private var displayStatus: Int = 1
@@ -75,6 +74,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
         initMapVIew()
         checkPermission()
         initBottomSheetView()
+        bottomSheetSetHeight()
+        recentItemClick()
         return binding!!.root
     }
 
@@ -95,9 +96,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
                 it.getContentIfNotHandled()?.let {
                     if (it == true) {
                         changeDisplay(2)
+                        Log.d(TAG,"focusOn")
 
-                    } else {
-                        Log.d("SearchPrayerRoomCheck", "false")
                     }
                 }
             })
@@ -116,7 +116,9 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
                     CoroutineScope(Dispatchers.Main).launch() {
                         CoroutineScope(Dispatchers.IO).async {
                             viewModel.insert(RecentSearchData(binding!!.etSearchSearchEdit.text.toString()))
-                        }
+                            binding!!.etSearchSearchEdit.clearFocus()
+                            binding!!.flSearch.requestFocus()
+                        }.join()
                         changeDisplay(3)
                     }
                 }
@@ -136,13 +138,16 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
                     binding!!.rvRecentSearch.adapter!!.notifyDataSetChanged()
                 }
             })
+
         }
     }
 
     private fun changeDisplay(status: Int) {
         if (status == 1) {
             displayStatus = 1
+            Log.d(TAG,"This is 1status")
             setMarginBottom()
+            binding!!.etSearchSearchEdit.setText("")
             binding!!.tvSearchRecent.visibility = View.INVISIBLE
             binding!!.ivSearchDefault.visibility = View.INVISIBLE
             binding!!.tvSearchDefault.visibility = View.INVISIBLE
@@ -154,16 +159,15 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
             binding!!.searchBottomSheet.visibility = View.VISIBLE
             binding!!.rvRecentSearch.visibility = View.GONE
             binding!!.tvSearchDelete.visibility = View.GONE
-
             hideKeyboard()
         } else if (status == 2) {
+            Log.d(TAG,"This is 2status")
             displayStatus = 2
             binding!!.clSearchWhite.visibility = View.VISIBLE
             binding!!.searchMapview.visibility = View.INVISIBLE
             binding!!.ivSearchCurrentLocation.visibility = View.INVISIBLE
             binding!!.tvSearchRecent.visibility = View.VISIBLE
             binding!!.searchBottomSheet.visibility = View.GONE
-            binding!!.tvSearchDelete.visibility = View.GONE
             binding!!.rvRecentSearch.visibility = View.VISIBLE
             binding!!.tvSearchDelete.visibility = View.VISIBLE
             viewModel.getAll().observe(this@PrayerRoomFragment, Observer {
@@ -174,12 +178,14 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
                         binding!!.rvRecentSearch.visibility = View.GONE
                         binding!!.tvSearchDelete.visibility = View.GONE
                     } else {
+                        binding!!.rvRecentSearch.visibility = View.VISIBLE
+                        binding!!.tvSearchDelete.visibility = View.VISIBLE
                         adapter.setList(it)
+                        binding!!.ivSearchDefault.visibility = View.GONE
                         binding!!.tvSearchDefault.visibility = View.GONE
                         binding!!.rvRecentSearch.adapter = adapter
                         adapter.notifyDataSetChanged()
                         binding!!.rvRecentSearch.adapter!!.notifyDataSetChanged()
-
                     }
                     Log.d(TAG, "This is getAll")
                 } else {
@@ -196,8 +202,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
                     binding!!.tvSearchDelete.visibility = View.GONE
                 }
             })
-            //
-
 
         } else if (status == 3) {
             Log.d(TAG,"This is 3status")
@@ -367,6 +371,9 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
                 } else if (displayStatus == 2) {
                     changeDisplay(1)
                 }
+                else if(displayStatus==1){
+
+                }
             }
         }
 
@@ -379,15 +386,34 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener, OnItemClick
     }
 
     fun initRecentRecyclerView() {
-        adapter = RecentSearchRvAdapter(this)
+        var linearLayoutManager = LinearLayoutManager(this.activity)
+        linearLayoutManager.reverseLayout=true
+        linearLayoutManager.stackFromEnd=true
+        adapter = RecentSearchRvAdapter()
         binding!!.rvRecentSearch.adapter = adapter
-        binding!!.rvRecentSearch.layoutManager = LinearLayoutManager(this.activity)
+        binding!!.rvRecentSearch.layoutManager = linearLayoutManager
     }
 
-    override fun deleteRecent(recentSearch: RecentSearchData) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            viewModel.delete(recentSearch)
+    private fun recentItemClick(){
+        adapter.itemClick = object  : RecentSearchRvAdapter.OnItemClick{
+            override fun onClick(view: View, position: Int, text: String) {
+                binding!!.etSearchSearchEdit.setText(text)
+                binding!!.etSearchSearchEdit.clearFocus()
+                binding!!.flSearch.requestFocus()
+                changeDisplay(3)
+            }
         }
     }
+    private fun bottomSheetSetHeight(){
+        var height : Float
+        height= (displayHeightDp-(binding!!.clSearchSearch.height/MainActivity.desity)-(52.4*MainActivity.desity)- margin).toFloat()
+        Log.d(TAG,height.toString())
+        binding!!.searchBottomSheet!!.layoutParams.height = getPixel(requireContext(),height).toInt() //getPixel(requireContext(),height).toInt()
+
+    }
+
+
+
+
 
 }
