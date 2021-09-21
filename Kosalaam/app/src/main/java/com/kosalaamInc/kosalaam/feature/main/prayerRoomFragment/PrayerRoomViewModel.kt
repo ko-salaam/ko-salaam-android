@@ -7,7 +7,10 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.*
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
+import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
+import com.kosalaamInc.kosalaam.model.network.response.RestauarntResponse
 import com.kosalaamInc.kosalaam.repository.RecentSearchRepository
+import com.kosalaamInc.kosalaam.repository.SearchRepository
 import com.kosalaamInc.kosalaam.util.Event
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -37,7 +40,6 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
 
     fun onRecentDeleteEvent(){
         _recentDelete_bt.value =Event(true)
-
     }
 
     fun searchKey(view: View, actionId: Int, event: KeyEvent?):Boolean{
@@ -52,15 +54,35 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
         recentRepository.insert(recentSearch)
     }
 
-    fun delete(recentSearch: RecentSearchData){
-        recentRepository.delete(recentSearch)
-    }
-
     fun getAll() : LiveData<List<RecentSearchData>>{
         return items
     }
+
     fun deleteAll(){
         recentRepository.deleteAll()
+    }
+
+    fun getRestaurantSearch(domain : String?, distance : Int,
+                      keyword : String,
+                      latitude : Double,
+                      longitude : Double,
+                      pageNum : Int,
+                      pageSize : Int): MutableLiveData<List<RestauarntResponse>>
+    {
+        val data = MutableLiveData<List<RestauarntResponse>>()
+        if(domain=="restaurant"){
+            CoroutineScope(Dispatchers.IO).launch {
+                SearchRepository().searchRestaurant(distance,keyword,latitude,longitude, pageNum, pageSize).let {
+                    if(it.isSuccessful){
+                        data.postValue(it.body())
+                    }
+                    else{
+
+                    }
+                }
+            }
+        }
+        return data
     }
 
 

@@ -19,9 +19,9 @@ interface KosalaamAPI {
 
     // restaurant list
     @GET("/api/restaurant")
-    fun getRestaurantList(@Query("latitude") lat : String ,@Query("longitude")
-    lon : String, @Query("pageNum") pageNum : Int, @Query("pageSize") pageSize : Int) :
-    Call<List<RestauarntResponse>>
+    suspend fun getRestaurantList(@Query("distance") distance : Int, @Query("keyword") keyword : String, @Query("latitude") lat : Double, @Query("longitude")
+    lon : Double, @Query("pageNum") pageNum : Int, @Query("pageSize") pageSize : Int) :
+    Response<List<RestauarntResponse>>
     // restaurant info
 
     @GET("/api/restaurant/{id}}")

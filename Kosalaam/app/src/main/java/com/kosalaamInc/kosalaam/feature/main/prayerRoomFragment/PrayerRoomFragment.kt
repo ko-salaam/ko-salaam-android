@@ -1,26 +1,20 @@
 package com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment
 
-import android.Manifest
+import android.app.Application
 import android.content.Context
-import android.content.pm.PackageManager
-import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
 import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.LinearLayout
 import android.widget.RelativeLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kosalaamInc.kosalaam.R
@@ -31,7 +25,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
-import net.daum.android.map.MapViewEventListener
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
@@ -45,6 +38,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private lateinit var viewModel: PrayerRoomViewModel
     lateinit var mapViewContainer: RelativeLayout
     private val TAG = "PrayerRoomFragment"
+
 
 
     val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -97,15 +91,17 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     if (it == true) {
                         changeDisplay(2)
                         Log.d(TAG,"focusOn")
-
                     }
                 }
             })
 
             back_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
-                    hideKeyboard()
-                    changeDisplay(1)
+                    if (displayStatus == 3) {
+                        changeDisplay(2)
+                    } else if (displayStatus == 2) {
+                        changeDisplay(1)
+                    }
                 }
 
             })
@@ -137,6 +133,10 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     adapter.notifyDataSetChanged()
                     binding!!.rvRecentSearch.adapter!!.notifyDataSetChanged()
                 }
+            })
+            getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,1,"", 37.498095,
+                127.02761,1,5).observe(this@PrayerRoomFragment, Observer {
+                // for it.size
             })
 
         }
@@ -372,7 +372,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     changeDisplay(1)
                 }
                 else if(displayStatus==1){
-
+                    findNavController().navigate(R.id.action_prayerFragment_to_mainFragment)
+                    findNavController().popBackStack(R.id.prayerRoomFragment,true)
                 }
             }
         }
@@ -383,6 +384,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     override fun onDetach() {
         super.onDetach()
         callback.remove()
+        Log.d(TAG,"detach")
     }
 
     fun initRecentRecyclerView() {
@@ -397,6 +399,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private fun recentItemClick(){
         adapter.itemClick = object  : RecentSearchRvAdapter.OnItemClick{
             override fun onClick(view: View, position: Int, text: String) {
+                hideKeyboard()
                 binding!!.etSearchSearchEdit.setText(text)
                 binding!!.etSearchSearchEdit.clearFocus()
                 binding!!.flSearch.requestFocus()
@@ -404,6 +407,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             }
         }
     }
+
     private fun bottomSheetSetHeight(){
         var height : Float
         height= (displayHeightDp-(binding!!.clSearchSearch.height/MainActivity.desity)-(52.4*MainActivity.desity)- margin).toFloat()

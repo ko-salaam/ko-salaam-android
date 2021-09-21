@@ -43,6 +43,7 @@
     <string name="restaurantInfo_gallery">Gallery</string>
     <string name="restaurantInfo_map">Map</string>
     <string name="restaurantInfo_review">Review</string>
+    <string name="appFinish">Please click BACK again to exit</string>
 
 
 

@@ -24,9 +24,9 @@ class RestauarntResponse {
     @Expose
     val imagesId : String? = null
 
-    @SerializedName("isLinked")
+    @SerializedName("isLiked")
     @Expose
-    val isLinked : Boolean= false
+    val isLiked : Boolean= false
 
     @SerializedName("isParkingLot")
     @Expose
@@ -36,15 +36,18 @@ class RestauarntResponse {
     @Expose
     val latitude : Float = 0.00000f
 
-    @SerializedName("likeCount")
+    @SerializedName("likedCount")
     @Expose
-    val likeCount : Int = 0
+    val likedCount : Int = 0
 
     @SerializedName("longitude")
     @Expose
     val longitude : Float = 0.00000f
 
     // muslim friendly
+    @SerializedName("muslimFriendly")
+    @Expose
+    val muslimFriendly : String? = null
 
     @SerializedName("name")
     @Expose

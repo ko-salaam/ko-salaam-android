@@ -7,7 +7,7 @@ import java.security.Security
 class Application : Application() {
     companion object {
         var BASE_URL = "http://52.79.248.96:8080/"
-
+        var searchKeyword : String? = null
         // lateinit
         var prefs = ""
     }

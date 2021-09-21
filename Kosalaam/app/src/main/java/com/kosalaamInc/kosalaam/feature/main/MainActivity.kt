@@ -15,6 +15,7 @@ import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import androidx.navigation.NavController
+import androidx.navigation.findNavController
 
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.NavigationUI
@@ -43,6 +44,7 @@ class MainActivity : AppCompatActivity() {
         desity= resources.displayMetrics.density
         initNavigationUI()
         getBottomNavHeight()
+        bottomNavitemClick()
         getDisplayHeightPixel()
 
     }
@@ -70,7 +72,6 @@ class MainActivity : AppCompatActivity() {
         if(resourceId>0){
             height =resources.getDimensionPixelSize(resourceId)
         }
-
         val dp = height/desity
         PrayerRoomFragment.margin = dp
     }
@@ -85,13 +86,27 @@ class MainActivity : AppCompatActivity() {
     fun getDisplayHeightPixel(){
 
         val display = windowManager.defaultDisplay
-
         val size = Point()
         display.getSize(size)
-        val displayMetrics = DisplayMetrics()
-//        windowManager.defaultDisplay.getMetrics(displayMetrics)
-//        var height = displayMetrics.heightPixels
         PrayerRoomFragment.displayHeightDp = (size.y/desity).toInt()
+    }
+
+    private fun bottomNavitemClick(){
+//        binding!!.bnvMain.setOnItemSelectedListener {
+//            when(it.itemId){
+//                R.id.prayerRoomFragment->{
+//                    if(){
+//                        return@setOnItemSelectedListener false
+//                    }
+//                    else{
+//                        return@setOnItemSelectedListener true
+//                    }
+//                }
+//                else->{
+//                    return@setOnItemSelectedListener false
+//                }
+//            }
+//        }
     }
 
 
