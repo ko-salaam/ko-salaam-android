@@ -10,7 +10,11 @@
         android:id="@+id/prayerRoomFragment"
         android:name="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment"
         android:label="fragment_searchprayerroom"
-        tools:layout="@layout/fragment_searchprayerroom" />
+        tools:layout="@layout/fragment_searchprayerroom" >
+        <action
+            android:id="@+id/action_prayerFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/quranFragment"
