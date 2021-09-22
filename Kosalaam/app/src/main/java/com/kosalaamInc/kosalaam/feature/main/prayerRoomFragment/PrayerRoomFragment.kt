@@ -1,7 +1,9 @@
 package com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment
 
-import android.app.Application
+import android.Manifest
 import android.content.Context
+import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -10,17 +12,21 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.RelativeLayout
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentSearchprayerroomBinding
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
+import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
@@ -38,8 +44,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private lateinit var viewModel: PrayerRoomViewModel
     lateinit var mapViewContainer: RelativeLayout
     private val TAG = "PrayerRoomFragment"
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    var latitude : Double =37.498095
+    var longitude : Double = 127.02761
 
-
+    val list = ArrayList<RestaurantSearchData>()
 
     val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
 
@@ -63,6 +72,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         viewModel = ViewModelProvider(this).get(PrayerRoomViewModel::class.java)
         binding!!.lifecycleOwner = viewLifecycleOwner
         binding!!.prayerRoomVm = viewModel
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         initRecentRecyclerView()
         setMarginBottom()
         initMapVIew()
@@ -70,12 +80,13 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         initBottomSheetView()
         bottomSheetSetHeight()
         recentItemClick()
+        viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,1,"", latitude,
+            longitude,1,20)
         return binding!!.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
     }
 
     override fun onDestroyView() {
@@ -134,9 +145,41 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     binding!!.rvRecentSearch.adapter!!.notifyDataSetChanged()
                 }
             })
-            getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,1,"", 37.498095,
-                127.02761,1,5).observe(this@PrayerRoomFragment, Observer {
-                // for it.size
+            data.observe(this@PrayerRoomFragment, Observer {
+                for(i in 0..it.size-1){
+                    list.add(RestaurantSearchData(it[i].id,it[i].name,it[i].address,0,it[i].muslimFriendly))
+                }
+                Log.d(TAG,list.size.toString())
+                val searchAdapter = SearchRvAdapter(list)
+                binding!!.rvSearch.adapter = searchAdapter
+            })
+            location_bt.observe(this@PrayerRoomFragment, Observer {
+                it.getContentIfNotHandled()?.let{
+                    if (ActivityCompat.checkSelfPermission(requireContext(),
+                            Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+
+                    }
+                    else{
+                        fusedLocationClient.lastLocation.addOnSuccessListener { location : Location? ->
+                            if (location != null) {
+                                val latitude = location.latitude
+                                val longitude = location.longitude
+                                Log.d("Test", "GPS Location Latitude: $latitude" +
+                                        ", Longitude: $longitude")
+                            }
+                        }
+                    }
+                }
             })
 
         }
@@ -159,10 +202,14 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.searchBottomSheet.visibility = View.VISIBLE
             binding!!.rvRecentSearch.visibility = View.GONE
             binding!!.tvSearchDelete.visibility = View.GONE
+            binding!!.rvSearch.visibility=View.VISIBLE
+            binding!!.viewSearch5.visibility = View.VISIBLE
             hideKeyboard()
         } else if (status == 2) {
             Log.d(TAG,"This is 2status")
             displayStatus = 2
+            binding!!.rvSearch.visibility=View.GONE
+            binding!!.viewSearch5.visibility = View.GONE
             binding!!.clSearchWhite.visibility = View.VISIBLE
             binding!!.searchMapview.visibility = View.INVISIBLE
             binding!!.ivSearchCurrentLocation.visibility = View.INVISIBLE
@@ -189,6 +236,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     }
                     Log.d(TAG, "This is getAll")
                 } else {
+                    binding!!.rvSearch.visibility=View.VISIBLE
+                    binding!!.viewSearch5.visibility = View.VISIBLE
                     binding!!.tvSearchRecent.visibility = View.INVISIBLE
                     binding!!.ivSearchDefault.visibility = View.INVISIBLE
                     binding!!.tvSearchDefault.visibility = View.INVISIBLE
@@ -209,6 +258,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.etSearchSearchEdit.clearFocus()
             binding!!.flSearch.requestFocus()
             setMarginBottom()
+            binding!!.rvSearch.visibility=View.VISIBLE
+            binding!!.viewSearch5.visibility = View.VISIBLE
             binding!!.tvSearchRecent.visibility = View.INVISIBLE
             binding!!.ivSearchDefault.visibility = View.INVISIBLE
             binding!!.tvSearchDefault.visibility = View.INVISIBLE
@@ -273,7 +324,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         mapView = MapView(context)
         mapViewContainer = binding!!.searchMapview
         mapView.setMapViewEventListener(this)
-
     }
 
     private fun addTestPOIItem(i: Int) {
@@ -413,8 +463,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         height= (displayHeightDp-(binding!!.clSearchSearch.height/MainActivity.desity)-(52.4*MainActivity.desity)- margin).toFloat()
         Log.d(TAG,height.toString())
         binding!!.searchBottomSheet!!.layoutParams.height = getPixel(requireContext(),height).toInt() //getPixel(requireContext(),height).toInt()
-
     }
+    //
 
 
 

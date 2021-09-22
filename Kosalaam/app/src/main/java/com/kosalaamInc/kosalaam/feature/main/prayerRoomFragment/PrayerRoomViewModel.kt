@@ -22,13 +22,20 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
     private val _back_bt1 = MutableLiveData<Event<Boolean>>()
     private val _recentDelete_bt = MutableLiveData<Event<Boolean>>()
     private val _searchKey_bt = MutableLiveData<Event<Boolean>>()
+    private val _location_bt = MutableLiveData<Event<Boolean>>()
     private val recentRepository = RecentSearchRepository(application)
+    private val _data = MutableLiveData<List<RestauarntResponse>>()
+
     private val items = recentRepository.getAll()
 
     val focus_et: LiveData<Event<Boolean>> get() = _focus_et
     val back_bt : LiveData<Event<Boolean>> get() = _back_bt1
     val recentDelete_bt : LiveData<Event<Boolean>> get() = _recentDelete_bt
+    val location_bt : LiveData<Event<Boolean>> get() = _location_bt
     val searchKey_bt : LiveData<Event<Boolean>> get() = _searchKey_bt
+    val data : MutableLiveData<List<RestauarntResponse>> get() = _data
+
+
 
     fun onFocusEvent(){
         _focus_et.value = Event(true)
@@ -69,8 +76,8 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
                       pageNum : Int,
                       pageSize : Int): MutableLiveData<List<RestauarntResponse>>
     {
-        val data = MutableLiveData<List<RestauarntResponse>>()
-        if(domain=="restaurant"){
+        Log.d("PrayerRoom","This is getRestaurant")
+//        if(domain=="restaurant"){
             CoroutineScope(Dispatchers.IO).launch {
                 SearchRepository().searchRestaurant(distance,keyword,latitude,longitude, pageNum, pageSize).let {
                     if(it.isSuccessful){
@@ -81,11 +88,11 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
                     }
                 }
             }
-        }
+//      }
         return data
     }
-
-
-
+    fun getCurrentLocation(){
+        _location_bt.value= Event(true)
+    }
 
 }
