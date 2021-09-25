@@ -34,7 +34,7 @@ class RestauarntResponse {
 
     @SerializedName("latitude")
     @Expose
-    val latitude : Float = 0.00000f
+    val latitude : Double = 0.00000000
 
     @SerializedName("likedCount")
     @Expose
@@ -42,7 +42,7 @@ class RestauarntResponse {
 
     @SerializedName("longitude")
     @Expose
-    val longitude : Float = 0.00000f
+    val longitude : Double = 0.00000000
 
     // muslim friendly
     @SerializedName("muslimFriendly")

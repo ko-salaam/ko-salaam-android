@@ -35,12 +35,12 @@ import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
 class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
-    private var searchText : String? = null
+    private var searchText : String = ""
     private var locationRequest: LocationRequest? = null
     private var locationCallback: LocationCallback? = null
 
-    private var currentLat : Double= 0.0000
-    private var currentLon : Double= 0.0000
+    private var currentLat : Double= 0.000000
+    private var currentLon : Double= 0.000000
 
     private lateinit var callback: OnBackPressedCallback
     private lateinit var adapter: RecentSearchRvAdapter
@@ -90,7 +90,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         startLocationUpdates()
         viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
             5,
-            "",
+            searchText,
             latitude,
             longitude,
             pageNum,
@@ -108,7 +108,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     private fun initObserve() {
-
         with(viewModel) {
             focus_et.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
@@ -124,6 +123,15 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     if (displayStatus == 3) {
                         changeDisplay(2)
                     } else if (displayStatus == 2) {
+                        searchText=""
+                        pageNum=0
+                        viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
+                            5,
+                            searchText,
+                            latitude,
+                            longitude,
+                            pageNum,
+                            20)
                         changeDisplay(1)
                     }
                 }
@@ -142,9 +150,10 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                                 binding!!.flSearch.requestFocus()
                             }.join()
                             changeDisplay(3)
+                            searchText=binding!!.etSearchSearchEdit.text.toString()
                             viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
                                 5,
-                                binding!!.etSearchSearchEdit.text.toString(),
+                                searchText,
                                 latitude,
                                 longitude,
                                 pageNum,
@@ -184,11 +193,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         0,
                         it[i].muslimFriendly))
                     addTestPOIItem(i,
-                        it[i].latitude.toDouble(),
-                        it[i].longitude.toDouble(),
+                        it[i].latitude,
+                        it[i].longitude,
                         it[i].name,
                         it[i].id)
-                    Log.d("prayerRoomInfo", latitude.toString())
+                    Log.d("prayerRoomInfo", latitude.toString()+" "+longitude.toString())
                 }
                 Log.d(TAG, list.size.toString())
                 val searchAdapter = SearchRvAdapter(list)
@@ -229,7 +238,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                                 mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
                                     longitude), true)
                             }
-
                         }
                     }
                 }
@@ -237,7 +245,13 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
             redo_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
-
+                    viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
+                        5,
+                        searchText,
+                        latitude,
+                        longitude,
+                        pageNum,
+                        20)
                 }
             })
 
@@ -364,7 +378,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
             dp,
             context.resources.displayMetrics)
-
     }
 
     // TODO Neither network gps ->  ?
@@ -495,6 +508,15 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     hideKeyboard()
                     changeDisplay(2)
                 } else if (displayStatus == 2) {
+                    searchText=""
+                    pageNum=0
+                    viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
+                        5,
+                        searchText,
+                        latitude,
+                        longitude,
+                        pageNum,
+                        20)
                     changeDisplay(1)
                 }
                 else if(displayStatus==1){
@@ -531,10 +553,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 binding!!.etSearchSearchEdit.setText(text)
                 binding!!.etSearchSearchEdit.clearFocus()
                 binding!!.flSearch.requestFocus()
+                searchText=text
                 changeDisplay(3)
                 viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
                     5,
-                    text,
+                    searchText,
                     latitude,
                     longitude,
                     pageNum,
@@ -580,7 +603,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         if (location != null) {
                             currentLat=location.latitude
                             currentLon=location.longitude
-
                         }
                     }
                 }
