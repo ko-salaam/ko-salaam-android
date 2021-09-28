@@ -27,6 +27,7 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
     private val recentRepository = RecentSearchRepository(application)
     private val _data = MutableLiveData<List<RestauarntResponse>>()
 
+
     private val items = recentRepository.getAll()
 
     val focus_et: LiveData<Event<Boolean>> get() = _focus_et

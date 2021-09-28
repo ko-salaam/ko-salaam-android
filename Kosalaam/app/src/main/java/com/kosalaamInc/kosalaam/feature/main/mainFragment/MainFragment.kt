@@ -17,9 +17,7 @@ import androidx.navigation.fragment.findNavController
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentMainBinding
 import com.kosalaamInc.kosalaam.feature.activitySearch.ActivitiesSearchActivity
-import com.kosalaamInc.kosalaam.feature.hotelSearch.HotelSearchActivity
 import com.kosalaamInc.kosalaam.feature.prayerTime.PraytimeActivity
-import com.kosalaamInc.kosalaam.feature.restaurantSearch.RestaurantSearchActivity
 import com.kosalaamInc.kosalaam.global.Application
 
 class MainFragment : Fragment(){
@@ -78,16 +76,19 @@ class MainFragment : Fragment(){
                     findNavController().navigate(R.id.action_mainFragment_to_prayerRoomFragment)
                 }
             })
+
             prayerTime_BtEvent.observe(viewLifecycleOwner, Observer {
                 it.getContentIfNotHandled()?.let {
                     startActivity(Intent(context, PraytimeActivity::class.java))
                 }
             })
+
             activities_BtEvent.observe(viewLifecycleOwner, Observer {
                 it.getContentIfNotHandled()?.let {
                     startActivity(Intent(context, ActivitiesSearchActivity::class.java))
                 }
             })
+
             newMagazine_BtEvent.observe(viewLifecycleOwner, Observer {
                 it.getContentIfNotHandled()?.let {
                     setTextClick()
@@ -95,6 +96,7 @@ class MainFragment : Fragment(){
                     binding!!.dotMainNewMagazine.visibility = View.VISIBLE
                 }
             })
+
             mostView_BtEvent.observe(viewLifecycleOwner, Observer {
                 it.getContentIfNotHandled()?.let {
                     setTextClick()
@@ -102,6 +104,7 @@ class MainFragment : Fragment(){
                     binding!!.dotMainMostview.visibility = View.VISIBLE
                 }
             })
+
             tour_BtEvent.observe(viewLifecycleOwner, Observer {
                 it.getContentIfNotHandled()?.let {
                     setTextClick()
