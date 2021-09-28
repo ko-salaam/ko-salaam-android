@@ -17,7 +17,6 @@ class SearchRvAdapter(var data: List<RestaurantSearchData>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_search,parent,false)
         return ViewHolder(inflatedView)
-
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -37,6 +36,7 @@ class SearchRvAdapter(var data: List<RestaurantSearchData>) :
         private val name : TextView = itemView.findViewById(R.id.tv_searchList_name)
         private val address : TextView = itemView.findViewById(R.id.tv_searchList_address)
         private val muslimFreindy : TextView = itemView.findViewById(R.id.tv_searchList_muslimFriendly)
+        private val check : ImageView = itemView.findViewById(R.id.iv_searchList_check)
         private val image1 : ImageView = itemView.findViewById(R.id.iv_searchList_image1)
         private val image2 : ImageView = itemView.findViewById(R.id.iv_searchList_image2)
         private val image3 : ImageView = itemView.findViewById(R.id.iv_searchList_image3)
@@ -46,6 +46,10 @@ class SearchRvAdapter(var data: List<RestaurantSearchData>) :
         fun bind(listener : View.OnClickListener,item : RestaurantSearchData ){
             name.text = item.name
             address.text = item.address
+            if(item.mulsimFriendly=="NONE"){
+                check.visibility=View.GONE
+                muslimFreindy.visibility=View.GONE
+            }
             muslimFreindy.text = item.mulsimFriendly
         }
     }

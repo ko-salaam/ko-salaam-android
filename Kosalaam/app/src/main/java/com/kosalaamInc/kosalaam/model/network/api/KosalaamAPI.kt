@@ -25,7 +25,7 @@ interface KosalaamAPI {
     // restaurant info
 
     @GET("/api/restaurant/{id}}")
-    fun getRestaurantInfo(@Path("id") id : String) : Call<RestauarntResponse>
+    fun getRestaurantInfo(@Path("id") id : Int) : Response<RestauarntResponse>
 
     //
     @POST("/api/restaurant")
