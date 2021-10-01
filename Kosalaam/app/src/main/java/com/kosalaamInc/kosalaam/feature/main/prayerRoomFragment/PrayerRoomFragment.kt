@@ -82,6 +82,10 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         viewModel = ViewModelProvider(this).get(PrayerRoomViewModel::class.java)
         binding!!.lifecycleOwner = viewLifecycleOwner
         binding!!.prayerRoomVm = viewModel
+
+        if(Application.searchKeyword=="prayerRoom"){
+            binding!!.ivSearchFilter.visibility=View.INVISIBLE
+        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         initRecentRecyclerView()
         setMarginBottom()
@@ -196,6 +200,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
             location_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
+
                     Log.d("prayerthis", "it2")
                     if (ActivityCompat.checkSelfPermission(requireContext(),
                             Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -204,7 +209,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     ) {
                         Toast.makeText(requireContext(),"Check your location permission",Toast.LENGTH_SHORT).show()
                         Log.d("prayerthis", "it1")
-
                         // TODO: Consider calling
                         //    ActivityCompat#requestPermissions
                         // here to request the missing permissions, and then overriding
@@ -595,6 +599,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     }
                 }
             }
+            LocationServices.getFusedLocationProviderClient(requireContext()).requestLocationUpdates(locationRequest,locationCallback,null)
         }
     }
 
@@ -619,7 +624,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         else{
             Toast.makeText(requireContext(),"Check your Internet",Toast.LENGTH_SHORT).show()
         }
-
         //
     }
 
