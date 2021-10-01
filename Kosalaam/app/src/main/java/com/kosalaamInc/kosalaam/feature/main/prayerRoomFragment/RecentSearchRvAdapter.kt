@@ -28,14 +28,12 @@ class RecentSearchRvAdapter() : RecyclerView.Adapter<RecentSearchRvAdapter.Recen
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecentViewHolder {
-        Log.d("RvAdapter","onCreateViewHolder")
         val layoutInflater = LayoutInflater.from(parent.context)
         val binding = RecyclerItemRecentsearchBinding.inflate(layoutInflater)
         return RecentViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: RecentViewHolder, position: Int) {
-        Log.d("RvAdapter","onBindViewHolder")
         if(itemClick!= null){
             holder.itemView?.setOnClickListener {
                 itemClick!!.onClick(it,position,items[position].text)
@@ -45,7 +43,6 @@ class RecentSearchRvAdapter() : RecyclerView.Adapter<RecentSearchRvAdapter.Recen
     }
 
     override fun getItemCount(): Int {
-        Log.d("RvAdapter",items.size.toString())
         if(items.size>limit){
             return limit
         }

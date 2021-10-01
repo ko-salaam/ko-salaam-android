@@ -9,11 +9,13 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityRestaurantInfoBinding
 
 class RestaurantInfoActivity(id: Int) : AppCompatActivity(){
+
     private lateinit var binding : ActivityRestaurantInfoBinding
     private var idNum : Int = id
     private val viewModel: RestaurantInfoViewModel by lazy {
         ViewModelProvider(this).get(RestaurantInfoViewModel::class.java)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView<ActivityRestaurantInfoBinding>(
@@ -26,9 +28,7 @@ class RestaurantInfoActivity(id: Int) : AppCompatActivity(){
         viewModel.getRestaurantInfo(idNum)
         viewModel.restaurantData.observe(this, Observer {
             binding!!.tvRestaurantInfoName.text = it.name
-            if(it.detailInfo==null){
-                binding!!
-            }
+            binding!!.tvRestaurantInfoType.text = it.dishType
 
         })
     }

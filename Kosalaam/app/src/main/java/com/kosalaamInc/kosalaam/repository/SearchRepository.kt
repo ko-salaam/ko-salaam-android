@@ -14,4 +14,14 @@ class SearchRepository{
         searchClient.getRestaurantList(distance,keyword,latitude,longitude,pageNum,pageSize)
 
     suspend fun restaurantInfo(id : Int) = searchClient.getRestaurantInfo(id)
+
+    suspend fun searchHotel(distance : Int,
+                                 keyword : String,
+                                 latitude : Double,
+                                 longitude : Double,
+                                 pageNum : Int,
+                                 pageSize : Int) =
+        searchClient.getHotelList(distance,keyword,latitude,longitude,pageNum,pageSize)
+
+    suspend fun hotelInfo(id : Int) = searchClient.getHotelInfo(id)
 }

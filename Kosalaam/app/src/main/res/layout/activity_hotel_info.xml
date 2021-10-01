@@ -3,14 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android" >
     <data>
         <variable
-            name="searchHotelVm"
-            type="com.kosalaamInc.kosalaam.feature.hotelSearch.HotelSearchViewModel" />
+            name="HotelInfoVm"
+            type="com.kosalaamInc.kosalaam.feature.hotelInfo.HotelInfoViewModel" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-
-        >
+        android:layout_height="match_parent">
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

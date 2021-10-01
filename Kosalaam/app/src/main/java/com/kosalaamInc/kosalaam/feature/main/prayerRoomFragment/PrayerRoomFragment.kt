@@ -4,6 +4,8 @@ import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
 import android.location.Location
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
@@ -24,6 +26,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentSearchprayerroomBinding
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
+import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
 import kotlinx.coroutines.CoroutineScope
@@ -88,13 +91,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         bottomSheetSetHeight()
         recentItemClick()
         startLocationUpdates()
-        viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
-            5,
-            searchText,
-            latitude,
-            longitude,
-            pageNum,
-            20)
+        getSearchList(Application.searchKeyword)
         return binding!!.root
     }
 
@@ -125,13 +122,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     } else if (displayStatus == 2) {
                         searchText=""
                         pageNum=0
-                        viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
-                            5,
-                            searchText,
-                            latitude,
-                            longitude,
-                            pageNum,
-                            20)
+                        getSearchList(Application.searchKeyword)
                         changeDisplay(1)
                     }
                 }
@@ -151,13 +142,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                             }.join()
                             changeDisplay(3)
                             searchText=binding!!.etSearchSearchEdit.text.toString()
-                            viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
-                                5,
-                                searchText,
-                                latitude,
-                                longitude,
-                                pageNum,
-                                20)
+                            getSearchList(Application.searchKeyword)
                         }
                     }
                     else{
@@ -172,6 +157,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     lifecycleScope.launch(Dispatchers.IO) {
                         viewModel.deleteAll()
                     }
+
                     binding!!.ivSearchDefault.visibility = View.VISIBLE
                     binding!!.tvSearchDefault.visibility = View.VISIBLE
                     binding!!.rvRecentSearch.visibility = View.GONE
@@ -183,7 +169,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 }
             })
 
-            data.observe(this@PrayerRoomFragment, Observer {
+            restaurantData.observe(this@PrayerRoomFragment, Observer {
                 mapView.removeAllPOIItems()
                 list.clear()
                 for (i in 0..it.size - 1) {
@@ -204,6 +190,9 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 binding!!.rvSearch.adapter = searchAdapter
                 pageNum++
             })
+            hotelData.observe(this@PrayerRoomFragment, Observer {
+
+            })
 
             location_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
@@ -215,6 +204,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     ) {
                         Toast.makeText(requireContext(),"Check your location permission",Toast.LENGTH_SHORT).show()
                         Log.d("prayerthis", "it1")
+
                         // TODO: Consider calling
                         //    ActivityCompat#requestPermissions
                         // here to request the missing permissions, and then overriding
@@ -222,6 +212,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         //                                          int[] grantResults)
                         // to handle the case where the user grants the permission. See the documentation
                         // for ActivityCompat#requestPermissions for more details.
+
                     } else {
                         fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
                             Log.d("prayerthis", location?.latitude.toString())
@@ -245,13 +236,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
             redo_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
-                    viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
-                        5,
-                        searchText,
-                        latitude,
-                        longitude,
-                        pageNum,
-                        20)
+                    getSearchList(Application.searchKeyword)
                 }
             })
 
@@ -429,22 +414,25 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         bottomsheet.addBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomsheet: View, newState: Int) {
                 when (newState) {
-
                     // 사용자가 BottomSheet를 위나 아래로 드래그 중인 상태
                     BottomSheetBehavior.STATE_DRAGGING -> {
+
                     }
 
                     // 드래그 동작 후 BottomSheet가 특정 높이로 고정될 때의 상태
                     // SETTLING 후 EXPANDED, SETTLING 후 COLLAPSED, SETTLING 후 HIDDEN
                     BottomSheetBehavior.STATE_SETTLING -> {
+
                     }
 
                     // 최대 높이로 보이는 상태
                     BottomSheetBehavior.STATE_EXPANDED -> {
+
                     }
 
                     // peek 높이 만큼 보이는 상태
                     BottomSheetBehavior.STATE_COLLAPSED -> {
+
                     }
 
                     // 숨김 상태
@@ -607,8 +595,40 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     }
                 }
             }
-
         }
+    }
+
+    private fun getSearchList(domain: String?){
+        if(checkInternet()==true){
+            if(domain=="restaurant"){
+                viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
+                    5,
+                    searchText,
+                    latitude,
+                    longitude,
+                    pageNum,
+                    20)
+            }
+            else if(domain=="hotel"){
+
+            }
+            else if(domain=="prayerRoom"){
+
+            }
+        }
+        else{
+            Toast.makeText(requireContext(),"Check your Internet",Toast.LENGTH_SHORT).show()
+        }
+
+        //
+    }
+
+    @Suppress("DEPRECATION")
+    fun checkInternet(): Boolean {
+        val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        return isConnected
     }
 
 }

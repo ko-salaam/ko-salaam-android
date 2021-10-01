@@ -8,6 +8,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.*
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
+import com.kosalaamInc.kosalaam.model.network.response.HotelResponse
+import com.kosalaamInc.kosalaam.model.network.response.PrayerRoomResponse
 import com.kosalaamInc.kosalaam.model.network.response.RestauarntResponse
 import com.kosalaamInc.kosalaam.repository.RecentSearchRepository
 import com.kosalaamInc.kosalaam.repository.SearchRepository
@@ -15,6 +17,7 @@ import com.kosalaamInc.kosalaam.util.Event
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import java.net.ConnectException
 
 class PrayerRoomViewModel(application : Application) : AndroidViewModel(application){
 
@@ -25,7 +28,9 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
     private val _redo_bt = MutableLiveData<Event<Boolean>>()
     private val _location_bt = MutableLiveData<Event<Boolean>>()
     private val recentRepository = RecentSearchRepository(application)
-    private val _data = MutableLiveData<List<RestauarntResponse>>()
+    private val _restaurantData = MutableLiveData<List<RestauarntResponse>>()
+    private val _hotelData = MutableLiveData<List<HotelResponse>>()
+    private val _prayerData = MutableLiveData<List<PrayerRoomResponse>>()
 
 
     private val items = recentRepository.getAll()
@@ -36,7 +41,9 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
     val recentDelete_bt : LiveData<Event<Boolean>> get() = _recentDelete_bt
     val location_bt : LiveData<Event<Boolean>> get() = _location_bt
     val searchKey_bt : LiveData<Event<Boolean>> get() = _searchKey_bt
-    val data : MutableLiveData<List<RestauarntResponse>> get() = _data
+    val restaurantData : MutableLiveData<List<RestauarntResponse>> get() = _restaurantData
+    val hotelData : MutableLiveData<List<HotelResponse>> get() = _hotelData
+    val prayerData : MutableLiveData<List<PrayerRoomResponse>> get() = _prayerData
 
 
 
@@ -83,21 +90,39 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
                       pageSize : Int): MutableLiveData<List<RestauarntResponse>>
     {
         Log.d("Prayer",domain.toString())
-//        if(domain=="restaurant"){
             CoroutineScope(Dispatchers.IO).launch {
                 SearchRepository().searchRestaurant(distance,keyword,latitude,longitude, pageNum, pageSize).let {
                     if(it.isSuccessful){
                         if(it!=null){
-                            data.postValue(it.body())
+                            restaurantData.postValue(it.body())
                         }
                     } else{
-
                     }
                 }
             }
-//      }
-        return data
+        return restaurantData
     }
+
+    fun getHotelSearch(domain : String?, distance : Int,
+                            keyword : String,
+                            latitude : Double,
+                            longitude : Double,
+                            pageNum : Int,
+                            pageSize : Int): MutableLiveData<List<HotelResponse>>
+    {
+        CoroutineScope(Dispatchers.IO).launch {
+            SearchRepository().searchHotel(distance,keyword,latitude,longitude, pageNum, pageSize).let {
+                if(it.isSuccessful){
+                    if(it!=null){
+                        hotelData.postValue(it.body())
+                    }
+                } else{
+                }
+            }
+        }
+        return hotelData
+    }
+
     fun getCurrentLocation(){
         _location_bt.value= Event(true)
     }
