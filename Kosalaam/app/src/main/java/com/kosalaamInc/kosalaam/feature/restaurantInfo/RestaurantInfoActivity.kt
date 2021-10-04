@@ -8,10 +8,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityRestaurantInfoBinding
 
-class RestaurantInfoActivity(id: Int) : AppCompatActivity(){
+class RestaurantInfoActivity : AppCompatActivity(){
 
     private lateinit var binding : ActivityRestaurantInfoBinding
-    private var idNum : Int = id
+    private var idNum : Int = 0
     private val viewModel: RestaurantInfoViewModel by lazy {
         ViewModelProvider(this).get(RestaurantInfoViewModel::class.java)
     }
@@ -25,11 +25,11 @@ class RestaurantInfoActivity(id: Int) : AppCompatActivity(){
             restaurantInfoVm = viewModel
         }
 
-        viewModel.getRestaurantInfo(idNum)
-        viewModel.restaurantData.observe(this, Observer {
-            binding!!.tvRestaurantInfoName.text = it.name
-            binding!!.tvRestaurantInfoType.text = it.dishType
-
-        })
+//        viewModel.getRestaurantInfo(idNum)
+//        viewModel.restaurantData.observe(this, Observer {
+//            binding!!.tvRestaurantInfoName.text = it.name
+//            binding!!.tvRestaurantInfoType.text = it.dishType
+//
+//        })
     }
 }

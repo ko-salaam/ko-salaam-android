@@ -57,7 +57,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     var latitude : Double =37.498095
     var longitude : Double = 127.02761
 
-
     val list = ArrayList<RestaurantSearchData>()
 
     val permission = android.Manifest.permission.ACCESS_FINE_LOCATION
@@ -182,7 +181,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         it[i].address,
                         0,
                         it[i].muslimFriendly))
-                    addTestPOIItem(i,
+                    addPOIItem(i,
                         it[i].latitude,
                         it[i].longitude,
                         it[i].name,
@@ -190,7 +189,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     Log.d("prayerRoomInfo", latitude.toString()+" "+longitude.toString())
                 }
                 Log.d(TAG, list.size.toString())
-                val searchAdapter = SearchRvAdapter(list)
+                val searchAdapter = SearchRvAdapter(requireContext(),list)
                 binding!!.rvSearch.adapter = searchAdapter
                 pageNum++
             })
@@ -390,7 +389,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         mapView.setMapViewEventListener(this)
     }
 
-    private fun addTestPOIItem(
+    private fun addPOIItem(
         i: Int,
         latitude: Double,
         longitude: Double,
@@ -513,7 +512,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 }
                 else if(displayStatus==1){
                     findNavController().navigate(R.id.action_prayerFragment_to_mainFragment)
-                    findNavController().popBackStack(R.id.prayerRoomFragment, true)
+
                 }
             }
         }
@@ -524,14 +523,15 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     override fun onDetach() {
         super.onDetach()
         callback.remove()
+        Application.searchKeyword==null
         fusedLocationClient.removeLocationUpdates(locationCallback)
         Log.d(TAG, "detach")
     }
 
     fun initRecentRecyclerView() {
         var linearLayoutManager = LinearLayoutManager(this.activity)
-        linearLayoutManager.reverseLayout=true
-        linearLayoutManager.stackFromEnd=true
+//        linearLayoutManager.reverseLayout=true
+//        linearLayoutManager.stackFromEnd=true
         adapter = RecentSearchRvAdapter()
         binding!!.rvRecentSearch.adapter = adapter
         binding!!.rvRecentSearch.layoutManager = linearLayoutManager
@@ -624,9 +624,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         else{
             Toast.makeText(requireContext(),"Check your Internet",Toast.LENGTH_SHORT).show()
         }
-        //
+    //
     }
-
     @Suppress("DEPRECATION")
     fun checkInternet(): Boolean {
         val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager

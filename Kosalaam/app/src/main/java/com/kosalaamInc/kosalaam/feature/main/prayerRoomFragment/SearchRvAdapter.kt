@@ -1,5 +1,7 @@
 package com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment
 
+import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,11 +9,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kosalaamInc.kosalaam.R
+import com.kosalaamInc.kosalaam.feature.restaurantInfo.RestaurantInfoActivity
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
 import com.kosalaamInc.kosalaam.model.network.response.RestauarntResponse
 
 
-class SearchRvAdapter(var data: List<RestaurantSearchData>) :
+class SearchRvAdapter(var mContext : Context, var data: List<RestaurantSearchData>) :
     RecyclerView.Adapter<SearchRvAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -22,7 +25,7 @@ class SearchRvAdapter(var data: List<RestaurantSearchData>) :
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item =data[position]
         val listener = View.OnClickListener {
-
+            mContext.startActivity(Intent(mContext,RestaurantInfoActivity::class.java))
         }
         holder.apply {
             bind(listener,item)
@@ -44,6 +47,7 @@ class SearchRvAdapter(var data: List<RestaurantSearchData>) :
 //        private var view : View = v
 
         fun bind(listener : View.OnClickListener,item : RestaurantSearchData ){
+            itemView.setOnClickListener(listener)
             name.text = item.name
             address.text = item.address
             if(item.mulsimFriendly=="NONE"){

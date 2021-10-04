@@ -6,7 +6,7 @@ import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 
 @Dao
 interface RecentSearchDAO {
-    @Query ("SELECT * FROM RecentSearchData")
+    @Query ("SELECT * FROM RecentSearchData ORDER BY id DESC")
     fun getAll() : LiveData<List<RecentSearchData>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
