@@ -531,6 +531,15 @@
                         android:layout_height="0dp"
                         app:layout_constraintDimensionRatio="H,180:2.5"
                         app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_address2" />
+                    <RelativeLayout
+                        android:id="@+id/rl_restaurantInfo_mapview"
+                        app:layout_constraintDimensionRatio="H,180:81.2"
+                        tools:context="com.kosalaamInc.kosalaam.feature.restaurantInfo.RestaurantInfoActivity"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view26_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

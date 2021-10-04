@@ -5,6 +5,7 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
@@ -16,6 +17,14 @@ import com.kosalaamInc.kosalaam.model.network.response.RestauarntResponse
 
 class SearchRvAdapter(var mContext : Context, var data: List<RestaurantSearchData>) :
     RecyclerView.Adapter<SearchRvAdapter.ViewHolder>() {
+
+    interface OnSearchItemClickListener {
+        fun onItemClick(v:View, data: RestaurantSearchData, pos : Int)
+    }
+    var listener1 : OnSearchItemClickListener? = null
+    fun setOnItemClickListener(listener : OnSearchItemClickListener) {
+        this.listener1 = listener
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflatedView = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_search,parent,false)
@@ -35,7 +44,7 @@ class SearchRvAdapter(var mContext : Context, var data: List<RestaurantSearchDat
 
     override fun getItemCount() =data.size
 
-    class ViewHolder(v:View) : RecyclerView.ViewHolder(v){
+    inner class ViewHolder(v:View) : RecyclerView.ViewHolder(v){
         private val name : TextView = itemView.findViewById(R.id.tv_searchList_name)
         private val address : TextView = itemView.findViewById(R.id.tv_searchList_address)
         private val muslimFreindy : TextView = itemView.findViewById(R.id.tv_searchList_muslimFriendly)
@@ -47,7 +56,13 @@ class SearchRvAdapter(var mContext : Context, var data: List<RestaurantSearchDat
 //        private var view : View = v
 
         fun bind(listener : View.OnClickListener,item : RestaurantSearchData ){
-            itemView.setOnClickListener(listener)
+            val pos = adapterPosition
+            if(pos!= RecyclerView.NO_POSITION)
+            {
+                itemView.setOnClickListener {
+                    listener1?.onItemClick(itemView,item,pos)
+                }
+            }
             name.text = item.name
             address.text = item.address
             if(item.mulsimFriendly=="NONE"){

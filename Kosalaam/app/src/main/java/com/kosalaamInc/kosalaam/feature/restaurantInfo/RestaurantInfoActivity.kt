@@ -41,4 +41,10 @@ class RestaurantInfoActivity : AppCompatActivity(){
 //
 //        })
     }
+
+    override fun finish() {
+        binding!!.rlRestaurantInfoMapview.removeView(mapView)
+        super.finish()
+
+    }
 }

@@ -2,6 +2,7 @@ package com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment
 
 import android.Manifest
 import android.content.Context
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.location.Location
 import android.net.ConnectivityManager
@@ -27,6 +28,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentSearchprayerroomBinding
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
+import com.kosalaamInc.kosalaam.feature.restaurantInfo.RestaurantInfoActivity
 import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
@@ -49,7 +51,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private var mapView : MapView? = null
     private var binding: FragmentSearchprayerroomBinding? = null
     private lateinit var viewModel: PrayerRoomViewModel
-    lateinit var mapViewContainer: RelativeLayout
+    lateinit var mapViewContainer: ViewGroup
     private val TAG = "PrayerRoomFragment"
     private var pageNum = 0
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -95,7 +97,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         initRecentRecyclerView()
         setMarginBottom()
-        initMapVIew()
+//        initMapVIew()
         checkPermission()
         initBottomSheetView()
         bottomSheetSetHeight()
@@ -198,6 +200,13 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 }
                 Log.d(TAG, list.size.toString())
                 val searchAdapter = SearchRvAdapter(requireContext(),list)
+                searchAdapter.setOnItemClickListener(object :SearchRvAdapter.OnSearchItemClickListener{
+                    override fun onItemClick(v: View, data: RestaurantSearchData, pos: Int) {
+                        startActivity(Intent(requireActivity(),RestaurantInfoActivity::class.java))
+                        binding!!.searchMapview.removeView(mapView)
+                    }
+
+                })
                 binding!!.rvSearch.adapter = searchAdapter
                 pageNum++
             })
@@ -379,7 +388,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     // TODO Neither network gps ->  ?
     val permReqLuncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) {
         if (it) {
-            mapViewContainer.addView(mapView)
             initObserve()
         } else {
             // Failed pass
@@ -391,10 +399,12 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     private fun initMapVIew() {
-        if(mapView==null) {
-            mapView = MapView(context)
-        }
+//        if(mapView==null) {
+        mapView = MapView(context)
+//        }
+//        binding!!.searchMapview.addView(mapView)
         mapViewContainer = binding!!.searchMapview
+        mapViewContainer.addView(mapView)
         mapView!!.setMapViewEventListener(this)
     }
 
@@ -656,6 +666,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
     override fun onStop() {
         super.onStop()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        initMapVIew()
     }
 
 }
