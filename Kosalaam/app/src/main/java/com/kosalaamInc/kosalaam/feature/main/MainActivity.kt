@@ -26,6 +26,7 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityMainBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.MyPageFragment
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment
+import com.kosalaamInc.kosalaam.global.Application
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding!!.root)
         desity= resources.displayMetrics.density
@@ -48,9 +50,7 @@ class MainActivity : AppCompatActivity() {
         getBottomNavHeight()
         bottomNavitemClick()
         getDisplayHeightPixel()
-
     }
-
 
     private fun initNavigationUI(){
         // navigation host
@@ -58,16 +58,13 @@ class MainActivity : AppCompatActivity() {
         // navigation controller
         navController = navHostFragment.navController
         NavigationUI.setupWithNavController(binding.bnvMain,navController)
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
-
     }
 
     fun initObserve(){
-
     }
 
     fun getBottomNavHeight() {
@@ -98,7 +95,10 @@ class MainActivity : AppCompatActivity() {
     private fun bottomNavitemClick() {
         binding!!.bnvMain.setOnNavigationItemSelectedListener {
             if(it.itemId!= binding!!.bnvMain.selectedItemId){
-                NavigationUI.onNavDestinationSelected(it,navController)
+                // item별로 destination?
+             Application.searchKeyword=null
+             NavigationUI.onNavDestinationSelected(it,navController)
+
             }
             true
         }

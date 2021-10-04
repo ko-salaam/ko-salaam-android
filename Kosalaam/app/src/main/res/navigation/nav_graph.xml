@@ -12,8 +12,30 @@
         android:label="fragment_searchprayerroom"
         tools:layout="@layout/fragment_searchprayerroom" >
         <action
+            android:id="@+id/popUp_prayerRoom"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true"
+            />
+        <action
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
             android:id="@+id/action_prayerFragment_to_mainFragment"
             app:destination="@id/mainFragment" />
+        <action
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_prayerFragment_to_mypageFragment"
+            app:destination="@id/myPageFragment" />
+        <action
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_prayerFragment_to_quranFragment"
+            app:destination="@id/quranFragment" />
+        <action
+            app:popUpTo="@+id/nav_graph"
+            app:popUpToInclusive="true"
+            android:id="@+id/action_prayerFragment_to_qiblaFragment"
+            app:destination="@id/compassFragment" />
     </fragment>
 
     <fragment

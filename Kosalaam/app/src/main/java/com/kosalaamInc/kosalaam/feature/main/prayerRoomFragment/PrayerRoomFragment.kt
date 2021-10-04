@@ -20,6 +20,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
@@ -29,10 +30,8 @@ import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.launch
+import com.kosalaamInc.kosalaam.util.LoadingDialog
+import kotlinx.coroutines.*
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
@@ -47,7 +46,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
     private lateinit var callback: OnBackPressedCallback
     private lateinit var adapter: RecentSearchRvAdapter
-    private lateinit var mapView: MapView
+    private var mapView : MapView? = null
     private var binding: FragmentSearchprayerroomBinding? = null
     private lateinit var viewModel: PrayerRoomViewModel
     lateinit var mapViewContainer: RelativeLayout
@@ -56,6 +55,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     var latitude : Double =37.498095
     var longitude : Double = 127.02761
+    private lateinit var loadingDialog : LoadingDialog
 
     val list = ArrayList<RestaurantSearchData>()
 
@@ -76,6 +76,13 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?,
     ): View? {
+        loadingDialog= LoadingDialog(requireContext())
+        CoroutineScope(Dispatchers.Main).launch{
+            loadingDialog.show()
+            delay(1500)
+            loadingDialog.dismiss()
+        }
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_searchprayerroom, container, false)
         viewModel = ViewModelProvider(this).get(PrayerRoomViewModel::class.java)
@@ -95,6 +102,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         recentItemClick()
         startLocationUpdates()
         getSearchList(Application.searchKeyword)
+        bottomNavDestination()
         return binding!!.root
     }
 
@@ -173,7 +181,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             })
 
             restaurantData.observe(this@PrayerRoomFragment, Observer {
-                mapView.removeAllPOIItems()
+                mapView!!.removeAllPOIItems()
                 list.clear()
                 for (i in 0..it.size - 1) {
                     list.add(RestaurantSearchData(it[i].id,
@@ -223,13 +231,13 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                                 Log.d("prayer", location.latitude.toString())
                                 latitude = location.latitude
                                 longitude = location.longitude
-                                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
+                                mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
                                     longitude), true)
                             }
                             else{
                                 latitude = currentLat
                                 longitude = currentLon
-                                mapView.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
+                                mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
                                     longitude), true)
                             }
                         }
@@ -373,7 +381,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         if (it) {
             mapViewContainer.addView(mapView)
             initObserve()
-
         } else {
             // Failed pass
         }
@@ -384,9 +391,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     private fun initMapVIew() {
-        mapView = MapView(context)
+        if(mapView==null) {
+            mapView = MapView(context)
+        }
         mapViewContainer = binding!!.searchMapview
-        mapView.setMapViewEventListener(this)
+        mapView!!.setMapViewEventListener(this)
     }
 
     private fun addPOIItem(
@@ -395,7 +404,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         longitude: Double,
         name: String?,
         tagInfo: Int,
-    ) {
+
+        ) {
         val marker = MapPOIItem()
         marker.apply {
             tag=tagInfo
@@ -409,7 +419,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             isCustomImageAutoscale=false
             setCustomImageAnchor(0.5f, 1.0f)
         }
-        mapView.addPOIItem(marker)
+        mapView!!.addPOIItem(marker)
     }
 
     private fun initBottomSheetView() {
@@ -511,6 +521,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     changeDisplay(1)
                 }
                 else if(displayStatus==1){
+                    Application.searchKeyword==null
                     findNavController().navigate(R.id.action_prayerFragment_to_mainFragment)
 
                 }
@@ -518,12 +529,21 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
     }
+    fun bottomNavDestination(){
+        findNavController().addOnDestinationChangedListener { controller, destination, arguments ->
+            if(destination.id!=R.id.prayerRoomFragment){
+                mapView=null
+                this.onDetach()
+            }
+        }
+    }
 
 
     override fun onDetach() {
         super.onDetach()
         callback.remove()
-        Application.searchKeyword==null
+        mapView=null
+        Application.searchKeyword=null
         fusedLocationClient.removeLocationUpdates(locationCallback)
         Log.d(TAG, "detach")
     }
@@ -632,6 +652,10 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
         val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
         return isConnected
+    }
+
+    override fun onStop() {
+        super.onStop()
     }
 
 }
