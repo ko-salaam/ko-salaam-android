@@ -1,15 +1,645 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android" >
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
     <data>
+
         <variable
             name="HotelInfoVm"
-            type="com.kosalaamInc.kosalaam.feature.hotelInfo.HotelInfoViewModel" />
+            type="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.hotelInfo.HotelInfoViewModel" />
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
+
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <View
+                    android:id="@+id/view30_restaurantInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H,180:21.2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:background="@color/black"
+                    app:layout_constraintDimensionRatio="H,36:31"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view30_restaurantInfo">
+
+                    <View
+                        android:id="@+id/view31_restaurantInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.069" />
+
+                    <ImageView
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/back_arrow"
+                        app:layout_constraintDimensionRatio="H,4.8:8.2"
+                        app:layout_constraintLeft_toRightOf="@id/view31_restaurantInfo"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.026" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    android:id="@+id/view1_restaurantInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintDimensionRatio="H,180:144.2"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/bottomsheet_back"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view1_restaurantInfo">
+
+                    <View
+                        android:id="@+id/view2_restarantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:16.2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tv_restaurantInfo_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="Dokia"
+                        android:textColor="#191919"
+                        android:textSize="20sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view2_restarantInfo"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <View
+                        android:id="@+id/view3_restarantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:3.8"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_name" />
+
+                    <TextView
+                        android:id="@+id/tv_restaurantInfo_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="Halal Middle Eastern"
+                        android:textColor="#191919"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view3_restarantInfo"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <View
+                        android:id="@+id/view4_restarantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:3.8"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_type" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_restaurantInfo_address"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view4_restarantInfo"
+                        app:layout_constraintWidth_percent="0.861">
+
+                        <ImageView
+                            android:id="@+id/iv_restaurantInfo_marker"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/marker"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_restaurantInfo_address"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_restaurantInfo_address"
+                            app:layout_constraintWidth_percent="0.0161" />
+
+                        <TextView
+
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            app:layout_constraintHorizontal_bias="0"
+                            app:layout_constraintRight_toRightOf="parent"
+                            android:id="@+id/tv_restaurantInfo_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4.4dp"
+                            android:text="Usado_ro 18-gil, Yongsan-gu"
+                            app:layout_constraintLeft_toRightOf="@id/iv_restaurantInfo_marker"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view5_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:7.5"
+                        app:layout_constraintTop_toBottomOf="@id/cl_restaurantInfo_address" />
+
+                    <View
+                        android:id="@+id/view6_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#f1f1f5"
+                        app:layout_constraintDimensionRatio="H,180:2"
+                        app:layout_constraintTop_toBottomOf="@id/view5_restaurantInfo" />
+
+                    <View
+                        android:id="@+id/view7_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:8.8"
+                        app:layout_constraintTop_toBottomOf="@id/view6_restaurantInfo" />
+
+                    <TextView
+                        android:id="@+id/tv_restarantInfo_affinity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="@string/restaurantInfo_affinity"
+                        android:textColor="#191919"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view7_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <View
+                        android:id="@+id/view8_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:5"
+                        app:layout_constraintTop_toBottomOf="@id/tv_restarantInfo_affinity" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_restaurantInfo_affinity"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view8_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861">
+
+                        <TextView
+                            android:id="@+id/tv_restaurantInfo_certify"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:text="Self-Certified"
+                            android:textColor="#191919"
+                            android:textSize="12sp"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <ImageView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:src="@drawable/search_certified"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_restaurantInfo_certify"
+                            app:layout_constraintLeft_toRightOf="@id/tv_restaurantInfo_certify"
+                            app:layout_constraintTop_toTopOf="@id/tv_restaurantInfo_certify"
+                            app:layout_constraintWidth_percent="0.0322" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view9_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:8.8"
+                        app:layout_constraintTop_toBottomOf="@id/cl_restaurantInfo_affinity" />
+
+                    <View
+                        android:id="@+id/view10_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#f1f1f5"
+                        app:layout_constraintDimensionRatio="H,180:2"
+                        app:layout_constraintTop_toBottomOf="@id/view9_restaurantInfo" />
+
+                    <View
+                        android:id="@+id/view11_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:8.8"
+                        app:layout_constraintTop_toBottomOf="@id/view10_restaurantInfo" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_restaurantInfo_contact"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view11_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861">
+
+                        <ImageView
+                            android:id="@+id/iv_restaurantInfo_contact"
+                            android:layout_width="8dp"
+                            android:layout_height="11dp"
+                            android:src="@drawable/search_phone"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_restaurantInfo_contact"
+                            app:layout_constraintDimensionRatio="H,1:1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_restaurantInfo_contact"
+                            app:layout_constraintWidth_percent="0.029" />
+
+                        <TextView
+                            android:id="@+id/tv_restaurantInfo_contact"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4.4dp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:includeFontPadding="false"
+                            android:text="@string/restaurantInfo_contact"
+                            android:textColor="#191919"
+                            android:textSize="14sp"
+                            app:layout_constraintLeft_toRightOf="@id/iv_restaurantInfo_contact"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_restaurantInfo_phoneNum"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:includeFontPadding="false"
+                            android:text="010-1234-1234"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_restaurantInfo_contact" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view12_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:6.5"
+                        app:layout_constraintTop_toBottomOf="@id/cl_restaurantInfo_contact" />
+
+                    <View
+                        android:id="@+id/view13_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#f1f1f5"
+                        app:layout_constraintDimensionRatio="H,180:0.4"
+                        app:layout_constraintTop_toBottomOf="@id/view12_restaurantInfo" />
+
+                    <View
+                        android:id="@+id/view14_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:6.2"
+                        app:layout_constraintTop_toBottomOf="@id/view13_restaurantInfo" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_restaurantInfo_openTime"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view14_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861">
+
+                        <ImageView
+                            android:id="@+id/iv_restaurantInfo_openTime"
+                            android:layout_width="8dp"
+                            android:layout_height="11dp"
+                            android:src="@drawable/ionic_md_time"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_restaurantInfo_openTime"
+                            app:layout_constraintDimensionRatio="H,1:1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_restaurantInfo_openTime"
+                            app:layout_constraintWidth_percent="0.0322" />
+
+                        <TextView
+                            android:id="@+id/tv_restaurantInfo_openTime"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4.4dp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:includeFontPadding="false"
+                            android:text="@string/restaurantInfo_openTime"
+                            android:textColor="#191919"
+                            android:textSize="14sp"
+                            app:layout_constraintLeft_toRightOf="@id/iv_restaurantInfo_openTime"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:gravity="right"
+                            android:layout_marginLeft="15dp"
+                            android:maxLines="1"
+                            android:ellipsize="end"
+                            app:layout_constraintHorizontal_bias="1"
+                            app:layout_constraintLeft_toRightOf="@id/tv_restaurantInfo_openTime"
+                            android:id="@+id/tv_restaurantInfo_openTime_insert"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:includeFontPadding="false"
+                            android:text="11AM ~ 9PM"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_restaurantInfo_openTime" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view15_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:6.5"
+                        app:layout_constraintTop_toBottomOf="@id/cl_restaurantInfo_openTime" />
+
+                    <View
+                        android:id="@+id/view16_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#f1f1f5"
+                        app:layout_constraintDimensionRatio="H,180:0.4"
+                        app:layout_constraintTop_toBottomOf="@id/view15_restaurantInfo" />
+
+                    <View
+                        android:id="@+id/view17_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:6.2"
+                        app:layout_constraintTop_toBottomOf="@id/view16_restaurantInfo" />
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/cl_restaurantInfo_parkAble"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view17_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861">
+
+                        <ImageView
+                            android:id="@+id/iv_restaurantInfo_parkAble"
+                            android:layout_width="8dp"
+                            android:layout_height="11dp"
+                            android:src="@drawable/awesome_parking"
+                            app:layout_constraintBottom_toBottomOf="@id/tv_restaurantInfo_parkAble"
+                            app:layout_constraintDimensionRatio="H,1:1"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_restaurantInfo_parkAble"
+                            app:layout_constraintWidth_percent="0.0322" />
+
+                        <TextView
+                            android:id="@+id/tv_restaurantInfo_parkAble"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="4.4dp"
+                            android:fontFamily="@font/montserrat_bold"
+                            android:includeFontPadding="false"
+                            android:text="@string/restaurantInfo_parkable"
+                            android:textColor="#191919"
+                            android:textSize="14sp"
+                            app:layout_constraintLeft_toRightOf="@id/iv_restaurantInfo_parkAble"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/tv_restaurantInfo_parkAble_insert"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:includeFontPadding="false"
+                            android:text="Availalbe"
+                            android:textColor="#999999"
+                            android:textSize="12sp"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@id/tv_restaurantInfo_parkAble" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view18_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:10.5"
+                        app:layout_constraintTop_toBottomOf="@id/cl_restaurantInfo_parkAble" />
+
+                    <View
+                        android:id="@+id/view19_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#f1f1f5"
+                        app:layout_constraintDimensionRatio="H,180:2"
+                        app:layout_constraintTop_toBottomOf="@id/view18_restaurantInfo" />
+
+                    <View
+                        android:id="@+id/view20_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:8.8"
+                        app:layout_constraintTop_toBottomOf="@id/view19_restaurantInfo" />
+
+                    <TextView
+                        android:id="@+id/tv_restaurantInfo_gallery"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="@string/restaurantInfo_gallery"
+                        android:textColor="#191919"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view20_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <View
+                        android:id="@+id/view21_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:5"
+                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_gallery" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_gallery"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:orientation="horizontal"
+                        app:layout_constraintDimensionRatio="H,155:60"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view21_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <View
+                        android:id="@+id/view22_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:8.8"
+                        app:layout_constraintTop_toBottomOf="@id/rv_gallery" />
+
+                    <View
+                        android:id="@+id/view23_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#f1f1f5"
+                        app:layout_constraintDimensionRatio="H,180:2"
+                        app:layout_constraintTop_toBottomOf="@id/view22_restaurantInfo" />
+
+                    <View
+                        android:id="@+id/view24_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:6.2"
+                        app:layout_constraintTop_toBottomOf="@id/view23_restaurantInfo" />
+
+                    <TextView
+                        android:id="@+id/tv_restaurantInfo_map"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="@string/restaurantInfo_map"
+                        android:textColor="#191919"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view24_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <View
+                        android:id="@+id/view25_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:2.5"
+                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_map" />
+
+                    <TextView
+                        android:id="@+id/tv_restaurantInfo_address2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="65, Usado-ro 18-gil, Yongsan-gu"
+                        android:textColor="#999999"
+                        android:textSize="12sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view25_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <View
+                        android:id="@+id/view26_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:2.5"
+                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_address2" />
+
+                    <RelativeLayout
+                        android:id="@+id/rl_restaurantInfo_mapview"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:81.2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view26_restaurantInfo"
+                        tools:context=".feature.main.prayerRoomFragment.restaurantInfo.RestaurantInfoActivity" />
+
+                    <View
+                        android:id="@+id/view27_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#f1f1f5"
+                        app:layout_constraintDimensionRatio="H,180:2"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/rl_restaurantInfo_mapview" />
+
+                    <View
+                        android:id="@+id/view28_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:8.8"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view27_restaurantInfo" />
+
+                    <TextView
+                        android:id="@+id/tv_restaurantInfo_review"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="@string/restaurantInfo_review"
+                        android:textColor="#191919"
+                        android:textSize="16sp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view28_restaurantInfo"
+                        app:layout_constraintWidth_percent="0.861" />
+
+                    <View
+                        android:id="@+id/view29_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:5"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_review" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view29_restaurantInfo" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
 
 </layout>
