@@ -1,4 +1,4 @@
-package com.kosalaamInc.kosalaam.feature.hotelInfo
+package com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.hotelInfo
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
