@@ -32,6 +32,12 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
     private val _hotelData = MutableLiveData<List<HotelResponse>>()
     private val _prayerData = MutableLiveData<List<PrayerRoomResponse>>()
 
+//    private val _filter_bt = MutableLiveData<Event<Boolean>>()
+//    private val _filter_all_bt = MutableLiveData<Event<Boolean>>()
+//    private val _filter_restaurant_bt = MutableLiveData<Event<Boolean>>()
+//    private val _filter_hotel_bt = MutableLiveData<Event<Boolean>>()
+//    private val _filter_prayer_bt = MutableLiveData<Event<Boolean>>()
+
 
     private val items = recentRepository.getAll()
 
@@ -45,6 +51,13 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
     val hotelData : MutableLiveData<List<HotelResponse>> get() = _hotelData
     val prayerData : MutableLiveData<List<PrayerRoomResponse>> get() = _prayerData
 
+//    val filter_bt : LiveData<Event<Boolean>> get() = _filter_bt
+//    val filter_all_bt : LiveData<Event<Boolean>> get() = _filter_all_bt
+//    val filter_restaurant_bt : LiveData<Event<Boolean>> get() = _filter_restaurant_bt
+//    val filter_hotel_bt : LiveData<Event<Boolean>> get() = _filter_hotel_bt
+//    val filter_prayer_bt : LiveData<Event<Boolean>> get() = _filter_prayer_bt
+
+
 
 
     fun onFocusEvent(){
@@ -54,6 +67,18 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
     fun onBack1Event(){
         _back_bt1.value =Event(true)
     }
+//    fun onFilterEvent(){
+//        _filter_bt.value =Event(true)
+//    }
+//
+//    fun onFilterAllEvent(){
+//        _filter_all_bt.value =Event(true)
+//    }
+//    fun onFilterRestaurantEvent(){
+//        _filter_all_bt.value =Event(true)
+//    }
+
+
     fun redoBtEvent(){
         _redo_bt.value =Event(true)
     }

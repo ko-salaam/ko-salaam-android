@@ -66,9 +66,9 @@
         <activity
             android:name=".feature.signUp.SignUpActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".feature.hotelInfo.HotelInfoActivity"
+        <activity android:name="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.hotelInfo.HotelInfoActivity"
             android:screenOrientation="portrait"/>
-        <activity android:name=".feature.restaurantInfo.RestaurantInfoActivity"
+        <activity android:name="com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.restaurantInfo.RestaurantInfoActivity"
             android:screenOrientation="portrait"/>
         <activity android:name=".feature.prayerTime.PraytimeActivity"
             android:screenOrientation="portrait"/>

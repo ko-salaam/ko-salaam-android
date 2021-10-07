@@ -25,15 +25,15 @@ interface KosalaamAPI {
     Response<List<RestauarntResponse>>
     // restaurant info
 
-    @GET("/api/restaurant/{id}}")
-    fun getRestaurantInfo(@Path("id") id : Int) : Response<RestauarntResponse>
+    @GET("/api/restaurant/{id}")
+    suspend fun getRestaurantInfo(@Path("id") id : Int) : Response<RestauarntResponse>
 
     @GET("/api/accommodation")
     suspend fun getHotelList(@Query("distance") distance : Int, @Query("keyword") keyword : String, @Query("latitude") lat : Double, @Query("longitude")
     lon : Double, @Query("pageNum") pageNum : Int, @Query("pageSize") pageSize : Int) :
             Response<List<HotelResponse>>
 
-    @GET("/api/accommodation/{id}}")
+    @GET("/api/accommodation/{id}")
     fun getHotelInfo(@Path("id") id : Int) : Response<HotelResponse>
 
     //

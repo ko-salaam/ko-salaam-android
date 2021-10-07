@@ -5,14 +5,12 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.kosalaamInc.kosalaam.R
-import com.kosalaamInc.kosalaam.feature.restaurantInfo.RestaurantInfoActivity
+import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.restaurantInfo.RestaurantInfoActivity
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
-import com.kosalaamInc.kosalaam.model.network.response.RestauarntResponse
 
 
 class SearchRvAdapter(var mContext : Context, var data: List<RestaurantSearchData>) :

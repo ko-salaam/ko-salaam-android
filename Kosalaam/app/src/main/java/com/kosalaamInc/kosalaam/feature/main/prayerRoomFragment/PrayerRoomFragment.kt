@@ -4,6 +4,7 @@ import android.Manifest
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
@@ -12,7 +13,6 @@ import android.util.Log
 import android.util.TypedValue
 import android.view.*
 import android.view.inputmethod.InputMethodManager
-import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.contract.ActivityResultContracts
@@ -21,14 +21,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.ui.NavigationUI
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.gms.location.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentSearchprayerroomBinding
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
-import com.kosalaamInc.kosalaam.feature.restaurantInfo.RestaurantInfoActivity
+import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.restaurantInfo.RestaurantInfoActivity
 import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
@@ -39,9 +38,11 @@ import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
 class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
+
     private var searchText : String = ""
     private var locationRequest: LocationRequest? = null
     private var locationCallback: LocationCallback? = null
+    private var filterMode : Boolean = false
 
     private var currentLat : Double= 0.000000
     private var currentLon : Double= 0.000000
@@ -84,16 +85,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             delay(1500)
             loadingDialog.dismiss()
         }
-
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_searchprayerroom, container, false)
         viewModel = ViewModelProvider(this).get(PrayerRoomViewModel::class.java)
         binding!!.lifecycleOwner = viewLifecycleOwner
         binding!!.prayerRoomVm = viewModel
-
-        if(Application.searchKeyword=="prayerRoom"){
-            binding!!.ivSearchFilter.visibility=View.INVISIBLE
-        }
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         initRecentRecyclerView()
         setMarginBottom()
@@ -103,8 +99,44 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         bottomSheetSetHeight()
         recentItemClick()
         startLocationUpdates()
+        initClickListner()
         getSearchList(Application.searchKeyword)
         bottomNavDestination()
+        if(Application.searchKeyword=="prayerRoom"){
+            binding!!.hsvDetailFilter.visibility=View.GONE
+            binding!!.ivSearchFilterPrayer.setImageResource(R.drawable.filter_prayer_green)
+            binding!!.tvSearchFilterPrayer.setTextColor(Color.parseColor("#419070"))
+        }
+
+        else if(Application.searchKeyword=="hotel"){
+            binding!!.tvDetailHotelMuslim.visibility=View.VISIBLE
+            //binding!!.hsvFilter.visibility=View.GONE
+            binding!!.hsvDetailFilter.visibility=View.VISIBLE
+            binding!!.tvDetailHalalCertified.visibility=View.GONE
+            binding!!.tvDetailSelfCertified.visibility=View.GONE
+            binding!!.tvDetailMuslimFriendly.visibility=View.GONE
+            binding!!.tvDetailPorkFree.visibility= View.GONE
+            binding!!.ivSearchFilterHotel.setImageResource(R.drawable.filter_hotel_green)
+            binding!!.tvSearchFilterHotel.setTextColor(Color.parseColor("#419070"))
+        }
+        else if(Application.searchKeyword=="restaurant"){
+            //binding!!.hsvFilter.visibility=View.GONE
+            binding!!.hsvDetailFilter.visibility=View.VISIBLE
+            binding!!.tvDetailHalalCertified.visibility=View.VISIBLE
+            binding!!.tvDetailSelfCertified.visibility=View.VISIBLE
+            binding!!.tvDetailMuslimFriendly.visibility=View.VISIBLE
+            binding!!.tvDetailPorkFree.visibility= View.VISIBLE
+            binding!!.tvDetailHotelMuslim.visibility=View.GONE
+            binding!!.ivSearchFilterRestaurant.setImageResource(R.drawable.filter_restaurant_green)
+            binding!!.tvSearchFilterRestaurant.setTextColor(Color.parseColor("#419070"))
+        }
+
+        else{
+            //binding!!.hsvFilter.visibility=View.VISIBLE
+            binding!!.hsvDetailFilter.visibility=View.VISIBLE
+            binding!!.ivSearchFilterAll.setImageResource(R.drawable.filter_all_green)
+            binding!!.tvSearchFilterAll.setTextColor(Color.parseColor("#419070"))
+        }
         return binding!!.root
     }
 
@@ -185,30 +217,37 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             restaurantData.observe(this@PrayerRoomFragment, Observer {
                 mapView!!.removeAllPOIItems()
                 list.clear()
-                for (i in 0..it.size - 1) {
-                    list.add(RestaurantSearchData(it[i].id,
-                        (i + 1).toString() + ". " + it[i].name,
-                        it[i].address,
-                        0,
-                        it[i].muslimFriendly))
-                    addPOIItem(i,
-                        it[i].latitude,
-                        it[i].longitude,
-                        it[i].name,
-                        it[i].id)
-                    Log.d("prayerRoomInfo", latitude.toString()+" "+longitude.toString())
-                }
-                Log.d(TAG, list.size.toString())
-                val searchAdapter = SearchRvAdapter(requireContext(),list)
-                searchAdapter.setOnItemClickListener(object :SearchRvAdapter.OnSearchItemClickListener{
-                    override fun onItemClick(v: View, data: RestaurantSearchData, pos: Int) {
-                        startActivity(Intent(requireActivity(),RestaurantInfoActivity::class.java))
-                        binding!!.searchMapview.removeView(mapView)
+                CoroutineScope(Dispatchers.Main).launch {
+                    loadingDialog.show()
+                    delay(1000)
+                    for (i in 0..it.size - 1) {
+                        list.add(RestaurantSearchData(it[i].id,
+                            (i + 1).toString() + ". " + it[i].name,
+                            it[i].address,
+                            0,
+                            it[i].muslimFriendly))
+                        addPOIItem(i,
+                            it[i].latitude,
+                            it[i].longitude,
+                            it[i].name,
+                            it[i].id)
+                        Log.d("prayerRoomInfo", latitude.toString()+" "+longitude.toString())
                     }
+                    Log.d(TAG, list.size.toString())
+                    val searchAdapter = SearchRvAdapter(requireContext(),list)
+                    searchAdapter.setOnItemClickListener(object :SearchRvAdapter.OnSearchItemClickListener{
+                        override fun onItemClick(v: View, data: RestaurantSearchData, pos: Int) {
+                            startActivity(Intent(requireActivity(),RestaurantInfoActivity::class.java))
+                            RestaurantInfoActivity.idNum=data.id
+                            binding!!.searchMapview.removeView(mapView)
+                        }
+                    })
+                    binding!!.rvSearch.adapter = searchAdapter
+                    pageNum++
+                    loadingDialog.dismiss()
 
-                })
-                binding!!.rvSearch.adapter = searchAdapter
-                pageNum++
+                }
+
             })
             hotelData.observe(this@PrayerRoomFragment, Observer {
 
@@ -259,7 +298,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     getSearchList(Application.searchKeyword)
                 }
             })
-
         }
     }
 
@@ -288,6 +326,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         } else if (status == 2) {
             Log.d(TAG, "This is 2status")
             displayStatus = 2
+            binding!!.hsvFilter.visibility=View.GONE
+            filterMode=false
             binding!!.rvSearch.visibility=View.GONE
             binding!!.viewSearch5.visibility = View.GONE
             binding!!.clSearchWhite.visibility = View.VISIBLE
@@ -399,10 +439,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     private fun initMapVIew() {
-//        if(mapView==null) {
         mapView = MapView(context)
-//        }
-//        binding!!.searchMapview.addView(mapView)
         mapViewContainer = binding!!.searchMapview
         mapViewContainer.addView(mapView)
         mapView!!.setMapViewEventListener(this)
@@ -651,11 +688,13 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
             }
         }
+
         else{
             Toast.makeText(requireContext(),"Check your Internet",Toast.LENGTH_SHORT).show()
         }
     //
     }
+
     @Suppress("DEPRECATION")
     fun checkInternet(): Boolean {
         val cm = activity?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
@@ -669,8 +708,42 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     override fun onResume() {
-        super.onResume()
         initMapVIew()
+        mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
+            longitude), true)
+        pageNum--
+        getSearchList(Application.searchKeyword)
+        super.onResume()
     }
+    fun initClickListner(){
+        binding!!.ivSearchFilter.setOnClickListener {
+            if(filterMode==false){
+                binding!!.tvSearchRedo.visibility=View.GONE
+                binding!!.hsvFilter.visibility=View.VISIBLE
+                // filter 이미지 변경
+                filterMode=true
+            }
+            else{
+                binding!!.tvSearchRedo.visibility=View.VISIBLE
+                binding!!.hsvFilter.visibility=View.GONE
+                filterMode=false
+            }
+        }
+        binding!!.clSearchFilterAll.setOnClickListener {
 
+        }
+
+        binding!!.clSearchFilterHotel.setOnClickListener {
+
+        }
+
+        binding!!.clSearchFilterPrayer.setOnClickListener{
+
+        }
+
+        binding!!.clSearchFilterRestaurant.setOnClickListener{
+
+        }
+
+    }
 }
