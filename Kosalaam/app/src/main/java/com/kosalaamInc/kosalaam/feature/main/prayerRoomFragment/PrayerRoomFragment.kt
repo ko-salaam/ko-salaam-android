@@ -43,7 +43,19 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private var searchText: String = ""
     private var locationRequest: LocationRequest? = null
     private var locationCallback: LocationCallback? = null
-    private var filterMode: Boolean = false
+
+    // filter status
+    private var filterMode: Boolean = false // 필터창 확인
+
+    private var filterAll : Boolean = false
+    private var filterRestaurant : Boolean = false
+    private var filterHotel : Boolean = false
+    private var filterPrayer : Boolean = false
+    private var halalCertified : Boolean =false
+    private var selfCertified : Boolean = false
+    private var muslimFriendly : Boolean = false
+    private var porkFree : Boolean = false
+    private var muslimFriendlyHotel : Boolean = false
 
     private var currentLat: Double = 0.000000
     private var currentLon: Double = 0.000000
@@ -247,6 +259,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 }
 
             })
+
             hotelData.observe(this@PrayerRoomFragment, Observer {
 
             })
@@ -321,12 +334,24 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.rvSearch.visibility = View.VISIBLE
             binding!!.viewSearch5.visibility = View.VISIBLE
             binding!!.tvSearchRedo.visibility = View.VISIBLE
+            binding!!.ivSearchFilter.visibility = View.VISIBLE
+            if(filterMode){
+                binding!!.ivSearchFilter.setImageResource(R.drawable.search_filter)
+                filterMode=true
+                binding!!.hsvFilter.visibility=View.VISIBLE
+                binding!!.tvSearchRedo.visibility = View.GONE
+            }
+            else{
+                binding!!.ivSearchFilter.setImageResource(R.drawable.search_filter)
+                filterMode=false
+                binding!!.hsvFilter.visibility=View.GONE
+            }
+            binding!!.ivSearchCancel.visibility=View.GONE
 
         } else if (status == 2) {
             Log.d(TAG, "This is 2status")
             displayStatus = 2
             binding!!.hsvFilter.visibility = View.GONE
-            filterMode = false
             binding!!.rvSearch.visibility = View.GONE
             binding!!.viewSearch5.visibility = View.GONE
             binding!!.clSearchWhite.visibility = View.VISIBLE
@@ -337,7 +362,19 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.rvRecentSearch.visibility = View.VISIBLE
             binding!!.tvSearchDelete.visibility = View.VISIBLE
             binding!!.tvSearchRedo.visibility = View.GONE
-            viewModel.getAll().observe(this@PrayerRoomFragment, Observer {
+            binding!!.ivSearchCancel.visibility=View.GONE
+            if(filterMode){
+                binding!!.ivSearchFilter.setImageResource(R.drawable.search_filter)
+                filterMode=true
+                binding!!.hsvFilter.visibility=View.VISIBLE
+                binding!!.tvSearchRedo.visibility = View.GONE
+            }
+            else{
+                binding!!.ivSearchFilter.setImageResource(R.drawable.search_filter)
+                filterMode=false
+                binding!!.hsvFilter.visibility=View.GONE
+            }
+            viewModel.getAll().observe(viewLifecycleOwner, Observer {
                 if (displayStatus == 2) {
                     if (it.size == 0) {
                         binding!!.ivSearchDefault.visibility = View.VISIBLE
@@ -392,8 +429,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.rvRecentSearch.visibility = View.GONE
             binding!!.tvSearchDelete.visibility = View.GONE
             binding!!.tvSearchRedo.visibility = View.VISIBLE
-
-
+            binding!!.ivSearchFilter.visibility=View.GONE
+            binding!!.ivSearchCancel.visibility=View.VISIBLE
         }
 
     }
@@ -450,7 +487,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         longitude: Double,
         name: String?,
         tagInfo: Int,
-
         ) {
         val marker = MapPOIItem()
         marker.apply {
@@ -483,7 +519,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     BottomSheetBehavior.STATE_SETTLING -> {
 
                     }
-
                     // 최대 높이로 보이는 상태
                     BottomSheetBehavior.STATE_EXPANDED -> {
 
@@ -496,8 +531,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
                     // 숨김 상태
                     BottomSheetBehavior.STATE_HIDDEN -> {
-                    }
 
+                    }
                 }
             }
 
@@ -650,6 +685,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             // for ActivityCompat#requestPermissions for more details.
 
         } else {
+
             locationRequest = LocationRequest.create()
             locationRequest?.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
             locationRequest?.setInterval((20 * 1000).toLong())
@@ -718,14 +754,27 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             if (filterMode == false) {
                 binding!!.tvSearchRedo.visibility = View.GONE
                 binding!!.hsvFilter.visibility = View.VISIBLE
+                binding!!.ivSearchFilter.setImageResource(R.drawable.search_uparrow)
                 // filter 이미지 변경
                 filterMode = true
             } else {
-
                 binding!!.tvSearchRedo.visibility = View.VISIBLE
                 binding!!.hsvFilter.visibility = View.GONE
+                binding!!.ivSearchFilter.setImageResource(R.drawable.search_filter)
+                if(displayStatus==2){
+                    binding!!.tvSearchRedo.visibility = View.GONE
+                }
                 filterMode = false
+            }
+        }
 
+        binding!!.ivSearchCancel.setOnClickListener {
+            if(displayStatus==3) {
+                searchText = ""
+                pageNum = 0
+                getSearchList(Application.searchKeyword)
+
+                changeDisplay(1)
             }
         }
 
@@ -743,7 +792,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             //필터변경
             //detail 부분도 초기화(객체 이미지 전부 후에 보여줄것들 확인
             // Application.keyword
-            // viewmodel 호
+            // viewmodel 호출
         }
 
         binding!!.clSearchFilterHotel.setOnClickListener {
@@ -783,26 +832,76 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.tvDetailMuslimFriendly.visibility= View.VISIBLE
             binding!!.tvDetailHotelMuslim.visibility =View.GONE
             binding!!.tvDetailHalalCertified.visibility = View.VISIBLE
+            getSearchList(Application.searchKeyword)
         }
 
         binding!!.tvDetailHalalCertified.setOnClickListener {
+            if(halalCertified==false){
+                binding!!.tvDetailHalalCertified.setTextColor(Color.parseColor("#419070"))
+                binding!!.tvDetailHalalCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
+                halalCertified=true
+                // 감색로직 추가
+            }
+            else{
+                binding!!.tvDetailHalalCertified.setTextColor(Color.parseColor("#999999"))
+                binding!!.tvDetailHalalCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
+                halalCertified=false
+                // 검색로직추가
+            }
 
         }
 
         binding!!.tvDetailHotelMuslim.setOnClickListener {
-
+            if(muslimFriendlyHotel==false){
+                binding!!.tvDetailHotelMuslim.setTextColor(Color.parseColor("#419070"))
+                binding!!.tvDetailHotelMuslim.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
+                muslimFriendlyHotel=true
+            }
+            else{
+                binding!!.tvDetailHotelMuslim.setTextColor(Color.parseColor("#999999"))
+                binding!!.tvDetailHotelMuslim.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
+                muslimFriendlyHotel=false
+            }
         }
 
         binding!!.tvDetailMuslimFriendly.setOnClickListener {
+            if(muslimFriendly==false){
+                binding!!.tvDetailMuslimFriendly.setTextColor(Color.parseColor("#419070"))
+                binding!!.tvDetailMuslimFriendly.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
+                muslimFriendly=true
+            }
+            else{
+                binding!!.tvDetailMuslimFriendly.setTextColor(Color.parseColor("#999999"))
+                binding!!.tvDetailMuslimFriendly.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
+                muslimFriendly=false
+            }
 
         }
 
         binding!!.tvDetailPorkFree.setOnClickListener {
-
+            if(porkFree==false){
+                binding!!.tvDetailPorkFree.setTextColor(Color.parseColor("#419070"))
+                binding!!.tvDetailPorkFree.background = ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
+                porkFree=true
+            }
+            else{
+                binding!!.tvDetailPorkFree.setTextColor(Color.parseColor("#999999"))
+                binding!!.tvDetailPorkFree.background = ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
+                porkFree=false
+            }
         }
 
         binding!!.tvDetailSelfCertified.setOnClickListener {
-
+            if(selfCertified==false){
+                binding!!.tvDetailSelfCertified.setTextColor(Color.parseColor("#419070"))
+                binding!!.tvDetailSelfCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
+                selfCertified=true
+            }
+            else{
+                binding!!.tvDetailSelfCertified.setTextColor(Color.parseColor("#999999"))
+                binding!!.tvDetailSelfCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
+                selfCertified=false
+            }
         }
 
     }
@@ -819,14 +918,14 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     private fun setDetailFilterDefault(){
+        binding!!.tvDetailHotelMuslim.setTextColor(Color.parseColor("#999999"))
+        binding!!.tvDetailHotelMuslim.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
         binding!!.tvDetailSelfCertified.setTextColor(Color.parseColor("#999999"))
         binding!!.tvDetailSelfCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
         binding!!.tvDetailPorkFree.setTextColor(Color.parseColor("#999999"))
         binding!!.tvDetailPorkFree.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
         binding!!.tvDetailMuslimFriendly.setTextColor(Color.parseColor("#999999"))
         binding!!.tvDetailMuslimFriendly.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
-        binding!!.tvDetailHotelMuslim.setTextColor(Color.parseColor("#999999"))
-        binding!!.tvDetailHotelMuslim.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
         binding!!.tvDetailHalalCertified.setTextColor(Color.parseColor("#999999"))
         binding!!.tvDetailHalalCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
     }
