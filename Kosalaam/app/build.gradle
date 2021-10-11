@@ -90,6 +90,9 @@ dependencies {
     // SSLHandshakeException: Handshake failed
     implementation 'org.conscrypt:conscrypt-android:2.5.0'
 
+    //circle image view
+    implementation 'de.hdodenhof:circleimageview:3.1.0'
+
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation 'androidx.core:core-ktx:1.6.0'

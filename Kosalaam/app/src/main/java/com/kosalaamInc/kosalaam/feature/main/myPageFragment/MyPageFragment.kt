@@ -1,34 +1,58 @@
 package com.kosalaamInc.kosalaam.feature.main.myPageFragment
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
+import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentMypageBinding
+import com.kosalaamInc.kosalaam.feature.main.compassFragment.CompassViewModel
+import com.kosalaamInc.kosalaam.feature.main.mainFragment.MainFragViewModel
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostInfo.HostInfoAcitivty
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity
+import com.kosalaamInc.kosalaam.util.DataBindingUtil
 
 
 class MyPageFragment : Fragment(){
-    private var mBinding : FragmentMypageBinding? = null
+    private var binding : FragmentMypageBinding? = null
     companion object{
         const val Tag = "MyPageFragment"
     }
+    private lateinit var viewModel : MyPageViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val binding = FragmentMypageBinding.inflate(inflater,container,false)
-        Log.d(Tag,"OnCreateView")
-        mBinding = binding
-        return mBinding?.root
+        binding = androidx.databinding.DataBindingUtil.inflate(inflater, R.layout.fragment_mypage,container,false)
+        initClickListener()
+        return binding?.root
+
+    }
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
+        binding!!.lifecycleOwner = viewLifecycleOwner
+        binding!!.myPageVm = viewModel
 
     }
 
     override fun onDestroyView() {
-        mBinding= null
+        binding= null
         super.onDestroyView()
+    }
+    private fun initClickListener(){
+        binding!!.tvMypageHostingInfomation.setOnClickListener {
+            startActivity(Intent(requireContext(),HostInfoAcitivty::class.java))
+        }
+        binding!!.tvMypagePrivacyPolicy.setOnClickListener {
+            startActivity(Intent(requireContext(),PrivacyPolicyActivity::class.java))
+        }
     }
 }

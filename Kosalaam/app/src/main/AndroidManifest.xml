@@ -74,6 +74,13 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".feature.activitySearch.ActivitiesSearchActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".feature.main.myPageFragment.hostInfo.HostInfoAcitivty"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".feature.main.myPageFragment.hostInfo.hostInfoEdit.HostInfoEditAcitvity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity"
+            android:screenOrientation="portrait"/>
+
     </application>
 
 </manifest>

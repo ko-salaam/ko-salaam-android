@@ -44,8 +44,31 @@
     <string name="restaurantInfo_map">Map</string>
     <string name="restaurantInfo_review">Review</string>
     <string name="appFinish">Please click BACK again to exit</string>
+    <string name="mypage_accountSetting">Account setting</string>
+    <string name="mypage_personalInfomation">Personal information</string>
+    <string name="mypage_hosting">Hosting</string>
+    <string name="mypage_learnAbout">Learn about hosting</string>
+    <string name="mypage_host_registration">Host registration</string>
+    <string name="mypage_hosting_infomation">Hosting infomation</string>
+    <string name="mypage_support">Support</string>
+    <string name="mypage_getHelp">Get help</string>
+    <string name="mypage_contactUs">Contact us</string>
+    <string name="mypage_logout">Log out</string>
+    <string name="mypage_privacyPolicy">Privacy policy</string>
+    <string name="hostInfo_edit">Edit</string>
+    <string name="hostInfo_hostingInfo">Hosting infomation</string>
+    <string name="hostInfo_placeName">Place name</string>
+    <string name="hostInfo_address">Address</string>
+    <string name="hostInfo_phoneNum">Phone number</string>
+    <string name="hostInfo_roomEquip">Room equipment</string>
+    <string name="hostInfo_prayerWatch">Prayer Watch</string>
+    <string name="hostInfo_quran">Quran</string>
+    <string name="hostInfo_prayerMat">Prayer Mat</string>
+    <string name="hostInfo_compass">Compass</string>
+    <string name="hostInfo_washingRoom">Washing room</string>
+    <string name="hostInfo_qibla">Qibla</string>
+    <string name="hostInfo_prayerClother">Prayer Clothes</string>
+    <string name="hostInfo_estimatedPrice">Estimated price</string>
+    <string name="hostInfo_save">Save</string>
 
-
-
-    
 </resources>
