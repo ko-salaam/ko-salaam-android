@@ -201,7 +201,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         Toast.makeText(requireContext(), "Enter search keyword", Toast.LENGTH_SHORT)
                             .show()
                     }
-
                 }
             })
 
