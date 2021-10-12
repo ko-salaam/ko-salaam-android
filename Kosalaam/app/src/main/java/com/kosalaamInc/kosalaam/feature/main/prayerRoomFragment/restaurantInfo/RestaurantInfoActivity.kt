@@ -22,7 +22,7 @@ class RestaurantInfoActivity : AppCompatActivity(){
     lateinit var mapViewContainer : RelativeLayout
 
     companion object{
-        var idNum : Int = 0
+        var idNum : String? = null
         var uuid : String? = ""
     }
 
@@ -90,7 +90,7 @@ class RestaurantInfoActivity : AppCompatActivity(){
             }
 
         })
-        viewModel.getRestaurantInfo(idNum)
+        viewModel.getRestaurantInfo(idNum!!)
     }
 
     override fun finish() {

@@ -127,17 +127,23 @@ class SignUpActivity : AppCompatActivity() {
                 it.getContentIfNotHandled()?.let {
                     when (SignUpViewModel.click) {
                         0 -> {
-                            binding!!.tvSignupNext
-                            binding!!.clSignupHide1.visibility = View.VISIBLE
-                            binding!!.tvSignupNext.isClickable = false
-                            binding!!.tvSignupNext.background =
-                                getDrawable(R.drawable.login_defaultback)
-                            binding!!.tvSignupNext.setText("Verify")
-                            createEmailCode()
-                            Log.d(TAG,getString(R.string.kosalaamGmail))
-                            SendMailVerification().sendEmail("Kosalaam Verify Code",
-                               "Kosalaam Verify Code is :  " + EmailverifyCode,SignUpViewModel.getEmail.toString(),getString(R.string.kosalaamGmail))
-                            SignUpViewModel.click += 1
+                            if(checkInternet()){
+                                binding!!.tvSignupNext
+                                binding!!.clSignupHide1.visibility = View.VISIBLE
+                                binding!!.tvSignupNext.isClickable = false
+                                binding!!.tvSignupNext.background =
+                                    getDrawable(R.drawable.login_defaultback)
+                                binding!!.tvSignupNext.setText("Verify")
+                                createEmailCode()
+                                Log.d(TAG,getString(R.string.kosalaamGmail))
+                                SendMailVerification().sendEmail("Kosalaam Verify Code",
+                                    "Kosalaam Verify Code is :  " + EmailverifyCode,SignUpViewModel.getEmail.toString(),getString(R.string.kosalaamGmail))
+                                SignUpViewModel.click += 1
+                            }
+                            else{
+                                Toast.makeText(this@SignUpActivity,"check your internet",Toast.LENGTH_SHORT).show()
+                            }
+
                         }
                         // add email check func
                         1 -> {
@@ -159,7 +165,13 @@ class SignUpActivity : AppCompatActivity() {
                             }
                         }
                         2-> {
-                            createAccount(SignUpViewModel.getEmail!!,SignUpViewModel.getPassword!!)
+                            if(checkInternet()){
+                                createAccount(SignUpViewModel.getEmail!!,SignUpViewModel.getPassword!!)
+                            }
+                            else{
+
+                            }
+
                         }
                     }
                 }

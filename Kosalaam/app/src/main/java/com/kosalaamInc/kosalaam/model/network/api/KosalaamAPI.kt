@@ -26,7 +26,7 @@ interface KosalaamAPI {
     // restaurant info
 
     @GET("/api/restaurant/{id}")
-    suspend fun getRestaurantInfo(@Path("id") id : Int) : Response<RestauarntResponse>
+    suspend fun getRestaurantInfo(@Path("id") id : String?) : Response<RestauarntResponse>
 
     @GET("/api/accommodation")
     suspend fun getHotelList(@Query("distance") distance : Int, @Query("keyword") keyword : String, @Query("latitude") lat : Double, @Query("longitude")

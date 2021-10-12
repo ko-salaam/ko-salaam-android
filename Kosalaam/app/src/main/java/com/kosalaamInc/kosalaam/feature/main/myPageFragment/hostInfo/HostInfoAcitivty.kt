@@ -29,9 +29,11 @@ class HostInfoAcitivty : AppCompatActivity(){
         initObserve()
         initClickListener()
     }
+
     private fun initObserve(){
 
     }
+
     private fun initClickListener(){
         binding!!.tvHostInfoEdit.setOnClickListener {
             startActivity(Intent(this,HostInfoEditAcitvity::class.java))

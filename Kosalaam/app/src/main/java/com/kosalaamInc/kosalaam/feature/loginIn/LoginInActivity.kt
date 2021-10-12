@@ -1,6 +1,9 @@
 package com.kosalaamInc.kosalaam.feature.loginIn
 
+import android.content.Context
 import android.content.Intent
+import android.net.ConnectivityManager
+import android.net.NetworkInfo
 import android.os.Bundle
 import android.text.method.HideReturnsTransformationMethod
 import android.util.Log
@@ -19,6 +22,7 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityLoginInBinding
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.feature.signUp.BiggerDotPasswordTransformationMethod
+import com.kosalaamInc.kosalaam.global.Application
 
 class LoginInActivity : AppCompatActivity(){
     private var binding : ActivityLoginInBinding? = null
@@ -65,7 +69,6 @@ class LoginInActivity : AppCompatActivity(){
                         binding!!.tvLoginLoginbt.isClickable=false
                     }
                 }
-
             })
             password_after.observe(this@LoginInActivity, Observer {
                 it.getContentIfNotHandled()?.let {
@@ -95,7 +98,13 @@ class LoginInActivity : AppCompatActivity(){
             })
             signIn_Bt.observe(this@LoginInActivity, Observer {
                 it.getContentIfNotHandled()?.let {
-                    signIn()
+                    if(checkInternet()){
+                        signIn()
+                    }
+                    else{
+                        Toast.makeText(this@LoginInActivity,"Check your internet",Toast.LENGTH_SHORT).show()
+                    }
+
                 }
             })
 
@@ -124,8 +133,6 @@ class LoginInActivity : AppCompatActivity(){
         catch (e: FirebaseAuthException){
 
         }
-
-
     }
 
     override fun onDestroy() {
@@ -135,13 +142,27 @@ class LoginInActivity : AppCompatActivity(){
         LoginInViewModel.passwordVisible=false
         binding=null
     }
+
     private fun updateUI(user : FirebaseUser?){
         if(user!= null){
             startActivity(Intent(this,MainActivity::class.java))
+            Application.user = user
+            Application.prefs.setString("platform","email")
+            Application.prefs.setString("userEmail",LoginInViewModel.emailString)
+            Application.prefs.setString("password",LoginInViewModel.passwordString)
         }
+
         else{
+
             // user is null
         }
+    }
+    @Suppress("DEPRECATION")
+    private fun checkInternet(): Boolean {
+        val cm = this.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val activeNetwork: NetworkInfo? = cm.activeNetworkInfo
+        val isConnected: Boolean = activeNetwork?.isConnectedOrConnecting == true
+        return isConnected
     }
 
 }

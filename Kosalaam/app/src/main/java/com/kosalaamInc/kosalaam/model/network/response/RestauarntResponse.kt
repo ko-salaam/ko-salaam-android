@@ -16,13 +16,14 @@ class RestauarntResponse {
     @SerializedName("dishType")
     @Expose
     val dishType : String? = null
+
     @SerializedName("id")
     @Expose
-    val id : Int = 0
+    val id : String? = null
 
     @SerializedName("imagesId")
     @Expose
-    val imagesId : String? = null
+    val imagesId : List<String>? = null
 
     @SerializedName("isLiked")
     @Expose

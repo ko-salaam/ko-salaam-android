@@ -237,7 +237,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                             it[i].latitude,
                             it[i].longitude,
                             it[i].name,
-                            it[i].id)
+                            it[i].id!!)
                         Log.d("prayerRoomInfo", latitude.toString() + " " + longitude.toString())
                     }
                     Log.d(TAG, list.size.toString())
@@ -474,7 +474,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     private fun initMapVIew() {
-        mapView = MapView(context)
+        mapView = MapView(requireContext())
         mapViewContainer = binding!!.searchMapview
         mapViewContainer.addView(mapView)
         mapView!!.setMapViewEventListener(this)
@@ -485,11 +485,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         latitude: Double,
         longitude: Double,
         name: String?,
-        tagInfo: Int,
+        tagInfo: String,
         ) {
         val marker = MapPOIItem()
         marker.apply {
-            tag = tagInfo
+//            tag = tagInfo.toInt()
             itemName = name
             mapPoint = MapPoint.mapPointWithGeoCoord(latitude,
                 longitude)

@@ -12,9 +12,9 @@ import kotlinx.coroutines.launch
 class RestaurantInfoViewModel : ViewModel(){
     private val _restaurantData = MutableLiveData<RestauarntResponse>()
     val restaurantData : MutableLiveData<RestauarntResponse> get() = _restaurantData
-    fun getRestaurantInfo(id : Int) {
+    fun getRestaurantInfo(id : String?) {
         CoroutineScope(Dispatchers.IO).launch {
-            SearchRepository().restaurantInfo(id).let {
+            SearchRepository().restaurantInfo(id!!).let {
                 Log.d("PrayerRoomSuccess",it.code().toString())
                 Log.d("PrayerRoomSuccess",it.message().toString())
                 if(it.isSuccessful){

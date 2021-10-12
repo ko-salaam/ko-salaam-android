@@ -28,6 +28,7 @@ import com.kosalaamInc.kosalaam.databinding.ActivityLoginBinding
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.feature.signUp.SignUpActivity
+import com.kosalaamInc.kosalaam.global.Application
 import java.util.*
 
 
@@ -190,17 +191,18 @@ class LoginActivity : AppCompatActivity() {
                     val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
                     var user = auth.currentUser
                     if (isNew == true) {
-                        var token: String? = null
                         user!!.getIdToken(true)
                             .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
                                 override fun onComplete(task: Task<GetTokenResult?>) {
                                     if (task.isSuccessful()) {
                                         val idToken: String? = task.getResult()?.getToken()
                                         Log.d(TAG, idToken!!)
-                                        token = idToken
+
                                         try {
                                             viewModel.signUp(idToken!!)
                                             initSignUpObserve(user)
+                                            Application.prefs.setString("platform","facebook")
+                                            Application.prefs.setString("token",token.token)
                                         } catch (t: Throwable) {
                                             deleteUser(user!!)
                                             //Toast message
@@ -250,6 +252,8 @@ class LoginActivity : AppCompatActivity() {
                                         try {
                                             viewModel.signUp(idToken!!)
                                             initSignUpObserve(user)
+                                            Application.prefs.setString("platform","google")
+                                            Application.prefs.setString("token",idToken)
                                         } catch (t: Throwable) {
                                             deleteUser(user!!)
                                             //Toast message
@@ -276,7 +280,7 @@ class LoginActivity : AppCompatActivity() {
         if (user != null) {
             startActivity(Intent(this, MainActivity::class.java))
         } else {
-            // how to show
+            Toast.makeText(this,"login failed, Try later",Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -292,9 +296,14 @@ class LoginActivity : AppCompatActivity() {
         viewModel.signUpBoolean.observe(this, Observer<Boolean> {
             Log.d("CheckBoolean", it.toString())
             if (it == true) {
+                Application.user = user
                 updateUI(user)
+
             } else {
+                Toast.makeText(this,"login failed, Try later",Toast.LENGTH_SHORT).show()
                 deleteUser(user!!)
+                Application.prefs.setString("platform","")
+                Application.prefs.setString("token","")
             }
         })
     }
@@ -304,6 +313,9 @@ class LoginActivity : AppCompatActivity() {
             .addOnCompleteListener { task ->
                 if (task.isSuccessful) {
                     Log.d(TAG, "User account deleted.")
+                }
+                else{
+
                 }
             }
     }
