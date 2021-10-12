@@ -1,21 +1,20 @@
 package com.kosalaamInc.kosalaam.feature.main.myPageFragment
 
+import android.app.Application
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.ViewModelProvider
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentMypageBinding
-import com.kosalaamInc.kosalaam.feature.main.compassFragment.CompassViewModel
-import com.kosalaamInc.kosalaam.feature.main.mainFragment.MainFragViewModel
+import com.kosalaamInc.kosalaam.feature.login.LoginActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostInfo.HostInfoAcitivty
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity
-import com.kosalaamInc.kosalaam.util.DataBindingUtil
 
 
 class MyPageFragment : Fragment(){
@@ -28,9 +27,12 @@ class MyPageFragment : Fragment(){
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
-        savedInstanceState: Bundle?
+        savedInstanceState: Bundle?,
     ): View? {
-        binding = androidx.databinding.DataBindingUtil.inflate(inflater, R.layout.fragment_mypage,container,false)
+        binding = androidx.databinding.DataBindingUtil.inflate(inflater,
+            R.layout.fragment_mypage,
+            container,
+            false)
         initClickListener()
         return binding?.root
 
@@ -49,10 +51,27 @@ class MyPageFragment : Fragment(){
     }
     private fun initClickListener(){
         binding!!.tvMypageHostingInfomation.setOnClickListener {
-            startActivity(Intent(requireContext(),HostInfoAcitivty::class.java))
+            startActivity(Intent(requireContext(), HostInfoAcitivty::class.java))
         }
         binding!!.tvMypagePrivacyPolicy.setOnClickListener {
-            startActivity(Intent(requireContext(),PrivacyPolicyActivity::class.java))
+            startActivity(Intent(requireContext(), PrivacyPolicyActivity::class.java))
         }
+        binding!!.tvMypageLogout.setOnClickListener {
+            logout()
+        }
+    }
+    private fun logout(){
+        if(com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform","")=="facebook" ||
+            com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform","")=="google") {
+            Firebase.auth.signOut()
+        }
+        com.kosalaamInc.kosalaam.global.Application.prefs.setString("platform","")
+        com.kosalaamInc.kosalaam.global.Application.prefs.setString("token","")
+        com.kosalaamInc.kosalaam.global.Application.prefs.setString("email","")
+        com.kosalaamInc.kosalaam.global.Application.prefs.setString("password","")
+
+        var i = Intent(requireContext(), LoginActivity::class.java)
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(i)
     }
 }
