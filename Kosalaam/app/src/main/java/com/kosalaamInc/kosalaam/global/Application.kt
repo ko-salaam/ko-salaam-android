@@ -25,6 +25,4 @@ class Application : Application() {
     }
     // prefs platform - email / facebook / google
     //  userEmail - password / userToken
-
-
 }

@@ -190,6 +190,8 @@ class LoginActivity : AppCompatActivity() {
                     // Sign in success, update UI with the signed-in user's information
                     val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
                     var user = auth.currentUser
+                    Application.prefs.setString("platform","facebook")
+                    Application.prefs.setString("token",token.token)
                     if (isNew == true) {
                         user!!.getIdToken(true)
                             .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
@@ -201,15 +203,18 @@ class LoginActivity : AppCompatActivity() {
                                         try {
                                             viewModel.signUp(idToken!!)
                                             initSignUpObserve(user)
-                                            Application.prefs.setString("platform","facebook")
-                                            Application.prefs.setString("token",token.token)
-                                        } catch (t: Throwable) {
+                                        }
+                                        catch (t: Throwable) {
+                                            Application.prefs.setString("platform","")
+                                            Application.prefs.setString("token","")
                                             deleteUser(user!!)
                                             //Toast message
                                         }
 
                                     } else {
                                         //Toast message
+                                        Application.prefs.setString("platform","")
+                                        Application.prefs.setString("token","")
                                         deleteUser(user!!)
                                     }
                                 }
@@ -240,27 +245,32 @@ class LoginActivity : AppCompatActivity() {
                     val user = auth.currentUser
                     var token: String? = null
                     val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
+                    Application.prefs.setString("platform","google")
+                    Application.prefs.setString("token",idToken)
                     if (isNew == true) {
                         var token: String? = null
                         user!!.getIdToken(true)
                             .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
                                 override fun onComplete(task: Task<GetTokenResult?>) {
                                     if (task.isSuccessful()) {
-                                        val idToken: String? = task.getResult()?.getToken()
-                                        Log.d(TAG, idToken!!)
-                                        token = idToken
+                                        val idToken1: String? = task.getResult()?.getToken()
+                                        Log.d(TAG, idToken1!!)
+                                        token = idToken1
                                         try {
-                                            viewModel.signUp(idToken!!)
+                                            viewModel.signUp(idToken1!!)
                                             initSignUpObserve(user)
-                                            Application.prefs.setString("platform","google")
-                                            Application.prefs.setString("token",idToken)
+
                                         } catch (t: Throwable) {
                                             deleteUser(user!!)
+                                            Application.prefs.setString("platform","")
+                                            Application.prefs.setString("token","")
                                             //Toast message
                                         }
 
                                     } else {
                                         //toast message
+                                        Application.prefs.setString("platform","")
+                                        Application.prefs.setString("token","")
                                         deleteUser(user!!)
                                     }
                                 }
