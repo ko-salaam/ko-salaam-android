@@ -23,11 +23,13 @@ import com.kosalaamInc.kosalaam.databinding.ActivityLoginInBinding
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.feature.signUp.BiggerDotPasswordTransformationMethod
 import com.kosalaamInc.kosalaam.global.Application
+import com.kosalaamInc.kosalaam.util.LoadingDialog
 
 class LoginInActivity : AppCompatActivity(){
     private var binding : ActivityLoginInBinding? = null
     private lateinit var auth: FirebaseAuth
     val TAG : String = "LoginInActivity"
+    private lateinit var loadingDialog: LoadingDialog
 
     private val viewModel :LoginInViewModel by lazy{
         ViewModelProvider(this).get(LoginInViewModel::class.java)
@@ -37,6 +39,7 @@ class LoginInActivity : AppCompatActivity(){
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadingDialog = LoadingDialog(this)
         auth = Firebase.auth
         binding = DataBindingUtil.setContentView<ActivityLoginInBinding>(
             this, R.layout.activity_login_in
@@ -99,6 +102,7 @@ class LoginInActivity : AppCompatActivity(){
             signIn_Bt.observe(this@LoginInActivity, Observer {
                 it.getContentIfNotHandled()?.let {
                     if(checkInternet()){
+                        loadingDialog.show()
                         signIn()
                     }
                     else{
@@ -128,10 +132,10 @@ class LoginInActivity : AppCompatActivity(){
                 }
         }
         catch (e : FirebaseNetworkException){
-
+            updateUI(null)
         }
         catch (e: FirebaseAuthException){
-
+            updateUI(null)
         }
     }
 
@@ -144,6 +148,7 @@ class LoginInActivity : AppCompatActivity(){
     }
 
     private fun updateUI(user : FirebaseUser?){
+        loadingDialog.dismiss()
         if(user!= null){
             startActivity(Intent(this,MainActivity::class.java))
             Application.user = user

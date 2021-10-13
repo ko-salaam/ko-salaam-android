@@ -30,6 +30,7 @@ import com.kosalaamInc.kosalaam.databinding.ActivitySignupBinding
 import com.kosalaamInc.kosalaam.feature.login.LoginActivity
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
+import com.kosalaamInc.kosalaam.util.LoadingDialog
 import kotlinx.coroutines.Job
 import kotlin.random.Random
 
@@ -41,6 +42,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var auth: FirebaseAuth
     private var binding: ActivitySignupBinding? = null
     private lateinit var wrongAnim : Animation
+    private lateinit var loadingDialog: LoadingDialog
     val TAG = "SignUpActivity"
 
     companion object{
@@ -54,6 +56,7 @@ class SignUpActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        loadingDialog = LoadingDialog(this)
         auth = Firebase.auth
         binding = DataBindingUtil.setContentView<ActivitySignupBinding>(
             this, R.layout.activity_signup
@@ -89,12 +92,14 @@ class SignUpActivity : AppCompatActivity() {
                                             initSignUpObserve(user)
                                         } catch (t: Throwable) {
                                             deleteUser(user!!)
+                                            updateUI(null)
                                             //Toast message
                                         }
 
                                     } else {
                                         //Toast message
                                         deleteUser(user!!)
+                                        updateUI(null)
                                     }
                                 }
                             })
@@ -166,10 +171,11 @@ class SignUpActivity : AppCompatActivity() {
                         }
                         2-> {
                             if(checkInternet()){
+                                loadingDialog.show()
                                 createAccount(SignUpViewModel.getEmail!!,SignUpViewModel.getPassword!!)
                             }
                             else{
-
+                                Toast.makeText(this@SignUpActivity,"check your internet",Toast.LENGTH_SHORT).show()
                             }
 
                         }
@@ -301,8 +307,10 @@ class SignUpActivity : AppCompatActivity() {
 
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
+            loadingDialog.dismiss()
             startActivity(Intent(this, LoginInActivity::class.java))
         } else {
+            loadingDialog.dismiss()
             // how to show
         }
     }
@@ -321,6 +329,7 @@ class SignUpActivity : AppCompatActivity() {
             if (it == true) {
                 updateUI(user)
             } else {
+                updateUI(null)
                 deleteUser(user!!)
             }
         })

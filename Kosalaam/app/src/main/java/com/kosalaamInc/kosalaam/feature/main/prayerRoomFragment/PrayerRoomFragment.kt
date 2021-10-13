@@ -709,19 +709,21 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private fun getSearchList(domain: String?) {
         if (checkInternet() == true) {
             if (domain == "restaurant") {
-                viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
+                viewModel.getRestaurantSearch(domain,
                     5,
                     searchText,
                     latitude,
                     longitude,
                     pageNum,
                     20)
+                Log.d(TAG,"this restaurant")
             } else if (domain == "hotel") {
-
+                Log.d(TAG,"this hotel")
             } else if (domain == "prayerRoom") {
-
+                Log.d(TAG,"this prayerRoom")
             }
         } else {
+            Log.d(TAG,Application.searchKeyword.toString())
             Toast.makeText(requireContext(), "Check your Internet", Toast.LENGTH_SHORT).show()
         }
         //
