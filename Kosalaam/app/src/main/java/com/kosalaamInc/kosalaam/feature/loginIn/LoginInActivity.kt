@@ -101,14 +101,18 @@ class LoginInActivity : AppCompatActivity(){
             })
             signIn_Bt.observe(this@LoginInActivity, Observer {
                 it.getContentIfNotHandled()?.let {
-                    if(checkInternet()){
-                        loadingDialog.show()
-                        signIn()
+                    if(LoginInViewModel.emailString!=null && LoginInViewModel.passwordString!=null){
+                        if(checkInternet()){
+                            loadingDialog.show()
+                            signIn()
+                        }
+                        else{
+                            Toast.makeText(this@LoginInActivity,"Check your internet",Toast.LENGTH_SHORT).show()
+                        }
                     }
                     else{
-                        Toast.makeText(this@LoginInActivity,"Check your internet",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this@LoginInActivity,"Check email or password",Toast.LENGTH_SHORT).show()
                     }
-
                 }
             })
 
@@ -137,6 +141,7 @@ class LoginInActivity : AppCompatActivity(){
         catch (e: FirebaseAuthException){
             updateUI(null)
         }
+
     }
 
     override fun onDestroy() {
