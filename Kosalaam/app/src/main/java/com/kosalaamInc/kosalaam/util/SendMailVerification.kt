@@ -27,6 +27,7 @@ class SendMailVerification{
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com")
 
         // 비밀번호 인증으로 세션 생성
         val session = Session.getInstance(props,
