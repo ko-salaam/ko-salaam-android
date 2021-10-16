@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityRestaurantInfoBinding
+import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
@@ -95,6 +96,7 @@ class RestaurantInfoActivity : AppCompatActivity(){
 
     override fun finish() {
         binding!!.rlRestaurantInfoMapview.removeView(mapView)
+        PrayerRoomFragment.pageNum--
         super.finish()
     }
 }
