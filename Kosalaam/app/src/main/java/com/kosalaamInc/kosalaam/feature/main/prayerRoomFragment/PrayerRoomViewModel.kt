@@ -93,9 +93,17 @@ class PrayerRoomViewModel(application : Application) : AndroidViewModel(applicat
                 SearchRepository().searchRestaurant(distance,keyword,latitude,longitude, pageNum, pageSize).let {
                     if(it.isSuccessful){
                         if(it!=null){
+                            Log.d("PrayerRoom Test","repository Success")
                             restaurantData.postValue(it.body())
                         }
                     } else{
+                        Log.d("PrayerRoom Test","repository Fail")
+                        Log.d("PrayerRoom domain",domain.toString())
+                        Log.d("PrayerRoom domain",distance.toString())
+                        Log.d("PrayerRoom domain",latitude.toString())
+                        Log.d("PrayerRoom domain",longitude.toString())
+                        Log.d("PrayerRoom domain",pageNum.toString())
+                        Log.d("PrayerRoom domain",domain.toString())
                     }
                 }
             }

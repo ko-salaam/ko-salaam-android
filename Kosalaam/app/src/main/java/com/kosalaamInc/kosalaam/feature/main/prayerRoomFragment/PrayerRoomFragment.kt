@@ -2,13 +2,16 @@ package com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment
 
 import android.Manifest
 import android.content.Context
+import android.content.Context.LOCATION_SERVICE
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.location.Location
+import android.location.LocationManager
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
 import android.os.Bundle
+import android.provider.Settings
 import android.util.Log
 import android.util.TypedValue
 import android.view.*
@@ -43,6 +46,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private var searchText: String = ""
     private var locationRequest: LocationRequest? = null
     private var locationCallback: LocationCallback? = null
+    private lateinit var locationManager : LocationManager
 
     // filter status
     private var filterMode: Boolean = false // 필터창 확인
@@ -67,8 +71,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private lateinit var viewModel: PrayerRoomViewModel
     lateinit var mapViewContainer: ViewGroup
     private val TAG = "PrayerRoomFragment"
-    private var pageNum = 0
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var fusedLocationClient: FusedLocationProviderClient? = null
     var latitude: Double = 37.498095
     var longitude: Double = 127.02761
     private lateinit var loadingDialog: LoadingDialog
@@ -80,6 +83,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     companion object {
         var margin: Float = 0.0f
         var displayHeightDp: Int = 0
+        var pageNum = 0
     }
 
     private var displayStatus: Int = 1
@@ -103,6 +107,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         viewModel = ViewModelProvider(this).get(PrayerRoomViewModel::class.java)
         binding!!.lifecycleOwner = viewLifecycleOwner
         binding!!.prayerRoomVm = viewModel
+        locationManager = requireContext().getSystemService(LOCATION_SERVICE) as LocationManager
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(requireContext())
         initRecentRecyclerView()
         setMarginBottom()
@@ -222,9 +227,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             })
 
             restaurantData.observe(this@PrayerRoomFragment, Observer {
+                Log.d("PrayerRoom Test","restaurant data observe")
                 mapView!!.removeAllPOIItems()
                 list.clear()
                 CoroutineScope(Dispatchers.Main).launch {
+                    Log.d("PrayerRoom Test","restaurnat data coroutine")
                     loadingDialog.show()
                     delay(1000)
                     for (i in 0..it.size - 1) {
@@ -238,8 +245,10 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                             it[i].longitude,
                             it[i].name,
                             it[i].id!!)
+
                         Log.d("prayerRoomInfo", latitude.toString() + " " + longitude.toString())
                     }
+
                     Log.d(TAG, list.size.toString())
                     val searchAdapter = SearchRvAdapter(requireContext(), list)
                     searchAdapter.setOnItemClickListener(object :
@@ -249,8 +258,10 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                                 RestaurantInfoActivity::class.java))
                             RestaurantInfoActivity.idNum = data.id
                             binding!!.searchMapview.removeView(mapView)
+
                         }
                     })
+
                     binding!!.rvSearch.adapter = searchAdapter
                     pageNum++
                     loadingDialog.dismiss()
@@ -265,42 +276,52 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
             location_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
+                    if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
 
-                    Log.d("prayerthis", "it2")
-                    if (ActivityCompat.checkSelfPermission(requireContext(),
-                            Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                            requireContext(),
-                            Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    ) {
-                        Toast.makeText(requireContext(),
-                            "Check your location permission",
-                            Toast.LENGTH_SHORT).show()
-                        Log.d("prayerthis", "it1")
-                        // TODO: Consider calling
-                        //    ActivityCompat#requestPermissions
-                        // here to request the missing permissions, and then overriding
-                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-                        //                                          int[] grantResults)
-                        // to handle the case where the user grants the permission. See the documentation
-                        // for ActivityCompat#requestPermissions for more details.
+                        // 위치정보 설정 Intent
 
-                    } else {
-                        fusedLocationClient.lastLocation.addOnSuccessListener { location: Location? ->
-                            Log.d("prayerthis", location?.latitude.toString())
-                            if (location != null) {
-                                Log.d("prayer", location.latitude.toString())
-                                latitude = location.latitude
-                                longitude = location.longitude
-                                mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
-                                    longitude), true)
-                            } else {
-                                latitude = currentLat
-                                longitude = currentLon
-                                mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
-                                    longitude), true)
+                        startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
+
+                    }
+                    else{
+                        if (ActivityCompat.checkSelfPermission(requireContext(),
+                                Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
+                                requireContext(),
+                                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                        ) {
+                            Toast.makeText(requireContext(),
+                                "Check your location permission",
+                                Toast.LENGTH_SHORT).show()
+                            Log.d("prayerthis", "it1")
+                            // TODO: Consider calling
+                            //    ActivityCompat#requestPermissions
+                            // here to request the missing permissions, and then overriding
+                            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                            //                                          int[] grantResults)
+                            // to handle the case where the user grants the permission. See the documentation
+                            // for ActivityCompat#requestPermissions for more details.
+
+                        } else {
+                            fusedLocationClient?.lastLocation?.addOnSuccessListener { location: Location? ->
+                                Log.d("prayerthis", location?.latitude.toString())
+                                if (location != null) {
+                                    Log.d("prayer", location.latitude.toString())
+                                    latitude = location.latitude
+                                    longitude = location.longitude
+                                    mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
+                                        longitude), true)
+                                } else {
+                                    latitude = currentLat
+                                    longitude = currentLon
+                                    mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
+                                        longitude), true)
+                                }
                             }
                         }
                     }
+
+                    Log.d("prayerthis", "it2")
+
                 }
             })
 
@@ -618,13 +639,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         }
     }
 
-
     override fun onDetach() {
         super.onDetach()
         callback.remove()
         mapView = null
         Application.searchKeyword = null
-        fusedLocationClient.removeLocationUpdates(locationCallback)
         Log.d(TAG, "detach")
     }
 
@@ -683,12 +702,13 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
 
-        } else {
-
+        }
+        else {
             locationRequest = LocationRequest.create()
             locationRequest?.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
             locationRequest?.setInterval((20 * 1000).toLong())
             locationCallback = object : LocationCallback() {
+
                 override fun onLocationResult(locationResult: LocationResult) {
                     if (locationResult == null) {
                         return
@@ -737,15 +757,15 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         return isConnected
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onPause() {
+        mapViewContainer.removeView(mapView)
+        super.onPause()
     }
 
     override fun onResume() {
         initMapVIew()
         mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
             longitude), true)
-        pageNum--
         getSearchList(Application.searchKeyword)
         super.onResume()
     }
@@ -774,7 +794,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 searchText = ""
                 pageNum = 0
                 getSearchList(Application.searchKeyword)
-
                 changeDisplay(1)
             }
         }
@@ -849,7 +868,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 halalCertified=false
                 // 검색로직추가
             }
-
         }
 
         binding!!.tvDetailHotelMuslim.setOnClickListener {
@@ -876,7 +894,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 binding!!.tvDetailMuslimFriendly.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
                 muslimFriendly=false
             }
-
         }
 
         binding!!.tvDetailPorkFree.setOnClickListener {
@@ -904,7 +921,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 selfCertified=false
             }
         }
-
     }
 
     private fun setFilterDrawableDefault() {
@@ -931,3 +947,4 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         binding!!.tvDetailHalalCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
     }
 }
+
