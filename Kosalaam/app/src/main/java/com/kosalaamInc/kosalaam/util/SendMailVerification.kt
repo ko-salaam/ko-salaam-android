@@ -13,6 +13,7 @@ import javax.mail.internet.InternetAddress
 import javax.mail.internet.MimeMessage
 
 class SendMailVerification{
+
     fun sendEmail(
         title: String,
         body: String,
@@ -33,7 +34,7 @@ class SendMailVerification{
         val session = Session.getInstance(props,
             object: javax.mail.Authenticator() {
                 override  fun getPasswordAuthentication(): PasswordAuthentication {
-                    return PasswordAuthentication(username, password);
+                    return PasswordAuthentication(username, password)
                 }
             })
 

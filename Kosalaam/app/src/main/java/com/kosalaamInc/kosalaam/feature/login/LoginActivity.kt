@@ -66,7 +66,6 @@ class LoginActivity : AppCompatActivity() {
         val currentUser = auth.currentUser
     }
 
-
     private fun initObserve() {
         with(viewModel) {
             signIn_Bt.observe(this@LoginActivity, Observer {
@@ -289,6 +288,7 @@ class LoginActivity : AppCompatActivity() {
     private fun updateUI(user: FirebaseUser?) {
         if (user != null) {
             startActivity(Intent(this, MainActivity::class.java))
+            this.finish()
         } else {
             Toast.makeText(this,"login failed, Try later",Toast.LENGTH_SHORT).show()
         }
@@ -308,6 +308,7 @@ class LoginActivity : AppCompatActivity() {
             if (it == true) {
                 Application.user = user
                 updateUI(user)
+
 
             } else {
                 Toast.makeText(this,"login failed, Try later",Toast.LENGTH_SHORT).show()

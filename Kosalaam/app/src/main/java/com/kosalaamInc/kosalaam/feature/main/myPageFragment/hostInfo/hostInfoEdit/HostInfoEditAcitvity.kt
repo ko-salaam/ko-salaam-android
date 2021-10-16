@@ -11,7 +11,6 @@ import com.kosalaamInc.kosalaam.databinding.ActivityHostInfomationBinding
 class HostInfoEditAcitvity : AppCompatActivity(){
 
     private var binding : ActivityHostInfoEditBinding? = null
-
     private  val viewModel : HostInfoEditViewModel by lazy{
         ViewModelProvider(this).get(HostInfoEditViewModel::class.java)
     }
@@ -25,6 +24,7 @@ class HostInfoEditAcitvity : AppCompatActivity(){
         }
         initObserve()
     }
+
     private fun initObserve(){
 
     }

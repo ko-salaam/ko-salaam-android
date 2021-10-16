@@ -70,5 +70,10 @@
     <string name="hostInfo_prayerClother">Prayer Clothes</string>
     <string name="hostInfo_estimatedPrice">Estimated price</string>
     <string name="hostInfo_save">Save</string>
+    <string name="userInfo_name">Name</string>
+    <string name="userInfo_email">Email</string>
+    <string name="userInfo_phoneNum">Phone number</string>
+    <string name="userInfo_password">Password</string>
+    <string name="userInfo_personalInfo">Personal infomation</string>
 
 </resources>
