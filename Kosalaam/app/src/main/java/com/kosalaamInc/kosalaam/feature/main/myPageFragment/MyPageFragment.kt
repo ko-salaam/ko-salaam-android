@@ -15,6 +15,7 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentMypageBinding
 import com.kosalaamInc.kosalaam.feature.login.LoginActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostInfo.HostInfoAcitivty
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.PersonalInfoActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity
 import com.kosalaamInc.kosalaam.global.Application
 
@@ -65,6 +66,9 @@ class MyPageFragment : Fragment(){
         binding!!.tvMypageContactUs.setOnClickListener {
             contactUs()
         }
+        binding!!.tvPersonalInfomation.setOnClickListener {
+            startActivity(Intent(requireContext(), PersonalInfoActivity::class.java))
+        }
     }
 
     private fun logout(){
@@ -87,16 +91,6 @@ class MyPageFragment : Fragment(){
             val email = Intent(Intent.ACTION_SEND)
             email.type="text/plain"
             email.putExtra(Intent.EXTRA_EMAIL, arrayOf("kosalaamapp@gmail.com"))
-//        email.putExtra(Intent.EXTRA_SUBJECT,
-//            "<" + getString(R.string.app_name) + " " + getString(R.string.report) + ">")
-//        email.putExtra(Intent.EXTRA_TEXT, """
-//     앱 버전 (AppVersion):${appVersion.toString()}
-//     기기명 (Device):
-//     안드로이드 OS (Android OS):
-//     내용 (Content):
-//
-//     """.trimIndent())
-            email.type = "message/rfc822"
             startActivity(email)
         }
         catch (e: ActivityNotFoundException){

@@ -75,5 +75,11 @@
     <string name="userInfo_phoneNum">Phone number</string>
     <string name="userInfo_password">Password</string>
     <string name="userInfo_personalInfo">Personal infomation</string>
+    <string name="changePassword_enter_new_pass">Enter a new password</string>
+    <string name="changePassword_check_new_pass">Check a new password</string>
+    <string name="changePassword_verify">Verify</string>
+    <string name="changePassword_verify_password">Verify password</string>
+    <string name="changePassword_enter_current">Enter your current password</string>
+    <string name="changePassword_update_password">Update password</string>
 
 </resources>
