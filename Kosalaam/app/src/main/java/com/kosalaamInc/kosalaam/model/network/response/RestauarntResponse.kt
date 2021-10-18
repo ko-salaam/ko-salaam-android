@@ -62,4 +62,7 @@ class RestauarntResponse {
     @Expose
     val phoneNumber : String? = null
 
+    @SerializedName("placeType")
+    @Expose
+    val placeType : String? = null
 }

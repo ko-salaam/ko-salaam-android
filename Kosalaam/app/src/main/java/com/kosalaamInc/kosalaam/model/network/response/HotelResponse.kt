@@ -15,7 +15,7 @@ class HotelResponse {
 
     @SerializedName("id")
     @Expose
-    val id : Int = 0
+    val id : String? = null
 
     @SerializedName("imagesId")
     @Expose
@@ -44,8 +44,6 @@ class HotelResponse {
     @SerializedName("longitude")
     @Expose
     val longitude : Double = 0.00000000
-
-    // muslim friendly
 
     @SerializedName("name")
     @Expose

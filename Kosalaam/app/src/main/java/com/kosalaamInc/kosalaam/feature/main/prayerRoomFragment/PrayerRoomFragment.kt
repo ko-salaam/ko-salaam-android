@@ -47,6 +47,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     private var locationRequest: LocationRequest? = null
     private var locationCallback: LocationCallback? = null
     private lateinit var locationManager : LocationManager
+    private var restaurantMuslimFriendly : ArrayList<String>? = null
 
     // filter status
     private var filterMode: Boolean = false // 필터창 확인
@@ -118,7 +119,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         recentItemClick()
         startLocationUpdates()
         initClickListner()
-        getSearchList(Application.searchKeyword)
         bottomNavDestination()
         if (Application.searchKeyword == "prayerRoom") {
             binding!!.hsvDetailFilter.visibility = View.GONE
@@ -149,6 +149,10 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.hsvDetailFilter.visibility = View.VISIBLE
             binding!!.ivSearchFilterAll.setImageResource(R.drawable.filter_all_green)
             binding!!.tvSearchFilterAll.setTextColor(Color.parseColor("#419070"))
+            binding!!.tvDetailHalalCertified.visibility = View.GONE
+            binding!!.tvDetailSelfCertified.visibility = View.GONE
+            binding!!.tvDetailMuslimFriendly.visibility = View.GONE
+            binding!!.tvDetailPorkFree.visibility = View.GONE
         }
         return binding!!.root
     }
@@ -265,13 +269,55 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     binding!!.rvSearch.adapter = searchAdapter
                     pageNum++
                     loadingDialog.dismiss()
-
                 }
 
             })
 
+
             hotelData.observe(this@PrayerRoomFragment, Observer {
 
+            })
+            prayerData.observe(this@PrayerRoomFragment, Observer {
+
+            })
+            commonData.observe(this@PrayerRoomFragment, Observer {
+                mapView!!.removeAllPOIItems()
+                list.clear()
+                CoroutineScope(Dispatchers.Main).launch {
+                    Log.d("PrayerRoom Test","restaurnat data coroutine")
+                    loadingDialog.show()
+                    delay(1000)
+                    for (i in 0..it.size - 1) {
+                        list.add(RestaurantSearchData(it[i].id,
+                            (i + 1).toString() + ". " + it[i].name,
+                            it[i].address,
+                            0,
+                            null))
+                        addPOIItem(i,
+                            it[i].latitude!!,
+                            it[i].longitude!!,
+                            it[i].name,
+                            it[i].id!!)
+
+                        Log.d("prayerRoomInfo", latitude.toString() + " " + longitude.toString())
+                    }
+
+                    Log.d(TAG, list.size.toString())
+                    val searchAdapter = SearchRvAdapter(requireContext(), list)
+                    searchAdapter.setOnItemClickListener(object :
+                        SearchRvAdapter.OnSearchItemClickListener {
+                        override fun onItemClick(v: View, data: RestaurantSearchData, pos: Int) {
+                            startActivity(Intent(requireActivity(),
+                                RestaurantInfoActivity::class.java))
+                            RestaurantInfoActivity.idNum = data.id
+                            binding!!.searchMapview.removeView(mapView)
+
+                        }
+                    })
+                    binding!!.rvSearch.adapter = searchAdapter
+                    pageNum++
+                    loadingDialog.dismiss()
+                }
             })
 
             location_bt.observe(this@PrayerRoomFragment, Observer {
@@ -283,6 +329,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
 
                     }
+
                     else{
                         if (ActivityCompat.checkSelfPermission(requireContext(),
                                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -612,16 +659,10 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 } else if (displayStatus == 2) {
                     searchText = ""
                     pageNum = 0
-                    viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
-                        5,
-                        searchText,
-                        latitude,
-                        longitude,
-                        pageNum,
-                        20)
+                    getSearchList(Application.searchKeyword)
                     changeDisplay(1)
                 } else if (displayStatus == 1) {
-                    Application.searchKeyword == null
+                    Application.searchKeyword = null
                     findNavController().navigate(R.id.action_prayerFragment_to_mainFragment)
 
                 }
@@ -671,6 +712,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     searchText,
                     latitude,
                     longitude,
+                    restaurantMuslimFriendly,
                     pageNum,
                     20)
             }
@@ -734,6 +776,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     searchText,
                     latitude,
                     longitude,
+                    restaurantMuslimFriendly,
                     pageNum,
                     20)
                 Log.d(TAG,"this restaurant")
@@ -742,9 +785,17 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             } else if (domain == "prayerRoom") {
                 Log.d(TAG,"this prayerRoom")
             }
+            else{
+                viewModel.getCommonSearch(domain,
+                    false,
+                    5,
+                    searchText,
+                    latitude,
+                    longitude,
+                    pageNum,20)
+            }
         } else {
-            Log.d(TAG,Application.searchKeyword.toString())
-            Toast.makeText(requireContext(), "Check your Internet", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context,"Check your Internet",Toast.LENGTH_SHORT).show()
         }
         //
     }
@@ -804,11 +855,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.ivSearchFilterAll.setImageResource(R.drawable.filter_all_green)
             Application.searchKeyword=null
             setDetailFilterDefault()
-            binding!!.tvDetailSelfCertified.visibility=View.VISIBLE
-            binding!!.tvDetailPorkFree.visibility =View.VISIBLE
-            binding!!.tvDetailMuslimFriendly.visibility= View.VISIBLE
             binding!!.tvDetailHotelMuslim.visibility =View.VISIBLE
-            binding!!.tvDetailHalalCertified.visibility = View.VISIBLE
+            binding!!.tvDetailHalalCertified.visibility = View.GONE
+            binding!!.tvDetailSelfCertified.visibility = View.GONE
+            binding!!.tvDetailMuslimFriendly.visibility = View.GONE
+            binding!!.tvDetailPorkFree.visibility = View.GONE
             //필터변경
             //detail 부분도 초기화(객체 이미지 전부 후에 보여줄것들 확인
             // Application.keyword
