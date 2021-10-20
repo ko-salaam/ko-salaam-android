@@ -17,9 +17,9 @@ class HotelResponse {
     @Expose
     val id : String? = null
 
-    @SerializedName("imagesId")
+    @SerializedName("images")
     @Expose
-    val imagesId : String? = null
+    val imagesId : ArrayList<String>? = null
 
     @SerializedName("isLiked")
     @Expose

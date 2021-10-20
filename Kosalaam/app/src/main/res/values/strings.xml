@@ -81,5 +81,6 @@
     <string name="changePassword_verify_password">Verify password</string>
     <string name="changePassword_enter_current">Enter your current password</string>
     <string name="changePassword_update_password">Update password</string>
+    <string name="prayerRoomInfo_hostedBy">Hosted by</string>
 
 </resources>

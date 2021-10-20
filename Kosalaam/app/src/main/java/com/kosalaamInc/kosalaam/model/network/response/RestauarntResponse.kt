@@ -21,9 +21,9 @@ class RestauarntResponse {
     @Expose
     val id : String? = null
 
-    @SerializedName("imagesId")
+    @SerializedName("images")
     @Expose
-    val imagesId : List<String>? = null
+    val imagesId : ArrayList<String>? = null
 
     @SerializedName("isLiked")
     @Expose

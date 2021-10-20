@@ -14,7 +14,7 @@ class SearchRepository{
                        pageSize : Int) =
         searchClient.getRestaurantList(distance,keyword,latitude,longitude,muslimFriendlies,pageNum,pageSize)
 
-    suspend fun restaurantInfo(id : String?) = searchClient.getRestaurantInfo(id)
+    suspend fun restaurantInfo(authorization : String?,id : String?) = searchClient.getRestaurantInfo(authorization,id)
 
     suspend fun searchHotel(distance : Int,
                             isMuslimFriendly : Boolean,
@@ -25,7 +25,8 @@ class SearchRepository{
                                  pageSize : Int) =
         searchClient.getHotelList(distance,isMuslimFriendly,keyword,latitude,longitude,pageNum,pageSize)
 
-    suspend fun hotelInfo(id : Int) = searchClient.getHotelInfo(id)
+
+    suspend fun hotelInfo(authorization : String?,id : String) = searchClient.getHotelInfo(authorization,id)
 
     suspend fun searchPrayerRoom(distance : Int,
                             keyword : String,
@@ -35,7 +36,7 @@ class SearchRepository{
                             pageSize : Int) =
         searchClient.getPrayerRoomList(distance,keyword,latitude,longitude,pageNum,pageSize)
 
-    suspend fun prayerRoomInfo(id : Int) = searchClient.getPrayerRoomInfo(id)
+    suspend fun prayerRoomInfo(authorization : String?,id : String) = searchClient.getPrayerRoomInfo(authorization,id)
 
     suspend fun searchCommon(distance : Int,
                              isMuslimFriendly : Boolean,

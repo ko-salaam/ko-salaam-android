@@ -31,6 +31,7 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentSearchprayerroomBinding
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
+import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.hotelInfo.HotelInfoActivity
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.restaurantInfo.RestaurantInfoActivity
 import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
@@ -218,7 +219,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     lifecycleScope.launch(Dispatchers.IO) {
                         viewModel.deleteAll()
                     }
-
                     binding!!.ivSearchDefault.visibility = View.VISIBLE
                     binding!!.tvSearchDefault.visibility = View.VISIBLE
                     binding!!.rvRecentSearch.visibility = View.GONE
@@ -243,7 +243,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                             (i + 1).toString() + ". " + it[i].name,
                             it[i].address,
                             0,
-                            it[i].muslimFriendly))
+                            it[i].muslimFriendly,it[i].imagesId,it[i].placeType))
                         addPOIItem(i,
                             it[i].latitude,
                             it[i].longitude,
@@ -262,7 +262,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                                 RestaurantInfoActivity::class.java))
                             RestaurantInfoActivity.idNum = data.id
                             binding!!.searchMapview.removeView(mapView)
-
                         }
                     })
 
@@ -275,12 +274,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
 
             hotelData.observe(this@PrayerRoomFragment, Observer {
-
-            })
-            prayerData.observe(this@PrayerRoomFragment, Observer {
-
-            })
-            commonData.observe(this@PrayerRoomFragment, Observer {
+                Log.d("PrayerRoom Test","restaurant data observe")
                 mapView!!.removeAllPOIItems()
                 list.clear()
                 CoroutineScope(Dispatchers.Main).launch {
@@ -292,7 +286,49 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                             (i + 1).toString() + ". " + it[i].name,
                             it[i].address,
                             0,
-                            null))
+                            it[i].isMuslimFriendly.toString(),it[i].imagesId,"ACCOMMODATION"))
+                        addPOIItem(i,
+                            it[i].latitude,
+                            it[i].longitude,
+                            it[i].name,
+                            it[i].id!!)
+
+                        Log.d("prayerRoomInfo", latitude.toString() + " " + longitude.toString())
+                    }
+
+                    Log.d(TAG, list.size.toString())
+                    val searchAdapter = SearchRvAdapter(requireContext(), list)
+                    searchAdapter.setOnItemClickListener(object :
+                        SearchRvAdapter.OnSearchItemClickListener {
+                        override fun onItemClick(v: View, data: RestaurantSearchData, pos: Int) {
+                            startActivity(Intent(requireActivity(),
+                                HotelInfoActivity::class.java))
+                            HotelInfoActivity.idNum = data.id
+                            binding!!.searchMapview.removeView(mapView)
+                        }
+                    })
+
+                    binding!!.rvSearch.adapter = searchAdapter
+                    pageNum++
+                    loadingDialog.dismiss()
+                }
+
+            })
+
+            prayerData.observe(this@PrayerRoomFragment, Observer {
+                Log.d("PrayerRoom Test","restaurant data observe")
+                mapView!!.removeAllPOIItems()
+                list.clear()
+                CoroutineScope(Dispatchers.Main).launch {
+                    Log.d("PrayerRoom Test","restaurnat data coroutine")
+                    loadingDialog.show()
+                    delay(1000)
+                    for (i in 0..it.size - 1) {
+                        list.add(RestaurantSearchData(it[i].id,
+                            (i + 1).toString() + ". " + it[i].name,
+                            it[i].address,
+                            0,
+                            null,it[i].imagesId,it[i].placeType))
                         addPOIItem(i,
                             it[i].latitude!!,
                             it[i].longitude!!,
@@ -311,7 +347,62 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                                 RestaurantInfoActivity::class.java))
                             RestaurantInfoActivity.idNum = data.id
                             binding!!.searchMapview.removeView(mapView)
+                        }
+                    })
 
+                    binding!!.rvSearch.adapter = searchAdapter
+                    pageNum++
+                    loadingDialog.dismiss()
+                }
+
+            })
+            commonData.observe(this@PrayerRoomFragment, Observer {
+                mapView!!.removeAllPOIItems()
+                list.clear()
+                CoroutineScope(Dispatchers.Main).launch {
+                    Log.d("PrayerRoom Test","restaurnat data coroutine")
+                    loadingDialog.show()
+                    delay(1000)
+                    for (i in 0..it.size - 1) {
+                        if(it[i].placeType=="RESTAURANT"){
+                            list.add(RestaurantSearchData(it[i].id,
+                                (i + 1).toString() + ". " + it[i].name,
+                                it[i].address,
+                                0,
+                                it[i].muslimFriendly,it[i].imagesId,it[i].placeType))
+                        }
+                        else if(it[i].placeType=="ACCOMMODATION"){
+                            list.add(RestaurantSearchData(it[i].id,
+                                (i + 1).toString() + ". " + it[i].name,
+                                it[i].address,
+                                0,
+                                it[i].isMuslimFriendly.toString(),it[i].imagesId,it[i].placeType))
+                        }
+                        else{
+                            list.add(RestaurantSearchData(it[i].id,
+                                (i + 1).toString() + ". " + it[i].name,
+                                it[i].address,
+                                0,
+                                null,it[i].imagesId,it[i].placeType))
+                        }
+
+                        addPOIItem(i,
+                            it[i].latitude!!,
+                            it[i].longitude!!,
+                            it[i].name,
+                            it[i].id!!)
+
+                        Log.d("prayerRoomInfo", latitude.toString() + " " + longitude.toString())
+                    }
+                    Log.d(TAG, list.size.toString())
+                    val searchAdapter = SearchRvAdapter(requireContext(), list)
+                    searchAdapter.setOnItemClickListener(object :
+                        SearchRvAdapter.OnSearchItemClickListener {
+                        override fun onItemClick(v: View, data: RestaurantSearchData, pos: Int) {
+                            startActivity(Intent(requireActivity(),
+                                RestaurantInfoActivity::class.java))
+                            RestaurantInfoActivity.idNum = data.id
+                            binding!!.searchMapview.removeView(mapView)
                         }
                     })
                     binding!!.rvSearch.adapter = searchAdapter
@@ -323,13 +414,9 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             location_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
                     if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-
                         // 위치정보 설정 Intent
-
                         startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS))
-
                     }
-
                     else{
                         if (ActivityCompat.checkSelfPermission(requireContext(),
                                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
@@ -707,14 +794,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 binding!!.flSearch.requestFocus()
                 searchText = text
                 changeDisplay(3)
-                viewModel.getRestaurantSearch(com.kosalaamInc.kosalaam.global.Application.searchKeyword,
-                    5,
-                    searchText,
-                    latitude,
-                    longitude,
-                    restaurantMuslimFriendly,
-                    pageNum,
-                    20)
+                getSearchList(Application.searchKeyword)
             }
         }
     }
@@ -781,8 +861,21 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     20)
                 Log.d(TAG,"this restaurant")
             } else if (domain == "hotel") {
+                viewModel.getHotelSearch(domain,
+                    false,
+                    5,
+                    searchText,
+                    latitude,
+                    longitude,
+                    pageNum,20)
                 Log.d(TAG,"this hotel")
             } else if (domain == "prayerRoom") {
+                viewModel.getPrayerRoomSearch(domain,
+                    5,
+                    searchText,
+                    latitude,
+                    longitude,
+                    pageNum,20)
                 Log.d(TAG,"this prayerRoom")
             }
             else{

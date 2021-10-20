@@ -31,9 +31,13 @@ class CommonResponse{
 
     @SerializedName("images")
     @Expose
-    val images : ArrayList<String>? = null
+    val imagesId : ArrayList<String>? = null
 
     @SerializedName("placeType")
     @Expose
     val placeType : String? = null
+
+    @SerializedName("muslimFriendly")
+    @Expose
+    val muslimFriendly : String? = null
 }

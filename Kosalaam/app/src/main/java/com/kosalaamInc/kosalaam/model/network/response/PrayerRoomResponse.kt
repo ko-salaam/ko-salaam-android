@@ -18,7 +18,7 @@ class PrayerRoomResponse{
 
     @SerializedName("images")
     @Expose
-    val images : List<String>? = null
+    val imagesId : ArrayList<String>? = null
 
     @SerializedName("isLiked")
     @Expose

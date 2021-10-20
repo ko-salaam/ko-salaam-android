@@ -10,7 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityRestaurantInfoBinding
+import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.ImageRvAdapter
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment
+import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.SearchRvAdapter
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
@@ -18,6 +20,7 @@ import net.daum.mf.map.api.MapView
 class RestaurantInfoActivity : AppCompatActivity(){
 
     private lateinit var binding : ActivityRestaurantInfoBinding
+    var images : ArrayList<String>? = null
 
     private var mapView : MapView? = null
     lateinit var mapViewContainer : RelativeLayout
@@ -40,10 +43,9 @@ class RestaurantInfoActivity : AppCompatActivity(){
             lifecycleOwner = this@RestaurantInfoActivity
             restaurantInfoVm = viewModel
         }
-
+        initClickListener()
         mapView = MapView(this)
         binding!!.rlRestaurantInfoMapview.addView(mapView)
-
 
         viewModel.restaurantData.observe(this, Observer {
             Log.d("prayerRoomInfo",it.name.toString())
@@ -57,7 +59,13 @@ class RestaurantInfoActivity : AppCompatActivity(){
                     it.longitude)
                 setCustomImageAnchor(0.5f, 1.0f)
             }
-
+            if(it.imagesId!!.size!! >0){
+                for(i in 0..it.imagesId!!.size!!-1){
+                    images?.add(it.imagesId!!.get(i))
+                }
+                val imageAdapter = ImageRvAdapter(this,it.imagesId)
+                binding!!.rvGallery.adapter=imageAdapter
+            }
             mapView!!.addPOIItem(marker)
             binding!!.tvRestaurantInfoOpenTimeInsert.text = it.openingHours
             binding!!.tvRestaurantInfoName.text = it.name
@@ -67,7 +75,7 @@ class RestaurantInfoActivity : AppCompatActivity(){
             // Affinity none?
             if(it.muslimFriendly=="NONE"){
                 binding!!.ivRestaurantInfoCertifyCheck.visibility= View.GONE
-                binding!!.tvRestaurantInfoCertify.visibility = View.INVISIBLE
+                binding!!.tvRestaurantInfoCertify.text = "NONE"
             }
 
             else{
@@ -98,5 +106,10 @@ class RestaurantInfoActivity : AppCompatActivity(){
         binding!!.rlRestaurantInfoMapview.removeView(mapView)
         PrayerRoomFragment.pageNum--
         super.finish()
+    }
+    private fun initClickListener(){
+        binding!!.ivRestaurantInfoBackArrow.setOnClickListener {
+            this.finish()
+        }
     }
 }

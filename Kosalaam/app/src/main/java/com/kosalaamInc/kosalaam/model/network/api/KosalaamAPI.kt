@@ -24,7 +24,7 @@ interface KosalaamAPI {
     // restaurant info
 
     @GET("/api/restaurant/{id}")
-    suspend fun getRestaurantInfo(@Path("id") id : String?) : Response<RestauarntResponse>
+    suspend fun getRestaurantInfo(@Header("Authorization") authorization : String?,@Path("id") id : String?) : Response<RestauarntResponse>
 
     @GET("/api/accommodation")
     suspend fun getHotelList(@Query("distance") distance : Int, @Query("isMuslimFriendly") isMuslimFreindly : Boolean, @Query("keyword") keyword : String, @Query("latitude") lat : Double, @Query("longitude")
@@ -32,7 +32,7 @@ interface KosalaamAPI {
             Response<List<HotelResponse>>
 
     @GET("/api/accommodation/{id}")
-    fun getHotelInfo(@Path("id") id : Int) : Response<HotelResponse>
+    suspend fun getHotelInfo(@Header("Authorization") authorization : String?,@Path("id") id : String) : Response<HotelResponse>
 
     @GET("/api/prayerroom")
     suspend fun getPrayerRoomList(@Query("distance") distance : Int , @Query("keyword") keyword : String, @Query("latitude") lat : Double, @Query("longitude")
@@ -40,7 +40,7 @@ interface KosalaamAPI {
             Response<List<PrayerRoomResponse>>
 
     @GET("/api/prayerroom/{id}")
-    fun getPrayerRoomInfo(@Path("id") id : Int) : Response<PrayerRoomResponse>
+    suspend fun getPrayerRoomInfo(@Header("Authorization") authorization : String?,@Path("id") id : String) : Response<PrayerRoomResponse>
 
     @GET("/api/common")
     suspend fun getCommonList(@Query("distance") distance : Int ,@Query("isMuslimFriendly") isMuslimFreindly : Boolean, @Query("keyword") keyword : String, @Query("latitude") lat : Double, @Query("longitude")
@@ -48,10 +48,28 @@ interface KosalaamAPI {
             Response<List<CommonResponse>>
 
     @GET("/api/common/{id}")
-    fun getCommonInfo(@Path("id") id : Int) : Response<CommonResponse>
+    suspend fun getCommonInfo(@Path("id") id : String) : Response<CommonResponse>
+
+    @POST("api/prayerroom/like/{id}")
+    suspend fun prayerLike(@Header("Authorization") authorization : String?, @Path("id") id : String) : Response<BaseResponse>
+
+    @DELETE("api/prayerroom/like/{id}")
+    suspend fun prayerLikeCancel(@Header("Authorization") authorization : String?, @Path("id") id : String) : Response<BaseResponse>
+
+    @POST("api/accommodation/like/{id}")
+    suspend fun hotelLike(@Header("Authorization") authorization : String?, @Path("id") id : String) : Response<BaseResponse>
+
+    @DELETE("api/accommodation/like/{id}")
+    suspend fun hotelLikeCancel(@Header("Authorization") authorization : String?, @Path("id") id : String) : Response<BaseResponse>
+
+    @POST("api/restaurant/like/{id}")
+    suspend fun restaurantLike(@Header("Authorization") authorization : String?, @Path("id") id : String) : Response<BaseResponse>
+
+    @DELETE("api/restaurant/like/{id}")
+    suspend fun restaurantLikeCancel(@Header("Authorization") authorization : String?, @Path("id") id : String) : Response<BaseResponse>
 
     //
     @POST("/api/restaurant")
-    fun registerResturant()
+    suspend fun registerResturant()
 
 }

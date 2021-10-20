@@ -198,6 +198,7 @@ class LoginActivity : AppCompatActivity() {
                                     if (task.isSuccessful()) {
                                         val idToken: String? = task.getResult()?.getToken()
                                         Log.d(TAG, idToken!!)
+                                        Application.user = user
 
                                         try {
                                             viewModel.signUp(idToken!!)
@@ -255,6 +256,7 @@ class LoginActivity : AppCompatActivity() {
                                         val idToken1: String? = task.getResult()?.getToken()
                                         Log.d(TAG, idToken1!!)
                                         token = idToken1
+                                        Application.user = user
                                         try {
                                             viewModel.signUp(idToken1!!)
                                             initSignUpObserve(user)

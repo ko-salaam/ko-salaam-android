@@ -89,59 +89,92 @@
             app:layout_constraintLeft_toRightOf="@id/iv_searchList_check"
             app:layout_constraintTop_toBottomOf="@id/tv_searchList_address" />
 
-        <ImageView
-            android:id="@+id/iv_searchList_image1"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <LinearLayout
+            android:id="@+id/linear_searchList"
+            app:layout_constraintDimensionRatio="H,155:35"
+            android:weightSum="155"
             android:layout_marginTop="4dp"
-            android:background="@drawable/searchlist_default"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toLeftOf="@id/iv_searchList_image2"
             app:layout_constraintTop_toBottomOf="@id/tv_searchList_muslimFriendly"
-            app:layout_constraintWidth_percent="0.22" />
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
 
-        <ImageView
-            android:id="@+id/iv_searchList_image2"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            <ImageView
+                android:adjustViewBounds="true"
+                android:layout_weight="35"
+                android:id="@+id/iv_searchList_image1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/searchlist_default"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/iv_searchList_image2"
+                app:layout_constraintTop_toBottomOf="@id/tv_searchList_muslimFriendly"
+                app:layout_constraintWidth_percent="0.22" />
 
-            android:layout_marginTop="4dp"
-            android:background="@drawable/searchlist_default"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintLeft_toRightOf="@id/iv_searchList_image1"
-            app:layout_constraintRight_toLeftOf="@id/iv_searchList_image3"
-            app:layout_constraintTop_toBottomOf="@id/tv_searchList_muslimFriendly"
-            app:layout_constraintWidth_percent="0.22" />
+            <View
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
 
-        <ImageView
-            android:id="@+id/iv_searchList_image3"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            <ImageView
+                android:adjustViewBounds="true"
+                android:id="@+id/iv_searchList_image2"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="35"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/searchlist_default"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintLeft_toRightOf="@id/iv_searchList_image1"
+                app:layout_constraintRight_toLeftOf="@id/iv_searchList_image3"
+                app:layout_constraintTop_toBottomOf="@id/tv_searchList_muslimFriendly"
+                app:layout_constraintWidth_percent="0.22" />
 
-            android:layout_marginTop="4dp"
-            android:background="@drawable/searchlist_default"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintLeft_toRightOf="@id/iv_searchList_image2"
-            app:layout_constraintRight_toLeftOf="@id/iv_searchList_image4"
-            app:layout_constraintTop_toBottomOf="@id/tv_searchList_muslimFriendly"
-            app:layout_constraintWidth_percent="0.22" />
+            <View
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:adjustViewBounds="true"
+                android:layout_weight="35"
+                android:id="@+id/iv_searchList_image3"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/searchlist_default"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintLeft_toRightOf="@id/iv_searchList_image2"
+                app:layout_constraintRight_toLeftOf="@id/iv_searchList_image4"
+                app:layout_constraintTop_toBottomOf="@id/tv_searchList_muslimFriendly"
+                app:layout_constraintWidth_percent="0.22" />
 
-        <ImageView
-            android:id="@+id/iv_searchList_image4"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="4dp"
-            android:background="@drawable/searchlist_default"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintLeft_toRightOf="@id/iv_searchList_image3"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_searchList_muslimFriendly"
-            app:layout_constraintWidth_percent="0.22" />
+            <View
+                android:layout_weight="5"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+            <ImageView
+                android:adjustViewBounds="true"
+                android:layout_weight="35"
+                android:id="@+id/iv_searchList_image4"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/searchlist_default"
+                app:layout_constraintDimensionRatio="H,1:1"
+                app:layout_constraintHorizontal_chainStyle="spread_inside"
+                app:layout_constraintLeft_toRightOf="@id/iv_searchList_image3"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tv_searchList_muslimFriendly"
+                app:layout_constraintWidth_percent="0.22" />
+
+        </LinearLayout>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

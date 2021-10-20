@@ -85,6 +85,7 @@ class LoginInActivity : AppCompatActivity(){
                     }
                 }
             })
+
             passWordVisible.observe(this@LoginInActivity, Observer {
                 it.getContentIfNotHandled()?.let {
                     if(LoginInViewModel.passwordVisible==false){
@@ -115,7 +116,6 @@ class LoginInActivity : AppCompatActivity(){
                     }
                 }
             })
-
         }
 
     }
@@ -126,6 +126,7 @@ class LoginInActivity : AppCompatActivity(){
                     if (task.isSuccessful) {
                         Log.d(TAG, "signInWithEmail:success")
                         val user = auth.currentUser
+                        Application.user = user
                         updateUI(user)
                     } else {
                         Log.w(TAG, "signInWithEmail:failure", task.exception)

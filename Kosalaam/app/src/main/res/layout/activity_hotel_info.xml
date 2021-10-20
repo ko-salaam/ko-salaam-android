@@ -57,6 +57,7 @@
                         app:layout_constraintWidth_percent="0.069" />
 
                     <ImageView
+                        android:id="@+id/iv_restaurantInfo_backArrow"
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:src="@drawable/back_arrow"
@@ -64,6 +65,24 @@
                         app:layout_constraintLeft_toRightOf="@id/view31_restaurantInfo"
                         app:layout_constraintTop_toTopOf="parent"
                         app:layout_constraintWidth_percent="0.026" />
+
+                    <View
+                        android:id="@+id/view32_restaurantInfo"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.071" />
+
+                    <ImageView
+                        android:id="@+id/iv_restaurantInfo_heart"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/info_heart_default"
+                        app:layout_constraintDimensionRatio="H,8.8:8.5"
+                        app:layout_constraintRight_toLeftOf="@id/view32_restaurantInfo"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintWidth_percent="0.047"/>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -107,27 +126,6 @@
                         app:layout_constraintTop_toBottomOf="@id/view2_restarantInfo"
                         app:layout_constraintWidth_percent="0.861" />
 
-                    <View
-                        android:id="@+id/view3_restarantInfo"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="H,180:3.8"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_name" />
-
-                    <TextView
-                        android:id="@+id/tv_restaurantInfo_type"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_medium"
-                        android:text="Halal Middle Eastern"
-                        android:textColor="#191919"
-                        android:textSize="12sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/view3_restarantInfo"
-                        app:layout_constraintWidth_percent="0.861" />
 
                     <View
                         android:id="@+id/view4_restarantInfo"
@@ -136,7 +134,7 @@
                         app:layout_constraintDimensionRatio="H,180:3.8"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_type" />
+                        app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_name" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_restaurantInfo_address"
@@ -188,32 +186,13 @@
                         app:layout_constraintDimensionRatio="H,180:2"
                         app:layout_constraintTop_toBottomOf="@id/view5_restaurantInfo" />
 
-                    <View
-                        android:id="@+id/view7_restaurantInfo"
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="H,180:8.8"
-                        app:layout_constraintTop_toBottomOf="@id/view6_restaurantInfo" />
-
-                    <TextView
-                        android:id="@+id/tv_restarantInfo_affinity"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/montserrat_bold"
-                        android:text="@string/restaurantInfo_affinity"
-                        android:textColor="#191919"
-                        android:textSize="16sp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toBottomOf="@id/view7_restaurantInfo"
-                        app:layout_constraintWidth_percent="0.861" />
 
                     <View
                         android:id="@+id/view8_restaurantInfo"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         app:layout_constraintDimensionRatio="H,180:5"
-                        app:layout_constraintTop_toBottomOf="@id/tv_restarantInfo_affinity" />
+                        app:layout_constraintTop_toBottomOf="@id/view6_restaurantInfo" />
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/cl_restaurantInfo_affinity"
@@ -251,7 +230,7 @@
                         android:id="@+id/view9_restaurantInfo"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="H,180:8.8"
+                        app:layout_constraintDimensionRatio="H,180:5"
                         app:layout_constraintTop_toBottomOf="@id/cl_restaurantInfo_affinity" />
 
                     <View
@@ -463,12 +442,139 @@
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
+
                     <View
-                        android:id="@+id/view18_restaurantInfo"
+                        android:id="@+id/view40_restaurantInfo"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
-                        app:layout_constraintDimensionRatio="H,180:10.5"
+                        app:layout_constraintDimensionRatio="H,180:6.8"
                         app:layout_constraintTop_toBottomOf="@id/cl_restaurantInfo_parkAble" />
+
+                    <View
+                        android:id="@+id/view43_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:background="#f1f1f5"
+                        app:layout_constraintDimensionRatio="H,180:0.4"
+                        app:layout_constraintTop_toBottomOf="@id/view40_restaurantInfo" />
+
+                    <View
+                        android:id="@+id/view44_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:6.8"
+                        app:layout_constraintTop_toBottomOf="@id/view43_restaurantInfo" />
+
+                    <TextView
+                        android:id="@+id/tv_prayerRoom_roomEquip"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textColor="#191919"
+                        android:textSize="14sp"
+                        app:layout_constraintWidth_percent="0.861"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view44_restaurantInfo"
+                        android:text="@string/hostInfo_roomEquip"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                    <View
+                        android:id="@+id/view41_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:4"
+                        app:layout_constraintTop_toBottomOf="@id/tv_prayerRoom_roomEquip" />
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        app:layout_constraintWidth_percent="0.861"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/view41_restaurantInfo"
+                        android:id="@+id/cl_roomEquip"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <HorizontalScrollView
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <TextView
+                                    android:paddingBottom="4dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:id="@+id/tv_prayerRoom_quran"
+                                    android:layout_marginRight="7dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="@string/hostInfo_quran"
+                                    android:background="@drawable/login_defaultback"
+                                    android:textColor="#f1f1f5"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tv_prayerRoom_prayerMat"
+                                    android:paddingBottom="4dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:layout_marginRight="7dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="@string/hostInfo_prayerMat"
+                                    android:background="@drawable/login_defaultback"
+                                    android:textColor="#f1f1f5"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tv_prayerRoom_washingRoom"
+                                    android:paddingBottom="4dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:layout_marginRight="7dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="@string/hostInfo_washingRoom"
+                                    android:background="@drawable/login_defaultback"
+                                    android:textColor="#f1f1f5"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+
+                                <TextView
+                                    android:id="@+id/tv_prayerRoom_compass"
+                                    android:paddingBottom="4dp"
+                                    android:paddingTop="4dp"
+                                    android:paddingLeft="8dp"
+                                    android:paddingRight="8dp"
+                                    android:layout_marginRight="7dp"
+                                    android:fontFamily="@font/montserrat_medium"
+                                    android:text="@string/hostInfo_compass"
+                                    android:background="@drawable/login_defaultback"
+                                    android:textColor="#f1f1f5"
+                                    android:textSize="12sp"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"/>
+                            </LinearLayout>
+                        </HorizontalScrollView>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                    <View
+                        android:id="@+id/view42_restaurantInfo"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        app:layout_constraintDimensionRatio="H,180:11"
+                        app:layout_constraintTop_toBottomOf="@id/cl_roomEquip" />
 
                     <View
                         android:id="@+id/view19_restaurantInfo"
@@ -476,7 +582,7 @@
                         android:layout_height="0dp"
                         android:background="#f1f1f5"
                         app:layout_constraintDimensionRatio="H,180:2"
-                        app:layout_constraintTop_toBottomOf="@id/view18_restaurantInfo" />
+                        app:layout_constraintTop_toBottomOf="@id/view42_restaurantInfo" />
 
                     <View
                         android:id="@+id/view20_restaurantInfo"
@@ -506,6 +612,7 @@
                         app:layout_constraintTop_toBottomOf="@id/tv_restaurantInfo_gallery" />
 
                     <androidx.recyclerview.widget.RecyclerView
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         android:id="@+id/rv_gallery"
                         android:layout_width="0dp"
                         android:layout_height="0dp"

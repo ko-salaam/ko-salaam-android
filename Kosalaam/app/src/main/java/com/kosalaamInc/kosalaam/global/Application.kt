@@ -4,7 +4,12 @@ import android.app.Application
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkInfo
+import android.util.Log
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.auth.GetTokenResult
 import com.kosalaamInc.kosalaam.util.PreferenceUtil
 import org.conscrypt.Conscrypt
 import java.security.Security
@@ -21,7 +26,28 @@ class Application : Application() {
     override fun onCreate() {
         prefs = PreferenceUtil(applicationContext)
         super.onCreate()
+
         Security.insertProviderAt(Conscrypt.newProvider(), 1);
+    }
+
+    fun getToken() : String?{
+        var token : String? = null
+        user!!.getIdToken(true)
+            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                override fun onComplete(task: Task<GetTokenResult?>) {
+                    if (task.isSuccessful()) {
+                        token = task.getResult()?.getToken()
+                        Log.d("token","success")
+
+                    } else {
+                        Log.d("tokenerror",task.exception.toString())
+                      token = null
+                    }
+                }
+            })
+        Log.d("TokenCheck",token.toString())
+        Log.d("TokenCheck",user.toString())
+        return token
     }
     // prefs platform - email / facebook / google
     //  userEmail - password / userToken
