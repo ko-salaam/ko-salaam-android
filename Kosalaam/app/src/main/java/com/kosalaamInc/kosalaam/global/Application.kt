@@ -27,28 +27,10 @@ class Application : Application() {
         prefs = PreferenceUtil(applicationContext)
         super.onCreate()
 
-        Security.insertProviderAt(Conscrypt.newProvider(), 1);
+        Security.insertProviderAt(Conscrypt.newProvider(), 1)
     }
 
-    fun getToken() : String?{
-        var token : String? = null
-        user!!.getIdToken(true)
-            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
-                override fun onComplete(task: Task<GetTokenResult?>) {
-                    if (task.isSuccessful()) {
-                        token = task.getResult()?.getToken()
-                        Log.d("token","success")
 
-                    } else {
-                        Log.d("tokenerror",task.exception.toString())
-                      token = null
-                    }
-                }
-            })
-        Log.d("TokenCheck",token.toString())
-        Log.d("TokenCheck",user.toString())
-        return token
-    }
     // prefs platform - email / facebook / google
     //  userEmail - password / userToken
 }
