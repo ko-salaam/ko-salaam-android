@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kosalaam</string>
+    <string name="app_name">KoSalaam</string>
     <string name="login_signUp">Sign Up</string>
     <string name="login_signIn">Log in with Email</string>
     <string name="login_facebook">Continue with Facebook</string>

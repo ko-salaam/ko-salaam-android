@@ -14,7 +14,10 @@ import com.google.firebase.ktx.Firebase
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentMypageBinding
 import com.kosalaamInc.kosalaam.feature.login.LoginActivity
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.getHelp.GetHelpActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostInfo.HostInfoAcitivty
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostResistration.HostResistrationActivity
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.learnAbout.LearnAboutActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.PersonalInfoActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity
 import com.kosalaamInc.kosalaam.global.Application
@@ -68,6 +71,15 @@ class MyPageFragment : Fragment(){
         }
         binding!!.tvPersonalInfomation.setOnClickListener {
             startActivity(Intent(requireContext(), PersonalInfoActivity::class.java))
+        }
+        binding!!.tvMypageLearnAbout.setOnClickListener {
+            startActivity(Intent(requireContext(), LearnAboutActivity::class.java))
+        }
+        binding!!.tvMypageHostRegistration.setOnClickListener {
+            startActivity(Intent(requireContext(), HostResistrationActivity::class.java))
+        }
+        binding!!.tvMypageGetHelp.setOnClickListener {
+            startActivity(Intent(requireContext(), GetHelpActivity::class.java))
         }
     }
 

@@ -968,6 +968,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.tvDetailSelfCertified.visibility = View.GONE
             binding!!.tvDetailMuslimFriendly.visibility = View.GONE
             binding!!.tvDetailPorkFree.visibility = View.GONE
+            getSearchList(Application.searchKeyword)
             //필터변경
             //detail 부분도 초기화(객체 이미지 전부 후에 보여줄것들 확인
             // Application.keyword
@@ -985,6 +986,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.tvDetailMuslimFriendly.visibility= View.GONE
             binding!!.tvDetailHotelMuslim.visibility =View.VISIBLE
             binding!!.tvDetailHalalCertified.visibility = View.GONE
+            getSearchList(Application.searchKeyword)
         }
 
         binding!!.clSearchFilterPrayer.setOnClickListener {
@@ -998,6 +1000,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.tvDetailMuslimFriendly.visibility= View.GONE
             binding!!.tvDetailHotelMuslim.visibility =View.GONE
             binding!!.tvDetailHalalCertified.visibility = View.GONE
+            getSearchList(Application.searchKeyword)
         }
 
         binding!!.clSearchFilterRestaurant.setOnClickListener {
