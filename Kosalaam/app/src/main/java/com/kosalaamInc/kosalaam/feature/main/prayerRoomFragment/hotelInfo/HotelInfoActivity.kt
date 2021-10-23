@@ -68,14 +68,15 @@ class HotelInfoActivity : AppCompatActivity(){
             }
             Log.d("Hotelinfomation",it.imagesId?.size.toString())
 
-            if(it.imagesId!!.size!! >0){
-                for(i in 0..it.imagesId!!.size!!-1){
-                    images?.add(it.imagesId!!.get(i))
+            if(it.imagesId!=null){
+                if(it.imagesId!!.size!! >0){
+                    for(i in 0..it.imagesId!!.size!!-1){
+                        images?.add(it.imagesId!!.get(i))
+                    }
+                    val imageAdapter = ImageRvAdapter(this,it.imagesId)
+                    binding!!.rvGallery.adapter=imageAdapter
                 }
-                val imageAdapter = ImageRvAdapter(this,it.imagesId)
-                binding!!.rvGallery.adapter=imageAdapter
             }
-
             mapView!!.addPOIItem(marker)
             binding!!.tvRestaurantInfoOpenTimeInsert.text = it.openingHours
             binding!!.tvRestaurantInfoName.text = it.name

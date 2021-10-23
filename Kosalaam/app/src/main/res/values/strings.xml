@@ -82,5 +82,17 @@
     <string name="changePassword_enter_current">Enter your current password</string>
     <string name="changePassword_update_password">Update password</string>
     <string name="prayerRoomInfo_hostedBy">Hosted by</string>
-
+    <string name="hostResister">Host Resistration</string>
+    <string name="hostResister_enter_placeName">Enter your place name</string>
+    <string name="hostResister_enter_address">Host Resistration</string>
+    <string name="hostResister_enter_the_phoneNum">Enter the phone number</string>
+    <string name="hostResister_roomStatus">Room Stauts</string>
+    <string name="hostResister_enter_estimatedPrice">Enter the estimated Price</string>
+    <string name="hostResister_enter_price">Enter the price</string>
+    <string name="phoneNumRegistration">Phone number registration</string>
+    <string name="phoneNumResgistration_enter_verify_your_account">Enter your phone number to verify your account</string>
+    <string name="phoneNumRegistration_Enter_your_phoneNum">Enter your phone number</string>
+    <string name="phoneNumRegistration_sendCode">Send Code</string>
+    <string name="phoneNumRegistration_enter_verification">Enter the verification code</string>
+    <string name="phoneNumRegistration_submit">Submit</string>
 </resources>
