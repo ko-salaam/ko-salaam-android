@@ -125,7 +125,23 @@
             app:layout_constraintWidth_percent="0.861">
 
             <EditText
+                android:cursorVisible="false"
                 android:id="@+id/et_phoneRegister_phoneNum"
+                android:layout_marginRight="19.6dp"
+                app:layout_constraintRight_toLeftOf="@id/tv_phoneRegister_sendCode"
+                android:background="@null"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/montserrat_medium"
+                android:hint="@string/phoneNumRegistration_Enter_your_phoneNum"
+                android:textColor="#ffffff"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_phoneRegister_phoneNum"
                 android:layout_marginRight="19.6dp"
                 app:layout_constraintRight_toLeftOf="@id/tv_phoneRegister_sendCode"
                 android:background="@null"
@@ -148,6 +164,7 @@
                 android:layout_height="1dp"/>
 
             <TextView
+                android:clickable="false"
                 android:paddingBottom="2.5dp"
                 android:paddingTop="2.5dp"
                 android:paddingLeft="6.4dp"
@@ -202,6 +219,7 @@
             app:layout_constraintWidth_percent="0.861">
 
             <EditText
+                android:inputType="phone"
                 android:id="@+id/et_phoneRegister_phoneCode"
                 android:layout_marginRight="19.6dp"
                 app:layout_constraintRight_toLeftOf="@id/tv_phoneRegister_submit"
@@ -226,6 +244,7 @@
                 android:layout_height="1dp"/>
 
             <TextView
+                android:clickable="false"
                 android:paddingBottom="2.5dp"
                 android:paddingTop="2.5dp"
                 android:paddingLeft="17.6dp"
@@ -242,6 +261,16 @@
                 android:layout_height="wrap_content"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:fontFamily="@font/montserrat_medium"
+            android:layout_marginTop="7dp"
+            app:layout_constraintTop_toBottomOf="@id/cl_phoneCode"
+            android:text="It will charge a small fee for SMS"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
