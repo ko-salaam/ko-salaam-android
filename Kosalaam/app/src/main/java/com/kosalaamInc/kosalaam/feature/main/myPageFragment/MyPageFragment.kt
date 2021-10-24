@@ -1,11 +1,17 @@
 package com.kosalaamInc.kosalaam.feature.main.myPageFragment
 
+import android.app.Dialog
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.Window
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -14,14 +20,19 @@ import com.google.firebase.ktx.Firebase
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentMypageBinding
 import com.kosalaamInc.kosalaam.feature.login.LoginActivity
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.getHelp.GetHelpActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostInfo.HostInfoAcitivty
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostResistration.HostResistrationActivity
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.learnAbout.LearnAboutActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.PersonalInfoActivity
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.phoneNumRegister.PhoneNumRegisterActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity
 import com.kosalaamInc.kosalaam.global.Application
 
 
 class MyPageFragment : Fragment(){
     private var binding : FragmentMypageBinding? = null
+    private lateinit var passwordDialog : Dialog
     companion object{
         const val Tag = "MyPageFragment"
     }
@@ -36,9 +47,11 @@ class MyPageFragment : Fragment(){
             R.layout.fragment_mypage,
             container,
             false)
+        passwordDialog = Dialog(requireContext())
+        passwordDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        passwordDialog.setContentView(R.layout.dialog_phonenum)
         initClickListener()
         return binding?.root
-
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -69,6 +82,16 @@ class MyPageFragment : Fragment(){
         binding!!.tvPersonalInfomation.setOnClickListener {
             startActivity(Intent(requireContext(), PersonalInfoActivity::class.java))
         }
+        binding!!.tvMypageLearnAbout.setOnClickListener {
+            startActivity(Intent(requireContext(), LearnAboutActivity::class.java))
+        }
+        binding!!.tvMypageHostRegistration.setOnClickListener {
+            showDialog()
+//            startActivity(Intent(requireContext(), HostResistrationActivity::class.java))
+        }
+        binding!!.tvMypageGetHelp.setOnClickListener {
+            startActivity(Intent(requireContext(), GetHelpActivity::class.java))
+        }
     }
 
     private fun logout(){
@@ -93,9 +116,29 @@ class MyPageFragment : Fragment(){
             email.putExtra(Intent.EXTRA_EMAIL, arrayOf("kosalaamapp@gmail.com"))
             startActivity(email)
         }
+
         catch (e: ActivityNotFoundException){
             Toast.makeText(context,"Check email application",Toast.LENGTH_SHORT).show()
         }
+    }
 
+    private fun showDialog(){
+        passwordDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        passwordDialog.show()
+        val cancel : ImageView = passwordDialog.findViewById(R.id.dialog_image)
+        val registerNow : TextView = passwordDialog.findViewById(R.id.dialog_tv4)
+        val notNow : TextView = passwordDialog.findViewById(R.id.dialog_tv5)
+
+        cancel.setOnClickListener {
+            passwordDialog.dismiss()
+        }
+
+        notNow.setOnClickListener {
+            passwordDialog.dismiss()
+        }
+
+        registerNow.setOnClickListener {
+            startActivity(Intent(requireContext(), PhoneNumRegisterActivity::class.java))
+        }
     }
 }

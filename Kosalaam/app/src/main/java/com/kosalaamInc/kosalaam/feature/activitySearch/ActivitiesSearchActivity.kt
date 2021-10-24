@@ -15,11 +15,12 @@ class ActivitiesSearchActivity : AppCompatActivity(){
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = DataBindingUtil.setContentView<ActivityActivitiesSearchBinding>(
-            this, R.layout.activity_activities_search
-        ).apply {
-            lifecycleOwner = this@ActivitiesSearchActivity
-            activitiesVm = viewModel
-        }
+        setContentView(R.layout.activity_default)
+//        binding = DataBindingUtil.setContentView<ActivityActivitiesSearchBinding>(
+//            this, R.layout.activity_activities_search
+//        ).apply {
+//            lifecycleOwner = this@ActivitiesSearchActivity
+//            activitiesVm = viewModel
+//        }
     }
 }

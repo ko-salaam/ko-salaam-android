@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:background="@drawable/dialog_back"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:layout_marginTop="10.2dp"
+        android:layout_marginRight="10.2dp"
+        android:id="@+id/dialog_image"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:src="@drawable/search_delete_text"
+        android:layout_width="14.2dp"
+        android:layout_height="13.4dp"/>
+
+    <TextView
+        android:layout_marginTop="15.6dp"
+        android:letterSpacing="0.02"
+        android:id="@+id/dialog_tv1"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="#191919"
+        android:textSize="9sp"
+        android:text="You need to verify your account first by"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="22.6dp"
+        android:layout_marginRight="22.6dp"/>
+
+    <TextView
+        android:layout_marginLeft="22.6dp"
+        android:layout_marginRight="22.6dp"
+        android:letterSpacing="0.02"
+        android:fontFamily="@font/montserrat_semibold"
+        android:layout_marginTop="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="12sp"
+        android:textColor="#419070"
+        android:text="registering your phone number"
+        app:layout_constraintTop_toBottomOf="@id/dialog_tv1"
+        android:id="@+id/dialog_tv2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:letterSpacing="0.02"
+        android:fontFamily="@font/montserrat_semibold"
+        android:layout_marginTop="10dp"
+        android:textColor="#191919"
+        android:text="before you register your place"
+        android:textSize="9sp"
+        app:layout_constraintTop_toBottomOf="@id/dialog_tv2"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:id="@+id/dialog_tv3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/dialog_tv4"
+        android:paddingRight="15.6dp"
+        android:paddingLeft="15.6dp"
+        android:paddingBottom="12.4dp"
+        android:paddingTop="13dp"
+        android:layout_marginLeft="22.6dp"
+        android:layout_marginRight="22.6dp"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textSize="12sp"
+        android:textColor="#ffffff"
+        android:layout_marginTop="20dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_tv3"
+        android:text="Go to register phone number"
+        android:background="@drawable/login_mainoval"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+    <TextView
+        android:id="@+id/dialog_tv5"
+        android:paddingBottom="12.4dp"
+        android:paddingTop="13dp"
+        android:gravity="center"
+        android:background="@drawable/dialog_notnow_back"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="#419070"
+        android:textSize="12sp"
+        android:text="Now now"
+        app:layout_constraintRight_toRightOf="@id/dialog_tv4"
+        app:layout_constraintLeft_toLeftOf="@id/dialog_tv4"
+        app:layout_constraintTop_toBottomOf="@id/dialog_tv4"
+        android:layout_marginTop="10.4dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"/>
+    <View
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/dialog_tv5"
+        android:layout_width="0dp"
+        android:layout_height="20dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

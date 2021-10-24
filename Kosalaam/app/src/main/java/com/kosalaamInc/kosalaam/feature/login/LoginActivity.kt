@@ -191,6 +191,7 @@ class LoginActivity : AppCompatActivity() {
                     var user = auth.currentUser
                     Application.prefs.setString("platform","facebook")
                     Application.prefs.setString("token",token.token)
+                    Application.user = user
                     if (isNew == true) {
                         user!!.getIdToken(true)
                             .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
@@ -198,7 +199,7 @@ class LoginActivity : AppCompatActivity() {
                                     if (task.isSuccessful()) {
                                         val idToken: String? = task.getResult()?.getToken()
                                         Log.d(TAG, idToken!!)
-                                        Application.user = user
+
 
                                         try {
                                             viewModel.signUp(idToken!!)
@@ -247,6 +248,7 @@ class LoginActivity : AppCompatActivity() {
                     val isNew: Boolean = task.result.additionalUserInfo!!.isNewUser
                     Application.prefs.setString("platform","google")
                     Application.prefs.setString("token",idToken)
+                    Application.user = user
                     if (isNew == true) {
                         var token: String? = null
                         user!!.getIdToken(true)
@@ -256,7 +258,7 @@ class LoginActivity : AppCompatActivity() {
                                         val idToken1: String? = task.getResult()?.getToken()
                                         Log.d(TAG, idToken1!!)
                                         token = idToken1
-                                        Application.user = user
+
                                         try {
                                             viewModel.signUp(idToken1!!)
                                             initSignUpObserve(user)

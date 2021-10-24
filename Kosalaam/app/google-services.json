@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "346505103318-iutat0rmrst7hopj6jqch8paue5vmk6r.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kosalaamInc.kosalaam",
+            "certificate_hash": "62fcc83ac7490f5a3b1f65197f9d77baaa7d40f7"
+          }
+        },
+        {
           "client_id": "346505103318-s57ri7k5mu3o6eqouotfnh8djijgi30s.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

@@ -26,7 +26,7 @@ class PrayerRoomResponse{
 
     @SerializedName("isParkingLot")
     @Expose
-    val isPrakingLot : Boolean? = null
+    val isParkingLot : Boolean? = null
 
     @SerializedName("latitude")
     @Expose
@@ -44,16 +44,24 @@ class PrayerRoomResponse{
     @Expose
     val name : String? = null
 
-    @SerializedName("openingHours")
+    @SerializedName("phoneNumber")
     @Expose
     val phoneNumber : String? = null
+
+    @SerializedName("openingHours")
+    @Expose
+    val openingHours : String? = null
 
     @SerializedName("placeType")
     @Expose
     val placeType : String? = null
 
+    @SerializedName("praySupplies")
+    @Expose
+    val praySupplies : PraySupplies? = null
 
-
-
+    @SerializedName("hostId")
+    @Expose
+    val hostId : String? = null
 
 }

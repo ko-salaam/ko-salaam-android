@@ -32,6 +32,7 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.FragmentSearchprayerroomBinding
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.hotelInfo.HotelInfoActivity
+import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.prayerRoomInfo.PrayerRoomInfoActivity
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.restaurantInfo.RestaurantInfoActivity
 import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
@@ -344,8 +345,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         SearchRvAdapter.OnSearchItemClickListener {
                         override fun onItemClick(v: View, data: RestaurantSearchData, pos: Int) {
                             startActivity(Intent(requireActivity(),
-                                RestaurantInfoActivity::class.java))
-                            RestaurantInfoActivity.idNum = data.id
+                                PrayerRoomInfoActivity::class.java))
+                            PrayerRoomInfoActivity.idNum = data.id
                             binding!!.searchMapview.removeView(mapView)
                         }
                     })
@@ -394,14 +395,28 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
                         Log.d("prayerRoomInfo", latitude.toString() + " " + longitude.toString())
                     }
+
                     Log.d(TAG, list.size.toString())
                     val searchAdapter = SearchRvAdapter(requireContext(), list)
                     searchAdapter.setOnItemClickListener(object :
                         SearchRvAdapter.OnSearchItemClickListener {
                         override fun onItemClick(v: View, data: RestaurantSearchData, pos: Int) {
-                            startActivity(Intent(requireActivity(),
-                                RestaurantInfoActivity::class.java))
-                            RestaurantInfoActivity.idNum = data.id
+                            if(data.domain=="ACCOMMODATION"){
+                                startActivity(Intent(requireActivity(),
+                                    HotelInfoActivity::class.java))
+                                HotelInfoActivity.idNum = data.id
+                            }
+                            else if(data.domain=="RESTAURANT"){
+                                startActivity(Intent(requireActivity(),
+                                    RestaurantInfoActivity::class.java))
+                                RestaurantInfoActivity.idNum = data.id
+                            }
+                            else{
+                                startActivity(Intent(requireActivity(),
+                                    PrayerRoomInfoActivity::class.java))
+                                PrayerRoomInfoActivity.idNum = data.id
+                            }
+
                             binding!!.searchMapview.removeView(mapView)
                         }
                     })
@@ -871,7 +886,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 Log.d(TAG,"this hotel")
             } else if (domain == "prayerRoom") {
                 viewModel.getPrayerRoomSearch(domain,
-                    5,
+                    500,
                     searchText,
                     latitude,
                     longitude,
@@ -953,6 +968,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.tvDetailSelfCertified.visibility = View.GONE
             binding!!.tvDetailMuslimFriendly.visibility = View.GONE
             binding!!.tvDetailPorkFree.visibility = View.GONE
+            getSearchList(Application.searchKeyword)
             //필터변경
             //detail 부분도 초기화(객체 이미지 전부 후에 보여줄것들 확인
             // Application.keyword
@@ -970,6 +986,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.tvDetailMuslimFriendly.visibility= View.GONE
             binding!!.tvDetailHotelMuslim.visibility =View.VISIBLE
             binding!!.tvDetailHalalCertified.visibility = View.GONE
+            getSearchList(Application.searchKeyword)
         }
 
         binding!!.clSearchFilterPrayer.setOnClickListener {
@@ -983,6 +1000,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.tvDetailMuslimFriendly.visibility= View.GONE
             binding!!.tvDetailHotelMuslim.visibility =View.GONE
             binding!!.tvDetailHalalCertified.visibility = View.GONE
+            getSearchList(Application.searchKeyword)
         }
 
         binding!!.clSearchFilterRestaurant.setOnClickListener {

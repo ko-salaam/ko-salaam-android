@@ -16,65 +16,98 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class HotelInfoViewModel : ViewModel(){
+
     private val _hotelData = MutableLiveData<HotelResponse>()
     private val _likeData = MutableLiveData<Boolean>()
     val hotelData : MutableLiveData<HotelResponse> get() = _hotelData
     val likeData : MutableLiveData<Boolean> get() = _likeData
 
     fun getHotelInfo(id : String?) {
-        CoroutineScope(Dispatchers.IO).launch {
-            SearchRepository().hotelInfo(Application().getToken(),id!!).let {
-                if(it.isSuccessful){
-                    hotelData.postValue(it.body())
-                }
+        var token : String? = null
+        Application.user!!.getIdToken(true)
+            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                override fun onComplete(task: Task<GetTokenResult?>) {
+                    if (task.isSuccessful()) {
+                        token = task.result!!.token.toString()
+                        Log.d("token2",task.result!!.token.toString())
+                        CoroutineScope(Dispatchers.IO).launch {
+                            SearchRepository().hotelInfo("Bearer "+token,id!!).let {
+                                Log.d("tokentest2","Bearer "+getToken())
+                                if(it.isSuccessful){
+                                    hotelData.postValue(it.body())
+                                }
 
-                else{
+                                else{
+
+                                }
+                            }
+                        }
+                    }
                 }
-            }
-        }
+            })
     }
-    fun hotelLike(id : String?){
-        CoroutineScope(Dispatchers.IO).launch {
-            LikeRepository().hotelLike(Application().getToken(),id!!).let {
-                if(it.isSuccessful){
-                    likeData.postValue(true)
 
-                    Log.d("hotellike","Success")
+    fun hotelLike(id : String?){
+        var token : String? = null
+        Application.user!!.getIdToken(true)
+            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                override fun onComplete(task: Task<GetTokenResult?>) {
+                    if (task.isSuccessful()) {
+                        token = task.result!!.token.toString()
+                        Log.d("token2",task.result!!.token.toString())
+                        CoroutineScope(Dispatchers.IO).launch {
+                            LikeRepository().hotelLike("Bearer "+token,id!!).let {
+                                if(it.isSuccessful){
+                                    likeData.postValue(true)
+                                    Log.d("hotellike","Success")
+                                }
+                                else{
+                                    Log.d("hotellike","fail"+it.code().toString())
+                                    Log.d("hotellike","fail")
+                                }
+                            }
+                        }
+                    }
                 }
-                else{
-                    Log.d("hotellike","fail"+it.code().toString())
-                    Log.d("hotellike","fail")
-                }
-            }
-        }
+            })
+
     }
     fun hotelLikeCancel(id : String?){
-        CoroutineScope(Dispatchers.IO).launch {
-            LikeRepository().hotelLikeCancel(Application().getToken(),id!!).let {
-                if(it.isSuccessful){
-                    likeData.postValue(false)
-                    Log.d("hotellikecancel","Success")
+        var token : String? = null
+        Application.user!!.getIdToken(true)
+            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                override fun onComplete(task: Task<GetTokenResult?>) {
+                    if (task.isSuccessful()) {
+                        token = task.result!!.token.toString()
+                        CoroutineScope(Dispatchers.IO).launch {
+                            LikeRepository().hotelLikeCancel("Bearer "+token,id!!).let {
+                                if(it.isSuccessful){
+                                    likeData.postValue(false)
+                                    Log.d("hotellikecancel","Success")
+                                }
+                                else{
+                                    Log.d("hotellikecancel","fail")
+                                }
+                            }
+                        }
+                        Log.d("token2",task.result!!.token.toString())
+                    }
                 }
-                else{
-                    Log.d("hotellikecancel","fail")
-                }
-            }
-        }
+            })
+
     }
     fun getToken() : String?{
         var token : String? = null
         Application.user!!.getIdToken(true)
-            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult> {
-                override fun onComplete(p0: Task<GetTokenResult>) {
-                    if(p0.isSuccessful){
-                        token= p0.getResult().token
-                    }
-                    else{
-                        token = null
+            .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
+                override fun onComplete(task: Task<GetTokenResult?>) {
+                    if (task.isSuccessful()) {
+                        token = task.result!!.token.toString()
+                        Log.d("token2",task.result!!.token.toString())
                     }
                 }
-
             })
+
         return token
     }
 }

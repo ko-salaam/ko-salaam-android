@@ -15,9 +15,9 @@
         android:usesCleartextTraffic="true"
         android:name=".global.Application"
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_kosalaam"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@mipmap/ic_launcher_kosalaam_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Kosalaam">
         <meta-data
@@ -25,6 +25,11 @@
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />
+
+        <activity android:name=".feature.main.myPageFragment.phoneNumRegister.PhoneNumRegisterActivity"
+            android:screenOrientation="portrait">
+
+        </activity>
 
         <activity
             android:screenOrientation="portrait"
@@ -91,6 +96,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".feature.main.myPageFragment.learnAbout.LearnAboutActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".feature.main.myPageFragment.hostResistration.HostResistrationActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".feature.main.myPageFragment.getHelp.GetHelpActivity"
+            android:screenOrientation="portrait"/>
 
     </application>
 
