@@ -6,11 +6,565 @@
             name="hostResistrationVm"
             type="com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostResistration.HostResistrationViewModel" />
     </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ScrollView
+        android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
+                <View
+                    app:layout_constraintDimensionRatio="H,180:21.2"
+                    android:id="@+id/view1_hostRegistration"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/tv_hostRegistration_title"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:text="Host Registration"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view1_hostRegistration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/view2_hostRegistration"
+                    app:layout_constraintDimensionRatio="H,180:10"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostRegistration_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:id="@+id/tv_hostRegistration_enterYourPlaceName"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view2_hostRegistration"
+                    android:textColor="#717075"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Enter your place name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostRegistration_enterYourPlaceName"
+                    android:id="@+id/view3_hostRegistration"
+                    app:layout_constraintDimensionRatio="H,180:7.5"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <EditText
+                    android:id="@+id/et_hostRegistration_placeName"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="16sp"
+                    android:textColor="#000000"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view3_hostRegistration"
+                    android:hint="Enter your place name"
+                    android:background="@null"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/view4_hostRegistration"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/et_hostRegistration_placeName"
+                    android:background="#f1f1f5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:15"
+                    android:id="@+id/view5_hostRegistration"
+                    app:layout_constraintTop_toBottomOf="@id/view4_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:id="@+id/tv_hostRegistration_enter_address"
+                    android:textColor="#717075"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Enter the address"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view5_hostRegistration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:7.5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostRegistration_enter_address"
+                    android:id="@+id/view6_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    app:layout_constraintWidth_percent="0.861"
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textSize="16sp"
+                    android:textColor="#999999"
+                    android:id="@+id/tv_hostRegistration_enter_address_init"
+                    android:text="Enter the address"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view6_hostRegistration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:id="@+id/view7_hostRegistration"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostRegistration_enter_address_init"
+                    android:background="#f1f1f5"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:16.5"
+                    app:layout_constraintTop_toBottomOf="@id/view7_hostRegistration"
+                    android:id="@+id/view8_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:id="@+id/tv_hostRegistration_enter_phoneNum"
+                    android:textColor="#717075"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Enter your phone number"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view8_hostRegistration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:7.5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostRegistration_enter_phoneNum"
+                    android:id="@+id/view9_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:paddingRight="5dp"
+                    android:paddingLeft="5dp"
+                    android:id="@+id/tv_hostRegistration_enter_phoneNum_init"
+                    android:textColor="#191919"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:text=""
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view9_hostRegistration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    android:background="#f1f1f5"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostRegistration_enter_phoneNum_init"
+                    android:id="@+id/view10_hostRegistration"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"/>
+                <View
+                    app:layout_constraintDimensionRatio="H,180:8.8"
+                    app:layout_constraintTop_toBottomOf="@id/view10_hostRegistration"
+                    android:id="@+id/view11_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+                <View
+                    android:background="#f1f1f5"
+                    app:layout_constraintDimensionRatio="H,180:2"
+                    app:layout_constraintTop_toBottomOf="@id/view11_hostRegistration"
+                    android:id="@+id/view12_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <View
+                    android:id="@+id/view13_hostRegistration"
+                    app:layout_constraintDimensionRatio="H,180:8.8"
+                    app:layout_constraintTop_toBottomOf="@id/view11_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:textColor="#717075"
+                    android:textSize="10sp"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:id="@+id/tv_hostInfo_roomEquipment"
+                    app:layout_constraintTop_toBottomOf="@id/view13_hostRegistration"
+                    android:text="@string/hostInfo_roomEquip"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:7.5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostInfo_roomEquipment"
+                    android:id="@+id/view18_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintWidth_percent="0.861"
+                    android:id="@+id/cl_hostInfo_quran"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view18_hostInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/tv_hostInfo_quran"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:text="@string/hostInfo_quran"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/iv_hostInfo_quranCheck"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:src="@drawable/checkbox_default"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toTopOf="@id/tv_hostInfo_quran"
+                        app:layout_constraintWidth_percent="0.051" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:6.2"
+                    app:layout_constraintTop_toBottomOf="@id/cl_hostInfo_quran"
+                    android:id="@+id/view19_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <View
+                    android:background="#f1f1f5"
+                    android:id="@+id/view20_hostInfo"
+                    app:layout_constraintTop_toBottomOf="@id/view19_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:6.2"
+                    app:layout_constraintTop_toBottomOf="@id/view20_hostInfo"
+                    android:id="@+id/view21_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintWidth_percent="0.861"
+                    android:id="@+id/cl_hostInfo_prayerMat"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view21_hostInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/tv_hostInfo_prayerMat"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:text="@string/hostInfo_prayerMat"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/iv_hostInfo_prayerMatCheck"
+                        app:layout_constraintWidth_percent="0.051"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        android:src="@drawable/checkbox_default"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_hostInfo_prayerMat"
+                        app:layout_constraintTop_toTopOf="@id/tv_hostInfo_prayerMat"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    app:layout_constraintDimensionRatio="H,180:6.2"
+                    app:layout_constraintTop_toBottomOf="@id/cl_hostInfo_prayerMat"
+                    android:id="@+id/view22_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <View
+                    android:background="#f1f1f5"
+                    android:id="@+id/view23_hostInfo"
+                    app:layout_constraintTop_toBottomOf="@id/view22_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:6.2"
+                    app:layout_constraintTop_toBottomOf="@id/view23_hostInfo"
+                    android:id="@+id/view24_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintWidth_percent="0.861"
+                    android:id="@+id/cl_hostInfo_compass"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view24_hostInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/tv_hostInfo_compass"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:text="@string/hostInfo_compass"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/iv_hostInfo_compassCheck"
+                        app:layout_constraintWidth_percent="0.051"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        android:src="@drawable/checkbox_default"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_hostInfo_compass"
+                        app:layout_constraintTop_toTopOf="@id/tv_hostInfo_compass"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:6.2"
+                    app:layout_constraintTop_toBottomOf="@id/cl_hostInfo_compass"
+                    android:id="@+id/view25_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <View
+                    android:background="#f1f1f5"
+                    android:id="@+id/view26_hostInfo"
+                    app:layout_constraintTop_toBottomOf="@id/view25_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:6.2"
+                    app:layout_constraintTop_toBottomOf="@id/view26_hostInfo"
+                    android:id="@+id/view27_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintWidth_percent="0.861"
+                    android:id="@+id/cl_hostInfo_washingRoom"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view27_hostInfo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:layout_marginRight="10dp"
+                        android:id="@+id/tv_hostInfo_washingRoom"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        android:text="@string/hostInfo_washingRoom"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <ImageView
+                        android:id="@+id/iv_hostInfo_washingRoomCheck"
+                        app:layout_constraintWidth_percent="0.051"
+                        app:layout_constraintDimensionRatio="H,1:1"
+                        android:src="@drawable/checkbox_default"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_hostInfo_washingRoom"
+                        app:layout_constraintTop_toTopOf="@id/tv_hostInfo_washingRoom"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+                <View
+                    app:layout_constraintDimensionRatio="H,180:8.8"
+                    app:layout_constraintTop_toBottomOf="@id/cl_hostInfo_washingRoom"
+                    android:id="@+id/view28_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:2"
+                    android:background="#f1f1f5"
+                    android:id="@+id/view29_hostInfo"
+                    app:layout_constraintTop_toBottomOf="@id/view28_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:8"
+                    app:layout_constraintTop_toBottomOf="@id/view29_hostInfo"
+                    android:id="@+id/view14_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:id="@+id/tv_hostRegistration_enter_price"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view14_hostRegistration"
+                    android:textColor="#717075"
+                    android:textSize="12sp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    android:text="Enter the estimated Price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:7.5"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostRegistration_enter_price"
+                    android:id="@+id/view15_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/cl_hostRegistration_price"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view15_hostRegistration"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:background="@null"
+                        android:hint="Enter the price"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textSize="16sp"
+                        android:textColor="#000000"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:id="@+id/tv_hostRegistration_perHour"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        android:textColor="#999999"
+                        android:text="/ 1hr"
+                        android:fontFamily="@font/montserrat_semibold"
+                        android:textSize="8sp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                    <TextView
+                        android:fontFamily="@font/montserrat_medium"
+                        android:textColor="#999999"
+                        android:textSize="12sp"
+                        app:layout_constraintBottom_toBottomOf="@id/tv_hostRegistration_perHour"
+                        app:layout_constraintRight_toLeftOf="@id/tv_hostRegistration_perHour"
+                        android:text="₩ "
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintWidth_percent="0.861"
+                    android:background="#f1f1f5"
+                    android:id="@+id/view16_hostRegistration"
+                    app:layout_constraintTop_toBottomOf="@id/cl_hostRegistration_price"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:17.8"
+                    app:layout_constraintTop_toBottomOf="@id/view16_hostRegistration"
+                    android:id="@+id/view17_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <TextView
+                    android:id="@+id/tv_hostRegistration_register"
+                    android:background="@drawable/login_defaultback"
+                    android:paddingBottom="10.4dp"
+                    android:paddingTop="10.4dp"
+                    android:paddingRight="19dp"
+                    android:paddingLeft="19dp"
+                    android:fontFamily="@font/montserrat_semibold"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    android:clickable="false"
+                    android:text="Register"
+                    android:textSize="16sp"
+                    android:textColor="#ffffff"
+                    app:layout_constraintTop_toBottomOf="@id/view17_hostRegistration"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:18"
+                    app:layout_constraintTop_toBottomOf="@id/tv_hostRegistration_register"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
 </layout>
