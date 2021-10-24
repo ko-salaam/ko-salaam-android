@@ -6,14 +6,17 @@
             name="hostResistrationVm"
             type="com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostResistration.HostResistrationViewModel" />
     </data>
+
     <ScrollView
         android:background="#ffffff"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

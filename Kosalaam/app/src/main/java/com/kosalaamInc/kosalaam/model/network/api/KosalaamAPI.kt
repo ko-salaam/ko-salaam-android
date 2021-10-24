@@ -72,4 +72,6 @@ interface KosalaamAPI {
     @POST("/api/restaurant")
     suspend fun registerResturant()
 
+    @GET("/api/auth/me")
+    suspend fun getAuthMe(@Header("Authorization") authorization : String?) : Response<UserResponse>
 }

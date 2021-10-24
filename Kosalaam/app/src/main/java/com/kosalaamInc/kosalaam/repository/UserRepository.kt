@@ -8,4 +8,6 @@ class UserRepository {
     fun sendUser(token: String,query : String) = userClient.getUser(token,query)
 
     suspend fun signUp(token : String) = userClient.signUp(token)
+
+    suspend fun authMe(token : String) = userClient.getAuthMe(token)
 }

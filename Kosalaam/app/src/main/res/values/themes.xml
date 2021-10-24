@@ -3,5 +3,6 @@
     <style name="Theme.Kosalaam" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="colorPrimaryDark">#419070</item>
     </style>
 </resources>
