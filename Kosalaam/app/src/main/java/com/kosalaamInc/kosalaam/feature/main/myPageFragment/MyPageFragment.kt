@@ -30,15 +30,18 @@ import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.Persona
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.phoneNumRegister.PhoneNumRegisterActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity
 import com.kosalaamInc.kosalaam.global.Application
+import com.kosalaamInc.kosalaam.util.CheckInternet
 
 
-class MyPageFragment : Fragment(){
-    private var binding : FragmentMypageBinding? = null
-    private lateinit var passwordDialog : Dialog
-    companion object{
+class MyPageFragment : Fragment() {
+    private var binding: FragmentMypageBinding? = null
+    private lateinit var passwordDialog: Dialog
+
+    companion object {
         const val Tag = "MyPageFragment"
     }
-    private lateinit var viewModel : MyPageViewModel
+
+    private lateinit var viewModel: MyPageViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -54,6 +57,7 @@ class MyPageFragment : Fragment(){
         passwordDialog.setContentView(R.layout.dialog_phonenum)
         return binding?.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
@@ -64,41 +68,47 @@ class MyPageFragment : Fragment(){
     }
 
     override fun onDestroyView() {
-        binding= null
+        binding = null
         super.onDestroyView()
     }
-    private fun initObserve(){
-        with(viewModel){
 
+    private fun initObserve() {
+        with(viewModel) {
             userData.observe(viewLifecycleOwner, Observer {
-                binding!!.tvMypageEmail.text=it.email
-                if(it.profileImg!=null){
-                    Glide.with(this@MyPageFragment).load(it.profileImg).circleCrop().into(binding!!.cvMypageProfileImage)
+
+                binding!!.tvMypageEmail.text = it.email
+                if (it.profileImg != null) {
+                    Glide.with(this@MyPageFragment).load(it.profileImg).circleCrop()
+                        .into(binding!!.cvMypageProfileImage)
                 }
                 // check name if(it.)
-                if(it.isHost){
+                if (it.isHost) {
                     binding!!.tvMypageHostRegistration.setOnClickListener {
-                        Toast.makeText(requireContext(),"Already register prayer room!",Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(),
+                            "Already register prayer room!",
+                            Toast.LENGTH_LONG).show()
                     }
                     binding!!.tvMypageHostingInfomation.setOnClickListener {
                         startActivity(Intent(requireContext(), HostInfoAcitivty::class.java))
                     }
-                }
-
-                else{
-                    if(it.isCertificated){
+                } else {
+                    if (it.isCertificated) {
                         binding!!.tvMypageHostRegistration.setOnClickListener {
-                            startActivity(Intent(requireContext(),HostResistrationActivity::class.java))
+                            startActivity(Intent(requireContext(),
+                                HostResistrationActivity::class.java))
                         }
-                    }
-                    else{
+                    } else {
                         binding!!.tvMypageHostRegistration.setOnClickListener {
                             //showDialog()
-                            Toast.makeText(requireContext(),"Sorry we're preparing!!",Toast.LENGTH_LONG).show()
+                            Toast.makeText(requireContext(),
+                                "Sorry we're preparing!!",
+                                Toast.LENGTH_LONG).show()
                         }
                     }
                     binding!!.tvMypageHostingInfomation.setOnClickListener {
-                        Toast.makeText(requireContext(),"You should register prayer room first!",Toast.LENGTH_LONG).show()
+                        Toast.makeText(requireContext(),
+                            "You should register prayer room first!",
+                            Toast.LENGTH_LONG).show()
                     }
                 }
 
@@ -106,7 +116,7 @@ class MyPageFragment : Fragment(){
         }
     }
 
-    private fun initClickListener(){
+    private fun initClickListener() {
         binding!!.tvMypageHostingInfomation.setOnClickListener {
             startActivity(Intent(requireContext(), HostInfoAcitivty::class.java))
         }
@@ -131,9 +141,11 @@ class MyPageFragment : Fragment(){
         }
     }
 
-    private fun logout(){
-        if(com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform", "")=="facebook" ||
-            com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform", "")=="google") {
+    private fun logout() {
+        if (com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform",
+                "") == "facebook" ||
+            com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform", "") == "google"
+        ) {
             Firebase.auth.signOut()
         }
         com.kosalaamInc.kosalaam.global.Application.prefs.setString("platform", "")
@@ -146,25 +158,23 @@ class MyPageFragment : Fragment(){
         startActivity(i)
     }
 
-    private fun contactUs(){
-        try{
+    private fun contactUs() {
+        try {
             val email = Intent(Intent.ACTION_SEND)
-            email.type="text/plain"
+            email.type = "text/plain"
             email.putExtra(Intent.EXTRA_EMAIL, arrayOf("kosalaamapp@gmail.com"))
             startActivity(email)
-        }
-
-        catch (e: ActivityNotFoundException){
-            Toast.makeText(requireContext(),"Check email application",Toast.LENGTH_SHORT).show()
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "Check email application", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun showDialog(){
+    private fun showDialog() {
         passwordDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         passwordDialog.show()
-        val cancel : ImageView = passwordDialog.findViewById(R.id.dialog_image)
-        val registerNow : TextView = passwordDialog.findViewById(R.id.dialog_tv4)
-        val notNow : TextView = passwordDialog.findViewById(R.id.dialog_tv5)
+        val cancel: ImageView = passwordDialog.findViewById(R.id.dialog_image)
+        val registerNow: TextView = passwordDialog.findViewById(R.id.dialog_tv4)
+        val notNow: TextView = passwordDialog.findViewById(R.id.dialog_tv5)
 
         cancel.setOnClickListener {
             passwordDialog.dismiss()
@@ -181,6 +191,11 @@ class MyPageFragment : Fragment(){
 
     override fun onResume() {
         super.onResume()
-        viewModel.getUserInfo()
+        if (CheckInternet().checkInternet(requireActivity())) {
+            viewModel.getUserInfo()
+        } else {
+            Toast.makeText(requireContext(), "Check your internet", Toast.LENGTH_SHORT).show()
+        }
+
     }
 }

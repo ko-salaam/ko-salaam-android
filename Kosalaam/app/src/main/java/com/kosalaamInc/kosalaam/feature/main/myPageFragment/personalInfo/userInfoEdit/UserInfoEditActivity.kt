@@ -15,6 +15,7 @@ import com.kosalaamInc.kosalaam.databinding.ActivityPersonalInfoEditBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.userInfoEdit.changePassword.ChangePasswordActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.userInfoEdit.changePassword.ChangePasswordViewModel
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.phoneNumRegister.PhoneNumRegisterActivity
+import com.kosalaamInc.kosalaam.util.CheckInternet
 
 class UserInfoEditActivity : AppCompatActivity() {
 
@@ -42,6 +43,13 @@ class UserInfoEditActivity : AppCompatActivity() {
             binding!!.view15HostInfo.visibility = View.GONE
             binding!!.view16HostInfo.visibility = View.GONE
             binding!!.view17HostInfo.visibility = View.GONE
+        }
+        else{
+            var passwordText :String? = ""
+            for(i in 0..password.length-1){
+                passwordText+= "●"
+            }
+            binding!!.tvHostInfoPasswordInit.text = passwordText
         }
         initClickListener()
         initObserve()
@@ -92,6 +100,10 @@ class UserInfoEditActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        viewModel.getUserInfo()
+        if (CheckInternet().checkInternet(this)) {
+            viewModel.getUserInfo()
+        } else {
+            Toast.makeText(this, "Check your internet", Toast.LENGTH_SHORT).show()
+        }
     }
 }

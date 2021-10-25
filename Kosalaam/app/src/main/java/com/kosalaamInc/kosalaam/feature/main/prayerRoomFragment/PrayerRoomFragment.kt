@@ -1045,6 +1045,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 muslimFriendlyHotel=true
                 getSearchList(Application.searchKeyword)
             }
+
             else{
                 binding!!.tvDetailHotelMuslim.setTextColor(Color.parseColor("#999999"))
                 binding!!.tvDetailHotelMuslim.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
@@ -1059,6 +1060,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 binding!!.tvDetailMuslimFriendly.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
                 muslimFriendly=true
             }
+
             else{
                 binding!!.tvDetailMuslimFriendly.setTextColor(Color.parseColor("#999999"))
                 binding!!.tvDetailMuslimFriendly.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
@@ -1072,6 +1074,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 binding!!.tvDetailPorkFree.background = ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
                 porkFree=true
             }
+
             else{
                 binding!!.tvDetailPorkFree.setTextColor(Color.parseColor("#999999"))
                 binding!!.tvDetailPorkFree.background = ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
@@ -1085,6 +1088,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 binding!!.tvDetailSelfCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
                 selfCertified=true
             }
+
             else{
                 binding!!.tvDetailSelfCertified.setTextColor(Color.parseColor("#999999"))
                 binding!!.tvDetailSelfCertified.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)

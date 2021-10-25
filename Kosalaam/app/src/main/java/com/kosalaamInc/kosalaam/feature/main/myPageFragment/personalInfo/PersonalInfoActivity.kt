@@ -3,6 +3,7 @@ package com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -11,6 +12,7 @@ import com.bumptech.glide.Glide
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityPersonalInfomationBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.userInfoEdit.UserInfoEditActivity
+import com.kosalaamInc.kosalaam.util.CheckInternet
 
 
 class PersonalInfoActivity : AppCompatActivity(){
@@ -70,6 +72,11 @@ class PersonalInfoActivity : AppCompatActivity(){
 
     override fun onResume() {
         super.onResume()
-        viewModel.getUserInfo()
+        if (CheckInternet().checkInternet(this)) {
+            viewModel.getUserInfo()
+        } else {
+            Toast.makeText(this, "Check your internet", Toast.LENGTH_SHORT).show()
+        }
+
     }
 }
