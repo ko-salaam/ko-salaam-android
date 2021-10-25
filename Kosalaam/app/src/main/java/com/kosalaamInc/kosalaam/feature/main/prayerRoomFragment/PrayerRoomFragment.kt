@@ -134,14 +134,15 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.tvDetailSelfCertified.visibility = View.GONE
             binding!!.tvDetailMuslimFriendly.visibility = View.GONE
             binding!!.tvDetailPorkFree.visibility = View.GONE
+            binding!!.tvDetailHotelMuslim.visibility = View.VISIBLE
             binding!!.ivSearchFilterHotel.setImageResource(R.drawable.filter_hotel_green)
             binding!!.tvSearchFilterHotel.setTextColor(Color.parseColor("#419070"))
         } else if (Application.searchKeyword == "restaurant") {
             //binding!!.hsvFilter.visibility=View.GONE
             binding!!.hsvDetailFilter.visibility = View.VISIBLE
-            binding!!.tvDetailHalalCertified.visibility = View.VISIBLE
-            binding!!.tvDetailSelfCertified.visibility = View.VISIBLE
-            binding!!.tvDetailMuslimFriendly.visibility = View.VISIBLE
+            binding!!.tvDetailHalalCertified.visibility = View.GONE
+            binding!!.tvDetailSelfCertified.visibility = View.GONE
+            binding!!.tvDetailMuslimFriendly.visibility = View.GONE
             binding!!.tvDetailPorkFree.visibility = View.VISIBLE
             binding!!.tvDetailHotelMuslim.visibility = View.GONE
             binding!!.ivSearchFilterRestaurant.setImageResource(R.drawable.filter_restaurant_green)
@@ -150,6 +151,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             //binding!!.hsvFilter.visibility=View.VISIBLE
             binding!!.hsvDetailFilter.visibility = View.VISIBLE
             binding!!.ivSearchFilterAll.setImageResource(R.drawable.filter_all_green)
+            binding!!.tvDetailHotelMuslim.visibility = View.VISIBLE
             binding!!.tvSearchFilterAll.setTextColor(Color.parseColor("#419070"))
             binding!!.tvDetailHalalCertified.visibility = View.GONE
             binding!!.tvDetailSelfCertified.visibility = View.GONE
@@ -250,7 +252,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                             it[i].longitude,
                             it[i].name,
                             it[i].id!!)
-
                         Log.d("prayerRoomInfo", latitude.toString() + " " + longitude.toString())
                     }
 
@@ -877,7 +878,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 Log.d(TAG,"this restaurant")
             } else if (domain == "hotel") {
                 viewModel.getHotelSearch(domain,
-                    false,
+                    muslimFriendlyHotel,
                     5,
                     searchText,
                     latitude,
@@ -895,7 +896,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             }
             else{
                 viewModel.getCommonSearch(domain,
-                    false,
+                    muslimFriendlyHotel,
                     5,
                     searchText,
                     latitude,
@@ -958,6 +959,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         }
 
         binding!!.clSearchFilterAll.setOnClickListener {
+            pageNum=0
             setFilterDrawableDefault()
             binding!!.tvSearchFilterAll.setTextColor(Color.parseColor("#419070"))
             binding!!.ivSearchFilterAll.setImageResource(R.drawable.filter_all_green)
@@ -976,6 +978,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         }
 
         binding!!.clSearchFilterHotel.setOnClickListener {
+            pageNum=0
             setFilterDrawableDefault()
             binding!!.tvSearchFilterHotel.setTextColor(Color.parseColor("#419070"))
             binding!!.ivSearchFilterHotel.setImageResource(R.drawable.filter_hotel_green)
@@ -990,6 +993,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         }
 
         binding!!.clSearchFilterPrayer.setOnClickListener {
+            pageNum=0
             setFilterDrawableDefault()
             binding!!.tvSearchFilterPrayer.setTextColor(Color.parseColor("#419070"))
             binding!!.ivSearchFilterPrayer.setImageResource(R.drawable.filter_prayer_green)
@@ -1004,16 +1008,17 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         }
 
         binding!!.clSearchFilterRestaurant.setOnClickListener {
+            pageNum=0
             setFilterDrawableDefault()
             binding!!.tvSearchFilterRestaurant.setTextColor(Color.parseColor("#419070"))
             binding!!.ivSearchFilterRestaurant.setImageResource(R.drawable.filter_restaurant_green)
             Application.searchKeyword="restaurant"
             setDetailFilterDefault()
-            binding!!.tvDetailSelfCertified.visibility=View.VISIBLE
-            binding!!.tvDetailPorkFree.visibility =View.VISIBLE
-            binding!!.tvDetailMuslimFriendly.visibility= View.VISIBLE
+            binding!!.tvDetailSelfCertified.visibility=View.GONE
+            binding!!.tvDetailPorkFree.visibility =View.GONE
+            binding!!.tvDetailMuslimFriendly.visibility= View.GONE
             binding!!.tvDetailHotelMuslim.visibility =View.GONE
-            binding!!.tvDetailHalalCertified.visibility = View.VISIBLE
+            binding!!.tvDetailHalalCertified.visibility = View.GONE
             getSearchList(Application.searchKeyword)
         }
 
@@ -1033,15 +1038,18 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         }
 
         binding!!.tvDetailHotelMuslim.setOnClickListener {
+            pageNum=0
             if(muslimFriendlyHotel==false){
                 binding!!.tvDetailHotelMuslim.setTextColor(Color.parseColor("#419070"))
                 binding!!.tvDetailHotelMuslim.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_green)
                 muslimFriendlyHotel=true
+                getSearchList(Application.searchKeyword)
             }
             else{
                 binding!!.tvDetailHotelMuslim.setTextColor(Color.parseColor("#999999"))
                 binding!!.tvDetailHotelMuslim.background= ContextCompat.getDrawable(requireActivity(),R.drawable.filter_default)
                 muslimFriendlyHotel=false
+                getSearchList(Application.searchKeyword)
             }
         }
 
