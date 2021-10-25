@@ -14,6 +14,7 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityPersonalInfoEditBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.userInfoEdit.changePassword.ChangePasswordActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.userInfoEdit.changePassword.ChangePasswordViewModel
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.phoneNumRegister.PhoneNumRegisterActivity
 
 class UserInfoEditActivity : AppCompatActivity() {
 
@@ -33,7 +34,7 @@ class UserInfoEditActivity : AppCompatActivity() {
             lifecycleOwner = this@UserInfoEditActivity
             userInfoEditVm = viewModel
         }
-        password = com.kosalaamInc.kosalaam.global.Application.prefs.getString("password","")
+        password = com.kosalaamInc.kosalaam.global.Application.prefs.getString("password","") // password change verify 후?
         if (com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform",
                 "") != "email"
         ) {
@@ -42,24 +43,11 @@ class UserInfoEditActivity : AppCompatActivity() {
             binding!!.view16HostInfo.visibility = View.GONE
             binding!!.view17HostInfo.visibility = View.GONE
         }
+        initClickListener()
         initObserve()
     }
 
     private fun initObserve() {
-        binding!!.tvHostInfoEdit.setOnClickListener {
-            com.kosalaamInc.kosalaam.global.Application.user!!.updatePassword(
-                password)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        com.kosalaamInc.kosalaam.global.Application.prefs.setString("password",
-                            password)
-                        this.finish()
-                    } else {
-                        Toast.makeText(this, "Password change fail", Toast.LENGTH_SHORT).show()
-                    }
-                }
-
-        }
         with(viewModel) {
             userData.observe(this@UserInfoEditActivity, Observer {
                 if (it.profileImg != null) {
@@ -82,5 +70,28 @@ class UserInfoEditActivity : AppCompatActivity() {
         binding!!.clHostInfoPassword.setOnClickListener {
             startActivity(Intent(this, ChangePasswordActivity::class.java))
         }
+        binding!!.tvHostInfoEdit.setOnClickListener {
+            if(com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform","")=="email"){
+                com.kosalaamInc.kosalaam.global.Application.user!!.updatePassword(
+                    password)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            com.kosalaamInc.kosalaam.global.Application.prefs.setString("password",
+                                password)
+                        } else {
+                            Toast.makeText(this, "Password change fail", Toast.LENGTH_SHORT).show()
+                        }
+                    }
+            }
+            this.finish()
+        }
+        binding!!.clHostInfoPhoneNum.setOnClickListener {
+            startActivity(Intent(this,PhoneNumRegisterActivity::class.java))
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewModel.getUserInfo()
     }
 }
