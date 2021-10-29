@@ -36,6 +36,7 @@ import com.kosalaamInc.kosalaam.util.CheckInternet
 class MyPageFragment : Fragment() {
     private var binding: FragmentMypageBinding? = null
     private lateinit var passwordDialog: Dialog
+    private var passwordBoolean : Boolean = false
 
     companion object {
         const val Tag = "MyPageFragment"
@@ -99,16 +100,15 @@ class MyPageFragment : Fragment() {
                         }
                     } else {
                         binding!!.tvMypageHostRegistration.setOnClickListener {
-                            //showDialog()
-                            Toast.makeText(requireContext(),
-                                "Sorry we're preparing!!",
-                                Toast.LENGTH_LONG).show()
+                            showDialog()
                         }
                     }
                     binding!!.tvMypageHostingInfomation.setOnClickListener {
-                        Toast.makeText(requireContext(),
-                            "You should register prayer room first!",
-                            Toast.LENGTH_LONG).show()
+//                        Toast.makeText(requireContext(),
+//                            "You should register prayer room first!",
+//                            Toast.LENGTH_LONG).show()
+                        startActivity(Intent(requireContext(),
+                            HostInfoAcitivty::class.java))
                     }
                 }
 

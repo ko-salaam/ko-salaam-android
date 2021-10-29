@@ -1,6 +1,10 @@
 package com.kosalaamInc.kosalaam.model.network.api
 
+import com.kosalaamInc.kosalaam.model.data.UserCertified
+import com.kosalaamInc.kosalaam.model.data.UserData
 import com.kosalaamInc.kosalaam.model.network.response.*
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -74,4 +78,12 @@ interface KosalaamAPI {
 
     @GET("/api/auth/me")
     suspend fun getAuthMe(@Header("Authorization") authorization : String?) : Response<UserResponse>
+
+    @Multipart
+    @POST("api/post/prayerroom")
+    suspend fun registerPlayerRoom(@Header("Authorization") authorization: String?, @Part images : List<MultipartBody.Part>, @PartMap data : HashMap<String,RequestBody>) : Response<PrayerRoomResponse>
+
+    //@Headers("content-type: application/json")
+    @PUT("api/auth")
+    suspend fun putUserCertified(@Header("Authorization") authorization: String?, @Body user : UserData) : Response<UserResponse>
 }
