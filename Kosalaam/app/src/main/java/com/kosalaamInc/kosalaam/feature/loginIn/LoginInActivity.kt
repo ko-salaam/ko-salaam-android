@@ -48,6 +48,7 @@ class LoginInActivity : AppCompatActivity(){
             loginInVm = viewModel
         }
         binding!!.loginEditPassword.transformationMethod = BiggerDotPasswordTransformationMethod
+        binding!!.tvLoginLoginbt.isClickable=false
         initobserve()
     }
     public override fun onStart() {
@@ -100,9 +101,10 @@ class LoginInActivity : AppCompatActivity(){
                     }
                 }
             })
+
             signIn_Bt.observe(this@LoginInActivity, Observer {
                 it.getContentIfNotHandled()?.let {
-                    if(LoginInViewModel.emailString!=null && LoginInViewModel.passwordString!=null){
+                    if(binding!!.loginEditPassword.text.toString()!=null && binding!!.loginEditEmail.text.toString()!=null){
                         if(checkInternet()){
                             loadingDialog.show()
                             signIn()
@@ -136,6 +138,9 @@ class LoginInActivity : AppCompatActivity(){
                     }
                 }
         }
+        catch(e: IllegalArgumentException){
+            updateUI(null)
+        }
         catch (e : FirebaseNetworkException){
             updateUI(null)
         }
@@ -164,7 +169,6 @@ class LoginInActivity : AppCompatActivity(){
         }
 
         else{
-
             // user is null
         }
     }

@@ -84,7 +84,7 @@
                     android:textColor="#000000"
                     android:fontFamily="@font/montserrat_extrabold"
                     android:textSize="19sp"
-                    android:text="Majd Ayal"
+                    android:text=""
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view3_hostInfo"
@@ -103,7 +103,7 @@
                     android:textSize="12sp"
                     android:fontFamily="@font/montserrat_semibold"
                     android:textColor="#999999"
-                    android:text="MajdAyal@email.com"
+                    android:text=""
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/view4_hostInfo"
@@ -333,8 +333,69 @@
                     android:layout_height="0dp"/>
 
                 <View
-                    app:layout_constraintDimensionRatio="H,180:8.8"
+                    app:layout_constraintDimensionRatio="H,180:6.2"
                     app:layout_constraintTop_toBottomOf="@id/view16_hostInfo"
+                    android:id="@+id/view35_hostInfo"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    app:layout_constraintDimensionRatio="H,155:60"
+                    app:layout_constraintWidth_percent="0.861"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/view35_hostInfo"
+                    android:id="@+id/cl_image_init"
+                    android:layout_width="0dp"
+                    android:layout_height="0dp">
+                    <ImageView
+                        android:clickable="true"
+                        android:background="#999999"
+                        android:scaleType="center"
+                        android:src="@drawable/ic_baseline_add_box_24"
+                        app:layout_constraintDimensionRatio="W,1:1"
+                        android:id="@+id/iv_hostRegistration_init"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <View
+                        android:id="@+id/view34_hostRegistration"
+                        app:layout_constraintDimensionRatio="W,10:60"
+                        app:layout_constraintLeft_toRightOf="@id/iv_hostRegistration_init"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:id="@+id/rv_gallery"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal"
+                        app:layout_constraintDimensionRatio="W,85:60"
+                        app:layout_constraintLeft_toRightOf="@id/view34_hostRegistration"
+                        app:layout_constraintTop_toBottomOf="parent"
+                        />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:8.8"
+                    app:layout_constraintTop_toBottomOf="@id/cl_image_init"
+                    android:id="@+id/view32_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <View
+                    android:background="#f1f1f5"
+                    app:layout_constraintDimensionRatio="H,180:2"
+                    app:layout_constraintTop_toBottomOf="@id/view32_hostRegistration"
+                    android:id="@+id/view33_hostRegistration"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"/>
+
+                <View
+                    app:layout_constraintDimensionRatio="H,180:8.8"
+                    app:layout_constraintTop_toBottomOf="@id/view33_hostRegistration"
                     android:id="@+id/view17_hostInfo"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"/>

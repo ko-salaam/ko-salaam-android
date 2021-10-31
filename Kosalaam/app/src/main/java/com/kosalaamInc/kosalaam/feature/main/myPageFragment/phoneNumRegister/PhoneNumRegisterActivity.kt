@@ -1,5 +1,7 @@
 package com.kosalaamInc.kosalaam.feature.main.myPageFragment.phoneNumRegister
 
+import android.app.Application
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -23,6 +25,8 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityPhoneNumRegisterBinding
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostResistration.HostResistrationActivity
+import com.kosalaamInc.kosalaam.model.data.UserCertified
 import org.json.JSONArray
 import java.util.*
 import java.util.concurrent.TimeUnit
@@ -38,6 +42,10 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
     private var resendToken: PhoneAuthProvider.ForceResendingToken? = null
     private var storedVerificationId = ""
     private var TAG = "PhoneRegisterTest"
+
+    companion object{
+        var status : Int = 1 // 1 : mypage 2 : register
+    }
 
     private val callbacks by lazy {
         object : PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
@@ -59,7 +67,7 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
 
             // 번호인증 실패 상태
             override fun onVerificationFailed(e: FirebaseException) {
-                Toast.makeText(this@PhoneNumRegisterActivity,"Veritfy code not match",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this@PhoneNumRegisterActivity,"check your phone number",Toast.LENGTH_SHORT).show()
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e)
@@ -68,7 +76,6 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
                 } else if (e is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                 }
-
             }
 
             // 전화번호는 확인 되었으나 인증코드를 입력해야 하는 상태
@@ -110,13 +117,11 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
         Firebase.auth.signInWithCredential(phoneAuthCredential)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
-//                    showToast("인증 성공")
-//                    UserInfo.tel = binding.phoneAuthEtPhoneNum.text.toString()
-//                    binding.phoneAuthEtAuthNum.isEnabled = true
-//                    startActivity(
-//                        Intent(this@PhoneAuthActivity, UserInfoActivity::class.java)
-//                    )
+                    loginAgain()
+                    Log.d("phoneTest",com.kosalaamInc.kosalaam.global.Application.user!!.email.toString())
+
                 } else {
+                    Toast.makeText(this@PhoneNumRegisterActivity,"Verify Fail",Toast.LENGTH_SHORT).show()
 //                    binding.phoneAuthTvAuthNum.text =
 //                        getString(R.string.auth_num_wrong_text)
 //                    binding.phoneAuthTvAuthNum.setTextColor(
@@ -161,11 +166,13 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
         readCountryJson()
         initSpinnerArray()
         initListener()
+        initObserve()
     }
 
     private fun initListener(){
         binding!!.etPhoneRegisterPhoneNum.addTextChangedListener(object : TextWatcher{
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+
             }
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
                 binding!!.tvPhoneRegisterPhoneNum.setText(PhoneNumberUtils.formatNumber(binding!!.etPhoneRegisterPhoneNum.text.toString(), Locale.getDefault().getCountry()))
@@ -182,17 +189,50 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
             }
         })
 
+        binding!!.etPhoneRegisterPhoneCode.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                binding!!.tvPhoneRegisterPhoneNum.setText(PhoneNumberUtils.formatNumber(binding!!.etPhoneRegisterPhoneNum.text.toString(), Locale.getDefault().getCountry()))
+            }
+            override fun afterTextChanged(s: Editable?) {
+                if(s.toString().length>0){
+                    binding!!.tvPhoneRegisterSubmit.background=getDrawable(R.drawable.login_mainoval)
+                    binding!!.tvPhoneRegisterSubmit.isClickable=true
+                }
+                else{
+                    binding!!.tvPhoneRegisterSubmit.background=getDrawable(R.drawable.login_defaultback)
+                    binding!!.tvPhoneRegisterSubmit.isClickable=false
+                }
+            }
+        })
+
         binding!!.tvPhoneRegisterSendCode.setOnClickListener {
             //TODO 국가마다 첫글자 0 들어가는지 확인
             Log.d(TAG,binding!!.tvPhoneRegisterCountryCode.text.toString()+binding!!.etPhoneRegisterPhoneNum.text.toString().substring(1,binding!!.etPhoneRegisterPhoneNum.text.toString().length))
             startPhoneNumberVerification(binding!!.tvPhoneRegisterCountryCode.text.toString()+
                     binding!!.etPhoneRegisterPhoneNum.text.toString().substring(1,binding!!.etPhoneRegisterPhoneNum.text.toString().length))
         }
-        binding!!.tvPhoneRegisterEnterVerify.setOnClickListener {
+        binding!!.tvPhoneRegisterSubmit.setOnClickListener {
             val phoneCredential = PhoneAuthProvider.getCredential(storedVerificationId,binding!!.etPhoneRegisterPhoneCode.text.toString())
             verifyPhoneNumberWithCode(phoneCredential)
         }
+    }
 
+    private fun initObserve(){
+        viewModel.userData.observe(this, androidx.lifecycle.Observer {
+            if(status==1){
+                if(it){
+                    startActivity(Intent(this,HostResistrationActivity::class.java))
+                    HostResistrationActivity.phoneNum = binding!!.tvPhoneRegisterPhoneNum.text.toString()
+                    this.finish()
+                }
+            }
+            else{
+                this.finish()
+            }
+
+        })
     }
 
 
@@ -214,15 +254,68 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
             }
         }
     }
+
     private fun readCountryJson(){
         val jsonString = assets.open("country.json").reader().readText()
         val jsonArray = JSONArray(jsonString)
         for (index in 0 until jsonArray.length())
         {
             val jsonObject = jsonArray.getJSONObject(index)
-
             country.add(jsonObject.getString("name"))
             code.add(jsonObject.getString("code"))
         }
+    }
+
+    private fun loginAgain(){
+        if(com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform","")=="facebook"){
+            val credential = FacebookAuthProvider.getCredential(com.kosalaamInc.kosalaam.global.Application.prefs.getString("token",""))
+            auth.signInWithCredential(credential)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        com.kosalaamInc.kosalaam.global.Application.user =auth.currentUser
+                        goRegister()
+                    } else {
+
+                    }
+                }
+
+        }
+        else if(com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform","")=="google"){
+            val credential = GoogleAuthProvider.getCredential(com.kosalaamInc.kosalaam.global.Application.prefs.getString("token",""), null)
+            auth.signInWithCredential(credential)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        Log.d("SplashAcitity","facebooksucess")
+                        com.kosalaamInc.kosalaam.global.Application.user =auth.currentUser
+                        goRegister()
+                    } else {
+                        Log.d("SplashAcitity","facebookfail")
+
+                    }
+                }
+
+        }
+        else if(com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform","")=="email"){
+            auth.createUserWithEmailAndPassword(com.kosalaamInc.kosalaam.global.Application.prefs.getString("userEmail",""), com.kosalaamInc.kosalaam.global.Application.prefs.getString("password",""))
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+                        com.kosalaamInc.kosalaam.global.Application.user =auth.currentUser
+                        goRegister()
+                        // Sign in success, update UI with the signed-in user's information
+                    } else {
+
+                    }
+                }
+        }
+        else{
+            Log.d("SplashAcitity","else")
+            Log.d("splashInfo_platform","this"+ com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform",""))
+            Log.d("splashInfo_platform","this"+ com.kosalaamInc.kosalaam.global.Application.prefs.getString("token",""))
+        }
+    }
+
+    private fun goRegister(){
+        com.kosalaamInc.kosalaam.global.Application.prefs.setString("phoneNumber",binding!!.tvPhoneRegisterPhoneNum.text.toString())
+        viewModel.putUserCertified(true,binding!!.tvPhoneRegisterPhoneNum.text.toString())
     }
 }

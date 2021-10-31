@@ -77,7 +77,6 @@ class ChangePasswordActivity : AppCompatActivity(){
 
                 }
             })
-
         }
     }
     private fun initClickListener(){

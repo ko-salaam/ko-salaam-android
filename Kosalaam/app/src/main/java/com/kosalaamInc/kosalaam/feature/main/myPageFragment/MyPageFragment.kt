@@ -14,7 +14,9 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import com.kosalaamInc.kosalaam.R
@@ -28,15 +30,20 @@ import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.Persona
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.phoneNumRegister.PhoneNumRegisterActivity
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity
 import com.kosalaamInc.kosalaam.global.Application
+import com.kosalaamInc.kosalaam.util.CheckInternet
 
 
-class MyPageFragment : Fragment(){
-    private var binding : FragmentMypageBinding? = null
-    private lateinit var passwordDialog : Dialog
-    companion object{
+class MyPageFragment : Fragment() {
+    private var binding: FragmentMypageBinding? = null
+    private lateinit var passwordDialog: Dialog
+    private var passwordBoolean : Boolean = false
+    var phoneNum : String? = null
+
+    companion object {
         const val Tag = "MyPageFragment"
     }
-    private lateinit var viewModel : MyPageViewModel
+
+    private lateinit var viewModel: MyPageViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,23 +57,72 @@ class MyPageFragment : Fragment(){
         passwordDialog = Dialog(requireContext())
         passwordDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         passwordDialog.setContentView(R.layout.dialog_phonenum)
-        initClickListener()
         return binding?.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this).get(MyPageViewModel::class.java)
         binding!!.lifecycleOwner = viewLifecycleOwner
         binding!!.myPageVm = viewModel
-
+        initClickListener()
+        initObserve()
     }
 
     override fun onDestroyView() {
-        binding= null
+        binding = null
         super.onDestroyView()
     }
 
-    private fun initClickListener(){
+    private fun initObserve() {
+        with(viewModel) {
+            userData.observe(viewLifecycleOwner, Observer {
+                phoneNum=it.phoneNumber
+                binding!!.tvMypageName.text = it.name
+                binding!!.tvMypageEmail.text = it.email
+                if (it.profileImg != null) {
+                    Glide.with(this@MyPageFragment).load(it.profileImg).circleCrop()
+                        .into(binding!!.cvMypageProfileImage)
+                }
+                // check name if(it.)
+                if (it.isHost) {
+                    binding!!.tvMypageHostRegistration.setOnClickListener {
+                        Toast.makeText(requireContext(),
+                            "Already register prayer room!",
+                            Toast.LENGTH_LONG).show()
+                    }
+                    binding!!.tvMypageHostingInfomation.setOnClickListener {
+//                        startActivity(Intent(requireContext(), HostInfoAcitivty::class.java))
+                        Toast.makeText(requireContext(),
+                            "Sorry we're preparing!",
+                            Toast.LENGTH_LONG).show()
+                    }
+                } else {
+                    if (it.isCertificated) {
+                        binding!!.tvMypageHostRegistration.setOnClickListener {
+                            startActivity(Intent(requireContext(),
+                                HostResistrationActivity::class.java))
+                            HostResistrationActivity.phoneNum=phoneNum
+                        }
+                    } else {
+                        binding!!.tvMypageHostRegistration.setOnClickListener {
+                            showDialog()
+                        }
+                    }
+                    binding!!.tvMypageHostingInfomation.setOnClickListener {
+                        Toast.makeText(requireContext(),
+                            "Sorry we're preparing!",
+                            Toast.LENGTH_LONG).show()
+//                        startActivity(Intent(requireContext(),
+//                            HostInfoAcitivty::class.java))
+                    }
+                }
+
+            })
+        }
+    }
+
+    private fun initClickListener() {
         binding!!.tvMypageHostingInfomation.setOnClickListener {
             startActivity(Intent(requireContext(), HostInfoAcitivty::class.java))
         }
@@ -85,18 +141,17 @@ class MyPageFragment : Fragment(){
         binding!!.tvMypageLearnAbout.setOnClickListener {
             startActivity(Intent(requireContext(), LearnAboutActivity::class.java))
         }
-        binding!!.tvMypageHostRegistration.setOnClickListener {
-            showDialog()
-//            startActivity(Intent(requireContext(), HostResistrationActivity::class.java))
-        }
+
         binding!!.tvMypageGetHelp.setOnClickListener {
             startActivity(Intent(requireContext(), GetHelpActivity::class.java))
         }
     }
 
-    private fun logout(){
-        if(com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform", "")=="facebook" ||
-            com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform", "")=="google") {
+    private fun logout() {
+        if (com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform",
+                "") == "facebook" ||
+            com.kosalaamInc.kosalaam.global.Application.prefs.getString("platform", "") == "google"
+        ) {
             Firebase.auth.signOut()
         }
         com.kosalaamInc.kosalaam.global.Application.prefs.setString("platform", "")
@@ -109,25 +164,23 @@ class MyPageFragment : Fragment(){
         startActivity(i)
     }
 
-    private fun contactUs(){
-        try{
+    private fun contactUs() {
+        try {
             val email = Intent(Intent.ACTION_SEND)
-            email.type="text/plain"
+            email.type = "text/plain"
             email.putExtra(Intent.EXTRA_EMAIL, arrayOf("kosalaamapp@gmail.com"))
             startActivity(email)
-        }
-
-        catch (e: ActivityNotFoundException){
-            Toast.makeText(context,"Check email application",Toast.LENGTH_SHORT).show()
+        } catch (e: ActivityNotFoundException) {
+            Toast.makeText(requireContext(), "Check email application", Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun showDialog(){
+    private fun showDialog() {
         passwordDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         passwordDialog.show()
-        val cancel : ImageView = passwordDialog.findViewById(R.id.dialog_image)
-        val registerNow : TextView = passwordDialog.findViewById(R.id.dialog_tv4)
-        val notNow : TextView = passwordDialog.findViewById(R.id.dialog_tv5)
+        val cancel: ImageView = passwordDialog.findViewById(R.id.dialog_image)
+        val registerNow: TextView = passwordDialog.findViewById(R.id.dialog_tv4)
+        val notNow: TextView = passwordDialog.findViewById(R.id.dialog_tv5)
 
         cancel.setOnClickListener {
             passwordDialog.dismiss()
@@ -139,6 +192,17 @@ class MyPageFragment : Fragment(){
 
         registerNow.setOnClickListener {
             startActivity(Intent(requireContext(), PhoneNumRegisterActivity::class.java))
+            PhoneNumRegisterActivity.status=2
+            passwordDialog.dismiss()
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (CheckInternet().checkInternet(requireActivity())) {
+            viewModel.getUserInfo()
+        } else {
+            Toast.makeText(requireContext(), "Check your internet", Toast.LENGTH_SHORT).show()
         }
     }
 }

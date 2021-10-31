@@ -32,7 +32,6 @@ class HotelInfoViewModel : ViewModel(){
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
                             SearchRepository().hotelInfo("Bearer "+token,id!!).let {
-                                Log.d("tokentest2","Bearer "+getToken())
                                 if(it.isSuccessful){
                                     hotelData.postValue(it.body())
                                 }

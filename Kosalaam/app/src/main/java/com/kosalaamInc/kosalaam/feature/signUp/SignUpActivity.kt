@@ -53,7 +53,6 @@ class SignUpActivity : AppCompatActivity() {
         ViewModelProvider(this).get(SignUpViewModel::class.java)
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         loadingDialog = LoadingDialog(this)
@@ -140,7 +139,6 @@ class SignUpActivity : AppCompatActivity() {
                                     getDrawable(R.drawable.login_defaultback)
                                 binding!!.tvSignupNext.setText("Verify")
                                 createEmailCode()
-                                Log.d(TAG,getString(R.string.kosalaamGmail))
                                 SendMailVerification().sendEmail("Kosalaam Verify Code",
                                     "Kosalaam Verify Code is :  " + EmailverifyCode,SignUpViewModel.getEmail.toString(),getString(R.string.kosalaamGmail))
                                 SignUpViewModel.click += 1
@@ -148,7 +146,6 @@ class SignUpActivity : AppCompatActivity() {
                             else{
                                 Toast.makeText(this@SignUpActivity,"check your internet",Toast.LENGTH_SHORT).show()
                             }
-
                         }
                         // add email check func
                         1 -> {
@@ -177,7 +174,6 @@ class SignUpActivity : AppCompatActivity() {
                             else{
                                 Toast.makeText(this@SignUpActivity,"check your internet",Toast.LENGTH_SHORT).show()
                             }
-
                         }
                     }
                 }
@@ -208,6 +204,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
             })
+
             verify_check_after.observe(this@SignUpActivity, Observer {
                 it.getContentIfNotHandled()?.let {
                     if (it.length == 6 && SignUpViewModel.click == 1) {
@@ -220,6 +217,7 @@ class SignUpActivity : AppCompatActivity() {
                     }
                 }
             })
+
             passWordVisible.observe(this@SignUpActivity, Observer {
                 it.getContentIfNotHandled()?.let {
                     if(SignUpViewModel.passwordVisible==false){
@@ -235,6 +233,7 @@ class SignUpActivity : AppCompatActivity() {
 
                 }
             })
+
             passWordVisible2.observe(this@SignUpActivity, Observer {
                 it.getContentIfNotHandled()?.let {
                     if(SignUpViewModel.passwordVisible2==false){
