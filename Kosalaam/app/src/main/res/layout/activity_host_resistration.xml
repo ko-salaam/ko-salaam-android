@@ -69,6 +69,7 @@
                     android:layout_height="0dp"/>
 
                 <EditText
+                    android:singleLine="true"
                     android:id="@+id/et_hostRegistration_placeName"
                     android:fontFamily="@font/montserrat_medium"
                     android:textSize="16sp"
@@ -547,6 +548,7 @@
                     android:layout_height="wrap_content">
 
                     <EditText
+                        android:id="@+id/price"
                         android:inputType="number"
                         android:maxLength="6"
                         android:background="@null"

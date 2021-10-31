@@ -9,6 +9,10 @@ class UserResponse{
     @Expose
     val id : Int = 0
 
+    @SerializedName("name")
+    @Expose
+    val name : String? = null
+
     @SerializedName("firebaseUuid")
     @Expose
     val firebaseUuid : String? = null

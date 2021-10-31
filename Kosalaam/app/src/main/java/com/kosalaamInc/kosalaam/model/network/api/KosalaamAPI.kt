@@ -1,10 +1,13 @@
 package com.kosalaamInc.kosalaam.model.network.api
 
+import com.kosalaamInc.kosalaam.model.data.HostRegisterData
 import com.kosalaamInc.kosalaam.model.data.UserCertified
 import com.kosalaamInc.kosalaam.model.data.UserData
+import com.kosalaamInc.kosalaam.model.data.UserHost
 import com.kosalaamInc.kosalaam.model.network.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.*
@@ -79,11 +82,28 @@ interface KosalaamAPI {
     @GET("/api/auth/me")
     suspend fun getAuthMe(@Header("Authorization") authorization : String?) : Response<UserResponse>
 
+    @PUT("/api/auth")
+    suspend fun putAuthMe(@Header("Authorization") authorization : String? , @Body body : UserData) : Response<UserResponse>
+
+    @PUT("api/prayerroom/{id}")
+    suspend fun registerPlayerRoomData(@Header("Authorization") authorization: String?, @Path("id") id : String, @Body prayerRoomInfo : HostRegisterData) : Response<PrayerRoomResponse>
+
+
+    @POST("api/prayerroom")
+    suspend fun registerPrayerRoomTest(@Header("Authorization") authorization: String?, @Body data : HostRegisterData) : Response<PrayerRoomResponse>
+
     @Multipart
-    @POST("api/post/prayerroom")
-    suspend fun registerPlayerRoom(@Header("Authorization") authorization: String?, @Part images : List<MultipartBody.Part>, @PartMap data : HashMap<String,RequestBody>) : Response<PrayerRoomResponse>
+    @POST("api/prayerroom")
+    suspend fun registerPlayerRoom(@Header("Authorization") authorization: String? ,@PartMap data : HashMap<String,RequestBody>, @Part images : List<MultipartBody.Part>) : Response<PrayerRoomResponse>
 
     //@Headers("content-type: application/json")
     @PUT("api/auth")
-    suspend fun putUserCertified(@Header("Authorization") authorization: String?, @Body user : UserData) : Response<UserResponse>
+    suspend fun putUserCertified(@Header("Authorization") authorization: String?, @Body user : UserCertified) : Response<UserResponse>
+
+    @PUT("api/auth")
+    suspend fun putUserHost(@Header("Authorization") authorization: String?, @Body user : UserHost) : Response<UserResponse>
+
+    @Multipart
+    @PUT("api/auth")
+    suspend fun editUserInfo(@Header("Authorization") authorization: String?, @Part image : MultipartBody.Part?, @PartMap data : HashMap<String,RequestBody>) : Response<UserResponse>
 }

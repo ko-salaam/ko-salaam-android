@@ -116,7 +116,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".feature.main.myPageFragment.getHelp.GetHelpActivity"
             android:screenOrientation="portrait"/>
-
+        <activity android:name=".feature.main.myPageFragment.addressSelect.AddressSelectActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

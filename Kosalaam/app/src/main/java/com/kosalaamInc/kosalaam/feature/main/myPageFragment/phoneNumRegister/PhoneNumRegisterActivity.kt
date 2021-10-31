@@ -44,7 +44,7 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
     private var TAG = "PhoneRegisterTest"
 
     companion object{
-
+        var status : Int = 1 // 1 : mypage 2 : register
     }
 
     private val callbacks by lazy {
@@ -221,10 +221,17 @@ class PhoneNumRegisterActivity : AppCompatActivity() {
 
     private fun initObserve(){
         viewModel.userData.observe(this, androidx.lifecycle.Observer {
-            if(it){
-                startActivity(Intent(this,HostResistrationActivity::class.java))
+            if(status==1){
+                if(it){
+                    startActivity(Intent(this,HostResistrationActivity::class.java))
+                    HostResistrationActivity.phoneNum = binding!!.tvPhoneRegisterPhoneNum.text.toString()
+                    this.finish()
+                }
+            }
+            else{
                 this.finish()
             }
+
         })
     }
 

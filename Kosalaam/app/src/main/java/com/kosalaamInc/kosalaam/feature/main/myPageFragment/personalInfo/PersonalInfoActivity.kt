@@ -48,6 +48,8 @@ class PersonalInfoActivity : AppCompatActivity(){
     private fun initObserve(){
         with(viewModel){
             userData.observe(this@PersonalInfoActivity, Observer {
+                binding!!.tvHostInfoName.text =it.name
+                binding!!.tvHostInfoNameSetInit.text = it.name
                 if(it.profileImg!=null){
                     Glide.with(this@PersonalInfoActivity).load(it.profileImg).circleCrop().into(binding!!.cvHostInfoProfileImage)
                 }

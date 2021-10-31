@@ -21,13 +21,24 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityHostInfoEditBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.PrayerRoomImageRvAdapter
+import com.kosalaamInc.kosalaam.feature.main.myPageFragment.addressSelect.AddressSelectActivity
 import java.io.File
 import java.io.InputStream
 
 
 class HostInfoEditAcitvity : AppCompatActivity() {
+
+    companion object{
+        var address : String? = null
+        var latitude : Double? = 0.0000000
+        var longitude : Double? = 0.0000000
+    }
     var currentImageURL = ArrayList<Uri>()
     var imagesPath = ArrayList<String?>()
+    var compassBoolean : Boolean = false
+    var washingRoomBoolean : Boolean = false
+    var quranBoolean  : Boolean = false
+    var prayerMatBoolean : Boolean = false
     private var binding: ActivityHostInfoEditBinding? = null
     private val viewModel: HostInfoEditViewModel by lazy {
         ViewModelProvider(this).get(HostInfoEditViewModel::class.java)
@@ -40,6 +51,7 @@ class HostInfoEditAcitvity : AppCompatActivity() {
             lifecycleOwner = this@HostInfoEditAcitvity
             hostInfoEditVm = viewModel
         }
+        // 정보 받아오기
         initObserve()
         initClickListener()
     }
@@ -55,6 +67,49 @@ class HostInfoEditAcitvity : AppCompatActivity() {
         }
         binding!!.tvHostInfoSave.setOnClickListener {
             //viewModel.getUserInfo()
+        }
+        binding!!.ivHostInfoCompassCheck.setOnClickListener{
+            if(compassBoolean){
+                compassBoolean=false
+                binding!!.ivHostInfoCompassCheck.setImageResource(R.drawable.checkbox_default)
+            }
+            else{
+                compassBoolean=true
+                binding!!.ivHostInfoCompassCheck.setImageResource(R.drawable.checkbox_check)
+            }
+        }
+        binding!!.ivHostInfoPrayerMatCheck.setOnClickListener {
+            if(prayerMatBoolean){
+                binding!!.ivHostInfoPrayerMatCheck.setImageResource(R.drawable.checkbox_default)
+                prayerMatBoolean=false
+            }
+            else{
+                prayerMatBoolean= true
+                binding!!.ivHostInfoPrayerMatCheck.setImageResource(R.drawable.checkbox_check)
+            }
+        }
+        binding!!.ivHostInfoQuranCheck.setOnClickListener {
+            if(quranBoolean){
+                quranBoolean = false
+                binding!!.ivHostInfoQuranCheck.setImageResource(R.drawable.checkbox_default)
+            }
+            else{
+                quranBoolean = true
+                binding!!.ivHostInfoQuranCheck.setImageResource(R.drawable.checkbox_check)
+            }
+        }
+        binding!!.ivHostInfoWashingRoomCheck.setOnClickListener {
+            if(washingRoomBoolean){
+                binding!!.ivHostInfoWashingRoomCheck.setImageResource(R.drawable.checkbox_default)
+                washingRoomBoolean =false
+            }
+            else{
+                binding!!.ivHostInfoWashingRoomCheck.setImageResource(R.drawable.checkbox_check)
+                washingRoomBoolean=true
+            }
+        }
+        binding!!.clHostInfoAddress.setOnClickListener {
+            startActivity(Intent(this,AddressSelectActivity::class.java))
         }
     }
 
@@ -145,5 +200,10 @@ class HostInfoEditAcitvity : AppCompatActivity() {
         catch (e : Exception){
 
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding!!.tvHostInfoAddressInit.text = address
     }
 }

@@ -37,6 +37,7 @@ class MyPageFragment : Fragment() {
     private var binding: FragmentMypageBinding? = null
     private lateinit var passwordDialog: Dialog
     private var passwordBoolean : Boolean = false
+    var phoneNum : String? = null
 
     companion object {
         const val Tag = "MyPageFragment"
@@ -76,7 +77,8 @@ class MyPageFragment : Fragment() {
     private fun initObserve() {
         with(viewModel) {
             userData.observe(viewLifecycleOwner, Observer {
-
+                phoneNum=it.phoneNumber
+                binding!!.tvMypageName.text = it.name
                 binding!!.tvMypageEmail.text = it.email
                 if (it.profileImg != null) {
                     Glide.with(this@MyPageFragment).load(it.profileImg).circleCrop()
@@ -90,13 +92,17 @@ class MyPageFragment : Fragment() {
                             Toast.LENGTH_LONG).show()
                     }
                     binding!!.tvMypageHostingInfomation.setOnClickListener {
-                        startActivity(Intent(requireContext(), HostInfoAcitivty::class.java))
+//                        startActivity(Intent(requireContext(), HostInfoAcitivty::class.java))
+                        Toast.makeText(requireContext(),
+                            "Sorry we're preparing!",
+                            Toast.LENGTH_LONG).show()
                     }
                 } else {
                     if (it.isCertificated) {
                         binding!!.tvMypageHostRegistration.setOnClickListener {
                             startActivity(Intent(requireContext(),
                                 HostResistrationActivity::class.java))
+                            HostResistrationActivity.phoneNum=phoneNum
                         }
                     } else {
                         binding!!.tvMypageHostRegistration.setOnClickListener {
@@ -104,11 +110,11 @@ class MyPageFragment : Fragment() {
                         }
                     }
                     binding!!.tvMypageHostingInfomation.setOnClickListener {
-//                        Toast.makeText(requireContext(),
-//                            "You should register prayer room first!",
-//                            Toast.LENGTH_LONG).show()
-                        startActivity(Intent(requireContext(),
-                            HostInfoAcitivty::class.java))
+                        Toast.makeText(requireContext(),
+                            "Sorry we're preparing!",
+                            Toast.LENGTH_LONG).show()
+//                        startActivity(Intent(requireContext(),
+//                            HostInfoAcitivty::class.java))
                     }
                 }
 
@@ -186,6 +192,8 @@ class MyPageFragment : Fragment() {
 
         registerNow.setOnClickListener {
             startActivity(Intent(requireContext(), PhoneNumRegisterActivity::class.java))
+            PhoneNumRegisterActivity.status=2
+            passwordDialog.dismiss()
         }
     }
 
@@ -196,6 +204,5 @@ class MyPageFragment : Fragment() {
         } else {
             Toast.makeText(requireContext(), "Check your internet", Toast.LENGTH_SHORT).show()
         }
-
     }
 }

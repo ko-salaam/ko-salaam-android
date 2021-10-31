@@ -31,8 +31,7 @@ class PhoneNumRegisterViewModel : ViewModel(){
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            UserRepository().putUser("Bearer "+token,UserData(0,"",true,
-                                "","","",false)).let {
+                            UserRepository().putUser("Bearer "+token,UserCertified(isCertificated,phoneNum)).let {
                                 if(it.isSuccessful){
                                     userData.postValue(true)
                                 }
