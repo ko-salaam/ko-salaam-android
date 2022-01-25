@@ -10,3 +10,4 @@ class GetHelpActivity : AppCompatActivity(){
         setContentView(R.layout.activity_default)
     }
 }
+

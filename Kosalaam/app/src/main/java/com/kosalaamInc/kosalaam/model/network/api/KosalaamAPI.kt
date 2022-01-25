@@ -88,7 +88,6 @@ interface KosalaamAPI {
     @PUT("api/prayerroom/{id}")
     suspend fun registerPlayerRoomData(@Header("Authorization") authorization: String?, @Path("id") id : String, @Body prayerRoomInfo : HostRegisterData) : Response<PrayerRoomResponse>
 
-
     @POST("api/prayerroom")
     suspend fun registerPrayerRoomTest(@Header("Authorization") authorization: String?, @Body data : HostRegisterData) : Response<PrayerRoomResponse>
 

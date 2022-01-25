@@ -16,6 +16,7 @@ import org.conscrypt.Conscrypt
 import java.security.Security
 
 class Application : Application() {
+
     companion object {
         var user : FirebaseUser? = null
         var BASE_URL = "http://52.79.248.96:8080/"

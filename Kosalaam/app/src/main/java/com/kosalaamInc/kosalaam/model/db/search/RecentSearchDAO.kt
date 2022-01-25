@@ -21,6 +21,4 @@ interface RecentSearchDAO {
     @Query("Delete FROM recentsearchdata")
     fun deleteAll()
 
-
-
 }
