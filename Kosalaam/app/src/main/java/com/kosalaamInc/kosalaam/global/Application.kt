@@ -28,7 +28,9 @@ class Application : Application() {
     override fun onCreate() {
         prefs = PreferenceUtil(applicationContext)
         super.onCreate()
+        // 다크모드 제외
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         Security.insertProviderAt(Conscrypt.newProvider(), 1)
     }
 

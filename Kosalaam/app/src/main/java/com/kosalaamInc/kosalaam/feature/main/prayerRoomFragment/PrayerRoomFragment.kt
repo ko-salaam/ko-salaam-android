@@ -192,7 +192,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         changeDisplay(1)
                     }
                 }
-
             })
 
             searchKey_bt.observe(this@PrayerRoomFragment, Observer {
@@ -894,6 +893,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     pageNum,20)
                 Log.d(TAG,"this prayerRoom")
             }
+
             else{
                 viewModel.getCommonSearch(domain,
                     muslimFriendlyHotel,
