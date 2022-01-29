@@ -12,9 +12,11 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GetTokenResult
 import com.kosalaamInc.kosalaam.util.PreferenceUtil
+import dagger.hilt.android.HiltAndroidApp
 import org.conscrypt.Conscrypt
 import java.security.Security
 
+@HiltAndroidApp
 class Application : Application() {
 
     companion object {

@@ -50,7 +50,6 @@ class SendMailVerification{
         CoroutineScope(Dispatchers.IO).launch {
             Transport.send(message)
         }
-
     }
 
 }

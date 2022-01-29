@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs.kotlin' // btn-AAC
 apply plugin: 'com.google.gms.google-services'
+apply plugin: 'dagger.hilt.android.plugin'
+
 
 android {
     compileSdkVersion 30
@@ -97,9 +99,23 @@ dependencies {
     //circle image view
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
+    //glide
     implementation 'com.github.bumptech.glide:glide:4.10.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.10.0'
 
+    //hilt
+    implementation 'com.google.dagger:hilt-android:2.34-beta'
+    kapt 'com.google.dagger:hilt-android-compiler:2.34-beta'
+
+    // For instrumentation tests
+    androidTestImplementation  'com.google.dagger:hilt-android-testing:2.34-beta'
+    kaptAndroidTest 'com.google.dagger:hilt-android-compiler:2.34-beta'
+
+    // For local unit tests
+    testImplementation 'com.google.dagger:hilt-android-testing:2.34-beta'
+    kaptTest 'com.google.dagger:hilt-android-compiler:2.34-beta'
+
+    //http logger
     implementation 'com.squareup.okhttp3:okhttp:3.11.0'
     implementation 'com.squareup.okhttp3:logging-interceptor:3.11.0'
 
