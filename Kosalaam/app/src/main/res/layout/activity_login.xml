@@ -267,21 +267,5 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-
-
-        <!--    <TextView-->
-        <!--        android:textSize="16sp"-->
-        <!--        android:textColor="#FFFFFF"-->
-        <!--        android:fontFamily="@font/montserrat_semibold"-->
-        <!--        android:text="Find the Best Way to Enjoy Your Travel in Korea"-->
-        <!--        android:paddingRight="27.5dp"-->
-        <!--        android:paddingLeft="27.5dp"-->
-        <!--        android:paddingTop="55.5dp"-->
-        <!--        android:paddingBottom="55.5dp"-->
-        <!--        android:background="@drawable/login_mainoval"-->
-        <!--        android:layout_width="150dp"-->
-        <!--        android:layout_height="250dp"/>-->
-        <!--    -->
-        <!--    -->
     </LinearLayout>
 </layout>
