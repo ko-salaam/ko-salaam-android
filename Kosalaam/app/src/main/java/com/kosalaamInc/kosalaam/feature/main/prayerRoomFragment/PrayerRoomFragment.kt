@@ -45,6 +45,9 @@ import net.daum.mf.map.api.MapView
 
 class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
+    //TODO adapter 초기화 다시 고려
+    //TODO
+
     private var searchText: String = ""
     private var locationRequest: LocationRequest? = null
     private var locationCallback: LocationCallback? = null

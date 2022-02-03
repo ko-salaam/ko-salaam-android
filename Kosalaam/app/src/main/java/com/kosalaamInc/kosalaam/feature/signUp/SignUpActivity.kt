@@ -144,7 +144,7 @@ class SignUpActivity : AppCompatActivity() {
                                 SignUpViewModel.click += 1
                             }
                             else{
-                                Toast.makeText(this@SignUpActivity,"check your internet",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@SignUpActivity,R.string.check_your_interent,Toast.LENGTH_SHORT).show()
                             }
                         }
                         // add email check func
