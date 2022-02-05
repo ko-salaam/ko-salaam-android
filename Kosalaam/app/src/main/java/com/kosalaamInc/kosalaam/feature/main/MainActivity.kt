@@ -27,15 +27,17 @@ import com.kosalaamInc.kosalaam.databinding.ActivityMainBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.MyPageFragment
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment
 import com.kosalaamInc.kosalaam.global.Application
+import dagger.hilt.android.AndroidEntryPoint
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 
 // bottom navigation view
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-
     private lateinit var binding : ActivityMainBinding
     private lateinit var navController : NavController
     private lateinit var navHostFragment: NavHostFragment
+
     companion object{
         var desity : Float = 0.0F
     }

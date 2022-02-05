@@ -38,11 +38,13 @@ import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
 import com.kosalaamInc.kosalaam.util.LoadingDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
+@AndroidEntryPoint
 class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
     //TODO adapter 초기화 다시 고려
@@ -646,8 +648,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         permReqLuncher.launch(permission)
     }
 
-    private fun initMapVIew() {
-        mapView = MapView(requireContext())
+    private fun initMapView() {
+        mapView = MapView(activity)
         mapViewContainer = binding!!.searchMapview
         mapViewContainer.addView(mapView)
         mapView!!.setMapViewEventListener(this)
@@ -918,7 +920,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     override fun onResume() {
-        initMapVIew()
+        initMapView()
         mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
             longitude), true)
         getSearchList(Application.searchKeyword)
