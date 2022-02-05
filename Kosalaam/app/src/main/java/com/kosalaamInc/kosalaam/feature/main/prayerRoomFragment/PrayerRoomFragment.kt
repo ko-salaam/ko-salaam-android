@@ -38,12 +38,17 @@ import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.data.RestaurantSearchData
 import com.kosalaamInc.kosalaam.util.LoadingDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.*
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
+@AndroidEntryPoint
 class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
+
+    //TODO adapter 초기화 다시 고려
+    //TODO
 
     private var searchText: String = ""
     private var locationRequest: LocationRequest? = null
@@ -192,7 +197,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                         changeDisplay(1)
                     }
                 }
-
             })
 
             searchKey_bt.observe(this@PrayerRoomFragment, Observer {
@@ -644,8 +648,8 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         permReqLuncher.launch(permission)
     }
 
-    private fun initMapVIew() {
-        mapView = MapView(requireContext())
+    private fun initMapView() {
+        mapView = MapView(activity)
         mapViewContainer = binding!!.searchMapview
         mapViewContainer.addView(mapView)
         mapView!!.setMapViewEventListener(this)
@@ -832,14 +836,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
         ) {
             Toast.makeText(requireContext(), "Check your location permission", Toast.LENGTH_SHORT)
                 .show()
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
-
         }
         else {
             locationRequest = LocationRequest.create()
@@ -894,6 +890,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                     pageNum,20)
                 Log.d(TAG,"this prayerRoom")
             }
+
             else{
                 viewModel.getCommonSearch(domain,
                     muslimFriendlyHotel,
@@ -923,7 +920,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
     }
 
     override fun onResume() {
-        initMapVIew()
+        initMapView()
         mapView!!.setMapCenterPoint(MapPoint.mapPointWithGeoCoord(latitude,
             longitude), true)
         getSearchList(Application.searchKeyword)

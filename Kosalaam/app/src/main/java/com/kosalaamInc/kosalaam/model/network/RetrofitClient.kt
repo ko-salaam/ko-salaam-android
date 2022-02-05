@@ -32,7 +32,7 @@ object RetrofitClient{
 //        .client(client)
         .build()
 
-    val APIservice : KosalaamAPI = retrofit.create(KosalaamAPI::class.java)
+     val APIservice : KosalaamAPI = retrofit.create(KosalaamAPI::class.java)
 
     val APIserviceAdd : KosalaamAPI = retrofitAdd.create(KosalaamAPI::class.java)
 

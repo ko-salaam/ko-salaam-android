@@ -106,7 +106,7 @@ class SignUpActivity : AppCompatActivity() {
                         updateUI(user)
                     }
                     Toast.makeText(
-                        baseContext, "Sign Up Success.",
+                        baseContext, R.string.signUp_success,
                         Toast.LENGTH_SHORT
                     ).show()
                     Log.d(TAG, "signInWithCredential:success")
@@ -115,7 +115,7 @@ class SignUpActivity : AppCompatActivity() {
                     // If sign in fails, display a message to the user.
                     Log.w(TAG, "signInWithCredential:failure", task.exception)
                     Toast.makeText(
-                        baseContext, "Authentication failed.",
+                        baseContext, R.string.signUp_fail,
                         Toast.LENGTH_SHORT
                     ).show()
                     auth.signOut()
@@ -144,7 +144,7 @@ class SignUpActivity : AppCompatActivity() {
                                 SignUpViewModel.click += 1
                             }
                             else{
-                                Toast.makeText(this@SignUpActivity,"check your internet",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@SignUpActivity,R.string.check_your_interent,Toast.LENGTH_SHORT).show()
                             }
                         }
                         // add email check func
@@ -161,7 +161,7 @@ class SignUpActivity : AppCompatActivity() {
                                 binding!!.etLoginEditEmail.visibility = View.GONE
                                 binding!!.viewLoginView1.visibility = View.GONE
                                 binding!!.clSignupHide2.visibility = View.VISIBLE
-                                binding!!.tvSignupNext.setText("Sign in")
+                                binding!!.tvSignupNext.setText(R.string.signUp_sign_in)
 
                                 SignUpViewModel.click += 1
                             }
@@ -172,7 +172,7 @@ class SignUpActivity : AppCompatActivity() {
                                 createAccount(SignUpViewModel.getEmail!!,SignUpViewModel.getPassword!!)
                             }
                             else{
-                                Toast.makeText(this@SignUpActivity,"check your internet",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(this@SignUpActivity,R.string.check_your_interent,Toast.LENGTH_SHORT).show()
                             }
                         }
                     }

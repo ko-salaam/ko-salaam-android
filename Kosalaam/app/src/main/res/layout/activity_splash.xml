@@ -24,7 +24,7 @@
         app:layout_constraintTop_toBottomOf="@id/splash_image"
         android:textSize="32sp"
         android:textColor="#ffffff"
-        android:text="KoSalaam"
+        android:text="@string/app_name"
         android:id="@+id/splash_kosalaam"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

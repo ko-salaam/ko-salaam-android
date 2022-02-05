@@ -12,10 +12,13 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.GetTokenResult
 import com.kosalaamInc.kosalaam.util.PreferenceUtil
+import dagger.hilt.android.HiltAndroidApp
 import org.conscrypt.Conscrypt
 import java.security.Security
 
+@HiltAndroidApp
 class Application : Application() {
+
     companion object {
         var user : FirebaseUser? = null
         var BASE_URL = "http://52.79.248.96:8080/"
@@ -27,7 +30,9 @@ class Application : Application() {
     override fun onCreate() {
         prefs = PreferenceUtil(applicationContext)
         super.onCreate()
+        // 다크모드 제외
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+
         Security.insertProviderAt(Conscrypt.newProvider(), 1)
     }
 

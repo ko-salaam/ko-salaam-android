@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft='11.4dp'
             android:fontFamily="@font/montserrat_medium"
-            android:text="halal"
             android:textColor="#cc191919"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="@id/rc_iv_recentSearch"

@@ -1,5 +1,16 @@
 <resources>
+<!--    1. xml 별-->
+<!--    2. activity 별-->
+<!--    3. dialog 별 -->
+
+
     <string name="app_name">KoSalaam</string>
+
+<!--    exception toast message-->
+    <string name="check_your_interent">Check your internet!</string>
+
+    <!--   sign in / sign up -->
+
     <string name="login_signUp">Sign Up</string>
     <string name="login_signIn">Log in with Email</string>
     <string name="login_facebook">Continue with Facebook</string>
@@ -16,6 +27,13 @@
     <string name="loginIn_login">Log in</string>
     <string name="loginIn_enter_email">Enter your email</string>
     <string name="loginIn_forgot_password">Forgot Passwords</string>
+    <string name="signUp_success">Sign up success</string>
+    <string name="signUp_fail">Sign up failed</string>
+    <string name="signUp_sign_in">Sign In</string>
+
+<!--   -->
+
+
     <string name="main_assalam">As-salamu\nalaykum!</string>
     <string name="main_welcomeTo">Welecome to Korea</string>
     <string name="main_search_nearby">Search Nearby</string>
@@ -31,11 +49,15 @@
     <string name="main_magazine_food">food</string>
     <string name="main_magazine_kpop">K-POP</string>
     <string name="main_top_rate_magazine">Top-rated Prayer Room</string>
+
+<!--    search fragment-->
+
     <string name="search_recent">Recent Search</string>
     <string name="search_searchHint">Search Place</string>
     <string name="search_default">Search a Place or address</string>
     <string name="search_redo">Redo Search in This Area</string>
     <string name="search_deleteHistory">Delete History</string>
+
     <string name="restaurantInfo_affinity">Affinity</string>
     <string name="restaurantInfo_contact">Contact</string>
     <string name="restaurantInfo_openTime">Open Time</string>
