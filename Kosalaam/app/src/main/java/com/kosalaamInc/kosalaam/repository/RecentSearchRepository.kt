@@ -4,17 +4,19 @@ import android.app.Application
 import androidx.lifecycle.LiveData
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.db.AppDatabase
-import com.kosalaamInc.kosalaam.model.db.search.RecentSearchDAO
+import com.kosalaamInc.kosalaam.model.db.search.RecentSearchDao
+import javax.inject.Inject
 
-class RecentSearchRepository(application: Application){
-    private val recentSearchDao : RecentSearchDAO
-    private val recentList : LiveData<List<RecentSearchData>>
+class RecentSearchRepository @Inject constructor(
+    private val recentSearchDao : RecentSearchDao){
+   // private val recentSearchDao : RecentSearchDao
+//    private val recentList : LiveData<List<RecentSearchData>>
 
-    init{
-        var db = AppDatabase.getInstance(application)
-        recentSearchDao = db!!.recentSearchDao()
-        recentList = db.recentSearchDao().getAll()
-    }
+//    init{
+//        var db = AppDatabase.getInstance(application)
+//        recentSearchDao = db!!.recentSearchDao()
+//        recentList = db.recentSearchDao().getAll()
+//    }
     fun insert(recentSearch : RecentSearchData) {
         recentSearchDao.insert(recentSearch)
     }

@@ -26,24 +26,23 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PrayerRoomViewModel @Inject constructor(
-    application: Application,
-    recentRepository: RecentSearchRepository,
-    searchRepository : SearchRepository
-) : AndroidViewModel(application) {
-
+    private val recentRepository: RecentSearchRepository,
+//    private val searchRepository : SearchRepository
+) : ViewModel() {
+    // 일단 Room으로 진행
     private val _focus_et = MutableLiveData<Event<Boolean>>()
     private val _back_bt1 = MutableLiveData<Event<Boolean>>()
     private val _recentDelete_bt = MutableLiveData<Event<Boolean>>()
     private val _searchKey_bt = MutableLiveData<Event<Boolean>>()
     private val _redo_bt = MutableLiveData<Event<Boolean>>()
     private val _location_bt = MutableLiveData<Event<Boolean>>()
-    private val recentRepository = RecentSearchRepository(application)
+//    private val recentRepository = RecentSearchRepository(application) //
     private val _restaurantData = MutableLiveData<List<RestauarntResponse>>()
     private val _hotelData = MutableLiveData<List<HotelResponse>>()
     private val _prayerData = MutableLiveData<List<PrayerRoomResponse>>()
     private val _commonData = MutableLiveData<List<CommonResponse>>()
 
-    private val items = recentRepository.getAll()
+   // private val items = recentRepository.getAll() //
 
     val focus_et: LiveData<Event<Boolean>> get() = _focus_et
     val back_bt: LiveData<Event<Boolean>> get() = _back_bt1
@@ -85,7 +84,8 @@ class PrayerRoomViewModel @Inject constructor(
     }
 
     fun getAll(): LiveData<List<RecentSearchData>> {
-        return items
+        return recentRepository.getAll()
+    //return items
     }
 
     fun deleteAll() {
