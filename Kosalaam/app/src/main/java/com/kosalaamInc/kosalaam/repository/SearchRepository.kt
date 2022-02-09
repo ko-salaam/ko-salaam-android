@@ -1,8 +1,11 @@
 package com.kosalaamInc.kosalaam.repository
 
 import com.kosalaamInc.kosalaam.model.network.RetrofitClient
+import javax.inject.Inject
 
-class SearchRepository{
+class SearchRepository @Inject constructor(
+
+){
     private val searchClient = RetrofitClient.APIservice
 
     suspend fun searchRestaurant(distance : Int,

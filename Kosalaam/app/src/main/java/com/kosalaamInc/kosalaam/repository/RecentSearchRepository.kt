@@ -9,14 +9,7 @@ import javax.inject.Inject
 
 class RecentSearchRepository @Inject constructor(
     private val recentSearchDao : RecentSearchDao){
-   // private val recentSearchDao : RecentSearchDao
-//    private val recentList : LiveData<List<RecentSearchData>>
 
-//    init{
-//        var db = AppDatabase.getInstance(application)
-//        recentSearchDao = db!!.recentSearchDao()
-//        recentList = db.recentSearchDao().getAll()
-//    }
     fun insert(recentSearch : RecentSearchData) {
         recentSearchDao.insert(recentSearch)
     }

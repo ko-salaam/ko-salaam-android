@@ -6,6 +6,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.*
+import com.facebook.internal.Mutable
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 import com.kosalaamInc.kosalaam.model.network.response.CommonResponse
 import com.kosalaamInc.kosalaam.model.network.response.HotelResponse
@@ -30,19 +31,20 @@ class PrayerRoomViewModel @Inject constructor(
 //    private val searchRepository : SearchRepository
 ) : ViewModel() {
     // 일단 Room으로 진행
+    private val _serviceFailEvent = MutableLiveData<Boolean>()
+
     private val _focus_et = MutableLiveData<Event<Boolean>>()
     private val _back_bt1 = MutableLiveData<Event<Boolean>>()
     private val _recentDelete_bt = MutableLiveData<Event<Boolean>>()
     private val _searchKey_bt = MutableLiveData<Event<Boolean>>()
     private val _redo_bt = MutableLiveData<Event<Boolean>>()
     private val _location_bt = MutableLiveData<Event<Boolean>>()
-//    private val recentRepository = RecentSearchRepository(application) //
     private val _restaurantData = MutableLiveData<List<RestauarntResponse>>()
     private val _hotelData = MutableLiveData<List<HotelResponse>>()
     private val _prayerData = MutableLiveData<List<PrayerRoomResponse>>()
     private val _commonData = MutableLiveData<List<CommonResponse>>()
 
-   // private val items = recentRepository.getAll() //
+    val serviceFaileEvent : LiveData<Boolean> get() = _serviceFailEvent
 
     val focus_et: LiveData<Event<Boolean>> get() = _focus_et
     val back_bt: LiveData<Event<Boolean>> get() = _back_bt1
@@ -54,6 +56,12 @@ class PrayerRoomViewModel @Inject constructor(
     val hotelData: MutableLiveData<List<HotelResponse>> get() = _hotelData
     val prayerData: MutableLiveData<List<PrayerRoomResponse>> get() = _prayerData
     val commonData: MutableLiveData<List<CommonResponse>> get() = _commonData
+
+//TODO    retrofit 통신 실패시
+
+//    fun serviceFailEvent(){
+//        _serviceFailEvent.value = false
+//    }
 
     fun onFocusEvent() {
         _focus_et.value = Event(true)
