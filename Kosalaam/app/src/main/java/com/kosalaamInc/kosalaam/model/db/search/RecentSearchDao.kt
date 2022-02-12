@@ -5,7 +5,7 @@ import androidx.room.*
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
 
 @Dao
-interface RecentSearchDAO {
+interface RecentSearchDao {
     @Query ("SELECT * FROM RecentSearchData ORDER BY id DESC")
     fun getAll() : LiveData<List<RecentSearchData>>
 

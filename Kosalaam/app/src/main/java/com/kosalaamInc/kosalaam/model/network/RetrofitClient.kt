@@ -26,27 +26,8 @@ object RetrofitClient{
         .client(client)
         .build()
     val gson : Gson =   GsonBuilder().setLenient().create()
-    private val retrofitAdd : Retrofit = Retrofit.Builder()
-        .baseUrl(Application.BASE_URL)
-        .addConverterFactory(GsonConverterFactory.create(gson))
-//        .client(client)
-        .build()
 
      val APIservice : KosalaamAPI = retrofit.create(KosalaamAPI::class.java)
-
-    val APIserviceAdd : KosalaamAPI = retrofitAdd.create(KosalaamAPI::class.java)
-
-    class AccessTokenInterceptor : Interceptor {
-        @Throws(IOException::class)
-        override fun intercept(chain: Interceptor.Chain) : Response = with(chain) {
-            val token =""
-            val newRequest = request().newBuilder()
-                .addHeader("Authorization", token)
-                .build()
-
-            proceed(newRequest)
-        }
-    }
 
     private fun httpLoggingInterceptor(): HttpLoggingInterceptor? {
         val interceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {

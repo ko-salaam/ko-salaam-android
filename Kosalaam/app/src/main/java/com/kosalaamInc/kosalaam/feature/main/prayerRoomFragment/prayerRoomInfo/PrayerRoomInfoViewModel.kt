@@ -11,37 +11,41 @@ import com.kosalaamInc.kosalaam.model.network.response.PrayerRoomResponse
 import com.kosalaamInc.kosalaam.model.network.response.RestauarntResponse
 import com.kosalaamInc.kosalaam.repository.LikeRepository
 import com.kosalaamInc.kosalaam.repository.SearchRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class PrayerRoomInfoViewModel : ViewModel(){
+@HiltViewModel
+class PrayerRoomInfoViewModel @Inject constructor(
+    private val searchRepository: SearchRepository,
+    private val likeRepository : LikeRepository)
+    : ViewModel() {
     private val _prayerData = MutableLiveData<PrayerRoomResponse>()
-    val prayerData : MutableLiveData<PrayerRoomResponse> get() = _prayerData
+    val prayerData: MutableLiveData<PrayerRoomResponse> get() = _prayerData
 
     private val _likeData = MutableLiveData<Boolean>()
-    val likeData : MutableLiveData<Boolean> get() = _likeData
+    val likeData: MutableLiveData<Boolean> get() = _likeData
 
-    fun getPrayerRoomInfo(id : String?) {
-        var token : String? = null
-        Log.d("UserData",Application.user!!.email.toString())
+    fun getPrayerRoomInfo(id: String?) {
+        var token: String? = null
+        Log.d("UserData", Application.user!!.email.toString())
         Application.user!!.getIdToken(true)
             .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
                 override fun onComplete(task: Task<GetTokenResult?>) {
                     if (task.isSuccessful()) {
                         token = task.result!!.token.toString()
-                        Log.d("token2",task.result!!.token.toString())
+                        Log.d("token2", task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            SearchRepository().prayerRoomInfo("Bearer "+token,id!!).let {
-                                Log.d("PrayerRoomSuccess",it.code().toString())
-                                Log.d("PrayerRoomSuccess",it.message().toString())
+                            searchRepository.prayerRoomInfo("Bearer " + token, id!!).let {
+                                Log.d("PrayerRoomSuccess", it.code().toString())
+                                Log.d("PrayerRoomSuccess", it.message().toString())
 
-                                if(it.isSuccessful){
-                                    Log.d("PrayerRoomSuccess","success")
+                                if (it.isSuccessful) {
+                                    Log.d("PrayerRoomSuccess", "success")
                                     prayerData.postValue(it.body())
-                                }
-
-                                else{
+                                } else {
 
                                 }
                             }
@@ -51,23 +55,22 @@ class PrayerRoomInfoViewModel : ViewModel(){
             })
     }
 
-    fun prayerRoomLike(id : String?){
-        var token : String? = null
+    fun prayerRoomLike(id: String?) {
+        var token: String? = null
         Application.user!!.getIdToken(true)
             .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
                 override fun onComplete(task: Task<GetTokenResult?>) {
                     if (task.isSuccessful()) {
                         token = task.result!!.token.toString()
-                        Log.d("token2",task.result!!.token.toString())
+                        Log.d("token2", task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            LikeRepository().prayerRoomLike("Bearer "+token,id!!).let {
-                                if(it.isSuccessful){
+                            likeRepository.prayerRoomLike("Bearer " + token, id!!).let {
+                                if (it.isSuccessful) {
                                     likeData.postValue(true)
-                                    Log.d("hotellike","Success")
-                                }
-                                else{
-                                    Log.d("hotellike","fail"+it.code().toString())
-                                    Log.d("hotellike","fail")
+                                    Log.d("hotellike", "Success")
+                                } else {
+                                    Log.d("hotellike", "fail" + it.code().toString())
+                                    Log.d("hotellike", "fail")
                                 }
                             }
                         }
@@ -76,25 +79,24 @@ class PrayerRoomInfoViewModel : ViewModel(){
             })
     }
 
-    fun prayerRoomLikeCancel(id : String?){
-        var token : String? = null
+    fun prayerRoomLikeCancel(id: String?) {
+        var token: String? = null
         Application.user!!.getIdToken(true)
             .addOnCompleteListener(object : OnCompleteListener<GetTokenResult?> {
                 override fun onComplete(task: Task<GetTokenResult?>) {
                     if (task.isSuccessful()) {
                         token = task.result!!.token.toString()
                         CoroutineScope(Dispatchers.IO).launch {
-                            LikeRepository().prayerRoomLikeCancel("Bearer "+token,id!!).let {
-                                if(it.isSuccessful){
+                            likeRepository.prayerRoomLikeCancel("Bearer " + token, id!!).let {
+                                if (it.isSuccessful) {
                                     likeData.postValue(false)
-                                    Log.d("hotellikecancel","Success")
-                                }
-                                else{
-                                    Log.d("hotellikecancel","fail")
+                                    Log.d("hotellikecancel", "Success")
+                                } else {
+                                    Log.d("hotellikecancel", "fail")
                                 }
                             }
                         }
-                        Log.d("token2",task.result!!.token.toString())
+                        Log.d("token2", task.result!!.token.toString())
                     }
                 }
             })

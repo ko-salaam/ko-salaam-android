@@ -1,9 +1,12 @@
 package com.kosalaamInc.kosalaam.repository
 
 import com.kosalaamInc.kosalaam.model.network.RetrofitClient
+import com.kosalaamInc.kosalaam.model.network.api.KosalaamAPI
+import javax.inject.Inject
 
-class SearchRepository{
-    private val searchClient = RetrofitClient.APIservice
+class SearchRepository @Inject constructor(
+   private val apiService : KosalaamAPI
+){
 
     suspend fun searchRestaurant(distance : Int,
                        keyword : String,
@@ -12,9 +15,9 @@ class SearchRepository{
                                  muslimFriendlies : ArrayList<String>?,
                        pageNum : Int,
                        pageSize : Int) =
-        searchClient.getRestaurantList(distance,keyword,latitude,longitude,muslimFriendlies,pageNum,pageSize)
+        apiService.getRestaurantList(distance,keyword,latitude,longitude,muslimFriendlies,pageNum,pageSize)
 
-    suspend fun restaurantInfo(authorization : String?,id : String?) = searchClient.getRestaurantInfo(authorization,id)
+    suspend fun restaurantInfo(authorization : String?,id : String?) = apiService.getRestaurantInfo(authorization,id)
 
     suspend fun searchHotel(distance : Int,
                             isMuslimFriendly : Boolean,
@@ -23,10 +26,10 @@ class SearchRepository{
                                  longitude : Double,
                                  pageNum : Int,
                                  pageSize : Int) =
-        searchClient.getHotelList(distance,isMuslimFriendly,keyword,latitude,longitude,pageNum,pageSize)
+        apiService.getHotelList(distance,isMuslimFriendly,keyword,latitude,longitude,pageNum,pageSize)
 
 
-    suspend fun hotelInfo(authorization : String?,id : String) = searchClient.getHotelInfo(authorization,id)
+    suspend fun hotelInfo(authorization : String?,id : String) = apiService.getHotelInfo(authorization,id)
 
     suspend fun searchPrayerRoom(distance : Int,
                             keyword : String,
@@ -34,9 +37,9 @@ class SearchRepository{
                             longitude : Double,
                             pageNum : Int,
                             pageSize : Int) =
-        searchClient.getPrayerRoomList(distance,keyword,latitude,longitude,pageNum,pageSize)
+        apiService.getPrayerRoomList(distance,keyword,latitude,longitude,pageNum,pageSize)
 
-    suspend fun prayerRoomInfo(authorization : String?,id : String) = searchClient.getPrayerRoomInfo(authorization,id)
+    suspend fun prayerRoomInfo(authorization : String?,id : String) = apiService.getPrayerRoomInfo(authorization,id)
 
     suspend fun searchCommon(distance : Int,
                              isMuslimFriendly : Boolean,
@@ -45,7 +48,7 @@ class SearchRepository{
                                  longitude : Double,
                                  pageNum : Int,
                                  pageSize : Int) =
-        searchClient.getCommonList(distance,isMuslimFriendly,keyword,latitude,longitude,pageNum,pageSize)
+        apiService.getCommonList(distance,isMuslimFriendly,keyword,latitude,longitude,pageNum,pageSize)
 
 
 
