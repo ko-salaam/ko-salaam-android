@@ -4,6 +4,7 @@ import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 class PrayerRoomResponse{
+
     @SerializedName("address")
     @Expose
     val address : String? = null
@@ -63,5 +64,4 @@ class PrayerRoomResponse{
     @SerializedName("hostId")
     @Expose
     val hostId : String? = null
-
 }

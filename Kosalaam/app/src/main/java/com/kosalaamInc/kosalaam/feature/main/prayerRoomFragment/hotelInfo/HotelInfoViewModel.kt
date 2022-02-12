@@ -11,11 +11,16 @@ import com.kosalaamInc.kosalaam.model.network.response.HotelResponse
 import com.kosalaamInc.kosalaam.model.network.response.RestauarntResponse
 import com.kosalaamInc.kosalaam.repository.LikeRepository
 import com.kosalaamInc.kosalaam.repository.SearchRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HotelInfoViewModel : ViewModel(){
+@HiltViewModel
+class HotelInfoViewModel @Inject
+constructor(private val searchRepository : SearchRepository,
+private val likeRepository : LikeRepository) : ViewModel(){
 
     private val _hotelData = MutableLiveData<HotelResponse>()
     private val _likeData = MutableLiveData<Boolean>()
@@ -31,7 +36,7 @@ class HotelInfoViewModel : ViewModel(){
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            SearchRepository().hotelInfo("Bearer "+token,id!!).let {
+                            searchRepository.hotelInfo("Bearer "+token,id!!).let {
                                 if(it.isSuccessful){
                                     hotelData.postValue(it.body())
                                 }
@@ -55,7 +60,7 @@ class HotelInfoViewModel : ViewModel(){
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            LikeRepository().hotelLike("Bearer "+token,id!!).let {
+                            likeRepository.hotelLike("Bearer "+token,id!!).let {
                                 if(it.isSuccessful){
                                     likeData.postValue(true)
                                     Log.d("hotellike","Success")
@@ -79,7 +84,7 @@ class HotelInfoViewModel : ViewModel(){
                     if (task.isSuccessful()) {
                         token = task.result!!.token.toString()
                         CoroutineScope(Dispatchers.IO).launch {
-                            LikeRepository().hotelLikeCancel("Bearer "+token,id!!).let {
+                            likeRepository.hotelLikeCancel("Bearer "+token,id!!).let {
                                 if(it.isSuccessful){
                                     likeData.postValue(false)
                                     Log.d("hotellikecancel","Success")

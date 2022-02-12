@@ -14,10 +14,12 @@ import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.ImageRvAdapter
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.SearchRvAdapter
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.hotelInfo.HotelInfoActivity
+import dagger.hilt.android.AndroidEntryPoint
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
+@AndroidEntryPoint
 class RestaurantInfoActivity : AppCompatActivity(){
 
     private lateinit var binding : ActivityRestaurantInfoBinding

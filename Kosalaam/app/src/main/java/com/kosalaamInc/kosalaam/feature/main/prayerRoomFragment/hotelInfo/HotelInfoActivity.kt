@@ -15,10 +15,12 @@ import com.kosalaamInc.kosalaam.databinding.ActivityRestaurantInfoBinding
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.ImageRvAdapter
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.PrayerRoomFragment
 import com.kosalaamInc.kosalaam.feature.main.prayerRoomFragment.restaurantInfo.RestaurantInfoActivity
+import dagger.hilt.android.AndroidEntryPoint
 import net.daum.mf.map.api.MapPOIItem
 import net.daum.mf.map.api.MapPoint
 import net.daum.mf.map.api.MapView
 
+@AndroidEntryPoint
 class HotelInfoActivity : AppCompatActivity(){
     var images : ArrayList<String>? = null
 

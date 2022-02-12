@@ -397,7 +397,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                             it[i].longitude!!,
                             it[i].name,
                             it[i].id!!)
-
                         Log.d("prayerRoomInfo", latitude.toString() + " " + longitude.toString())
                     }
 

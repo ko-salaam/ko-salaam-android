@@ -1,20 +1,21 @@
 package com.kosalaamInc.kosalaam.repository
 
 import com.kosalaamInc.kosalaam.model.network.RetrofitClient
+import com.kosalaamInc.kosalaam.model.network.api.KosalaamAPI
+import javax.inject.Inject
 
-class LikeRepository {
+class LikeRepository @Inject constructor(private val apiService : KosalaamAPI) {
 
-    private val client = RetrofitClient.APIservice
 
-    suspend fun hotelLike(authorization : String?,id : String) = client.hotelLike(authorization,id)
+    suspend fun hotelLike(authorization : String?,id : String) = apiService.hotelLike(authorization,id)
 
-    suspend fun hotelLikeCancel(authorization : String?,id : String) = client.hotelLikeCancel(authorization,id)
+    suspend fun hotelLikeCancel(authorization : String?,id : String) = apiService.hotelLikeCancel(authorization,id)
 
-    suspend fun prayerRoomLike(authorization : String?,id : String) = client.prayerLike(authorization,id)
+    suspend fun prayerRoomLike(authorization : String?,id : String) = apiService.prayerLike(authorization,id)
 
-    suspend fun prayerRoomLikeCancel(authorization : String?,id : String) = client.prayerLikeCancel(authorization,id)
+    suspend fun prayerRoomLikeCancel(authorization : String?,id : String) = apiService.prayerLikeCancel(authorization,id)
 
-    suspend fun restaurantLike(authorization : String?,id : String) = client.restaurantLike(authorization,id)
+    suspend fun restaurantLike(authorization : String?,id : String) = apiService.restaurantLike(authorization,id)
 
-    suspend fun restaurantLikeCancel(authorization : String?,id : String) = client.restaurantLikeCancel(authorization,id)
+    suspend fun restaurantLikeCancel(authorization : String?,id : String) = apiService.restaurantLikeCancel(authorization,id)
 }

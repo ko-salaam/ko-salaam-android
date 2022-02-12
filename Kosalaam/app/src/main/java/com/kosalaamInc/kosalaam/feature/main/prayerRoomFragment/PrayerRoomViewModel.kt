@@ -28,7 +28,7 @@ import javax.inject.Inject
 @HiltViewModel
 class PrayerRoomViewModel @Inject constructor(
     private val recentRepository: RecentSearchRepository,
-//    private val searchRepository : SearchRepository
+    private val searchRepository : SearchRepository
 ) : ViewModel() {
     // 일단 Room으로 진행
     private val _serviceFailEvent = MutableLiveData<Boolean>()
@@ -111,7 +111,7 @@ class PrayerRoomViewModel @Inject constructor(
     ): MutableLiveData<List<RestauarntResponse>> {
         Log.d("Prayer", domain.toString())
         CoroutineScope(Dispatchers.IO).launch {
-            SearchRepository().searchRestaurant(distance,
+            searchRepository.searchRestaurant(distance,
                 keyword,
                 latitude,
                 longitude,
@@ -146,7 +146,7 @@ class PrayerRoomViewModel @Inject constructor(
         pageSize: Int,
     ): MutableLiveData<List<HotelResponse>> {
         CoroutineScope(Dispatchers.IO).launch {
-            SearchRepository().searchHotel(distance,
+            searchRepository.searchHotel(distance,
                 muslimFriendly,
                 keyword,
                 latitude,
@@ -174,7 +174,7 @@ class PrayerRoomViewModel @Inject constructor(
         pageSize: Int,
     ): MutableLiveData<List<PrayerRoomResponse>> {
         CoroutineScope(Dispatchers.IO).launch {
-            SearchRepository().searchPrayerRoom(distance,
+            searchRepository.searchPrayerRoom(distance,
                 keyword,
                 latitude,
                 longitude,
@@ -201,7 +201,7 @@ class PrayerRoomViewModel @Inject constructor(
         pageSize: Int,
     ): MutableLiveData<List<CommonResponse>> {
         CoroutineScope(Dispatchers.IO).launch {
-            SearchRepository().searchCommon(distance,
+            searchRepository.searchCommon(distance,
                 muslimFriendly,
                 keyword,
                 latitude,

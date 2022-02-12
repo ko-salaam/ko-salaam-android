@@ -26,7 +26,6 @@ class MainFragment : Fragment(){
     private var binding : FragmentMainBinding? = null
     private var lastTimeBackPressed: Long = 0
 
-
     companion object{
         const val Tag = "MainFragment"
     }
