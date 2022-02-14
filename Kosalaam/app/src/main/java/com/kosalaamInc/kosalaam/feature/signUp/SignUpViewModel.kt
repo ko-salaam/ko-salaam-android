@@ -5,15 +5,20 @@ import android.util.Log
 import androidx.lifecycle.*
 import com.kosalaamInc.kosalaam.repository.UserRepository
 import com.kosalaamInc.kosalaam.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import java.util.regex.Pattern
+import javax.inject.Inject
 
 
 //add email textchange?
-class SignUpViewModel : ViewModel() {
+@HiltViewModel
+class SignUpViewModel @Inject constructor(
+    private val userRespository : UserRepository
+) : ViewModel() {
 
     var UserSendJob: Job? = null
 
@@ -71,7 +76,7 @@ class SignUpViewModel : ViewModel() {
 
     fun signUp(token : String){
         UserSendJob = CoroutineScope(Dispatchers.IO).launch {
-            UserRepository().signUp("Bearer " +token)?.let{ response ->
+            userRespository.signUp("Bearer " +token)?.let{ response ->
                 if(response.isSuccessful){
                     Log.d("CheckSignUp","Success")
                     if(response.code().toString()=="200"){

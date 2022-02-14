@@ -24,7 +24,9 @@ import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.feature.signUp.BiggerDotPasswordTransformationMethod
 import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.util.LoadingDialog
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginInActivity : AppCompatActivity(){
     private var binding : ActivityLoginInBinding? = null
     private lateinit var auth: FirebaseAuth

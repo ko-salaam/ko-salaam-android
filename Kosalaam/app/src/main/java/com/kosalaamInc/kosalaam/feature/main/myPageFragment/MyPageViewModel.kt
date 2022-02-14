@@ -10,11 +10,16 @@ import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.network.response.UserResponse
 import com.kosalaamInc.kosalaam.repository.SearchRepository
 import com.kosalaamInc.kosalaam.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MyPageViewModel : ViewModel(){
+@HiltViewModel
+class MyPageViewModel @Inject constructor(
+    private val userRepository : UserRepository
+) : ViewModel(){
     private val _userData = MutableLiveData<UserResponse>()
     val userData : MutableLiveData<UserResponse> get() = _userData
 
@@ -27,7 +32,7 @@ class MyPageViewModel : ViewModel(){
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            UserRepository().authMe("Bearer "+token).let {
+                            userRepository.authMe("Bearer "+token).let {
                                 if(it.isSuccessful){
                                     userData.postValue(it.body())
                                 }

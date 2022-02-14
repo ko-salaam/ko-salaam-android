@@ -9,9 +9,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.kosalaamInc.kosalaam.repository.UserRepository
 import com.kosalaamInc.kosalaam.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.*
+import javax.inject.Inject
 
-class LoginViewModel : ViewModel(){
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val userRepository : UserRepository
+) : ViewModel(){
     private lateinit var auth: FirebaseAuth
     private lateinit var googleSignInClient: GoogleSignInClient
 
@@ -32,7 +37,7 @@ class LoginViewModel : ViewModel(){
 
     fun signUp(token : String){
         UserSendJob = CoroutineScope(Dispatchers.IO).launch {
-                UserRepository().signUp("Bearer " +token)?.let{ response ->
+                userRepository.signUp("Bearer " +token)?.let{ response ->
                         if(response.isSuccessful){
                             Log.d("CheckSignUp","Success")
                             if(response.code().toString()=="200"){

@@ -28,7 +28,6 @@ class SearchRepository @Inject constructor(
                                  pageSize : Int) =
         apiService.getHotelList(distance,isMuslimFriendly,keyword,latitude,longitude,pageNum,pageSize)
 
-
     suspend fun hotelInfo(authorization : String?,id : String) = apiService.getHotelInfo(authorization,id)
 
     suspend fun searchPrayerRoom(distance : Int,

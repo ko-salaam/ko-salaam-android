@@ -10,13 +10,18 @@ import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.model.data.UserData
 import com.kosalaamInc.kosalaam.model.network.response.UserResponse
 import com.kosalaamInc.kosalaam.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import javax.inject.Inject
 
-class UserInfoEditViewModel : ViewModel(){
+@HiltViewModel
+class UserInfoEditViewModel @Inject constructor(
+    private val userRepository : UserRepository
+) : ViewModel(){
     private val _userData = MutableLiveData<UserResponse>()
     val userData : MutableLiveData<UserResponse> get() = _userData
 
@@ -29,7 +34,7 @@ class UserInfoEditViewModel : ViewModel(){
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            UserRepository().authMe("Bearer "+token).let {
+                            userRepository.authMe("Bearer "+token).let {
                                 if(it.isSuccessful){
                                     userData.postValue(it.body())
                                 }
@@ -56,7 +61,7 @@ class UserInfoEditViewModel : ViewModel(){
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            UserRepository().editUser("Bearer "+token,body).let {
+                            userRepository.editUser("Bearer "+token,body).let {
                                 if(it.isSuccessful){
                                     updateUser.postValue(true)
                                 }

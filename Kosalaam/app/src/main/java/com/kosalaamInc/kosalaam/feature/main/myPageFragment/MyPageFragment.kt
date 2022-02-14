@@ -31,7 +31,9 @@ import com.kosalaamInc.kosalaam.feature.main.myPageFragment.phoneNumRegister.Pho
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.privacyPolicy.PrivacyPolicyActivity
 import com.kosalaamInc.kosalaam.global.Application
 import com.kosalaamInc.kosalaam.util.CheckInternet
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MyPageFragment : Fragment() {
     private var binding: FragmentMypageBinding? = null
     private lateinit var passwordDialog: Dialog

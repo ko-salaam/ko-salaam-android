@@ -6,7 +6,6 @@ import javax.inject.Inject
 
 class LikeRepository @Inject constructor(private val apiService : KosalaamAPI) {
 
-
     suspend fun hotelLike(authorization : String?,id : String) = apiService.hotelLike(authorization,id)
 
     suspend fun hotelLikeCancel(authorization : String?,id : String) = apiService.hotelLikeCancel(authorization,id)

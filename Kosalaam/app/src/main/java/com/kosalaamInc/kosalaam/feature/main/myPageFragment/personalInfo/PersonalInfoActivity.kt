@@ -13,8 +13,9 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityPersonalInfomationBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.userInfoEdit.UserInfoEditActivity
 import com.kosalaamInc.kosalaam.util.CheckInternet
+import dagger.hilt.android.AndroidEntryPoint
 
-
+@AndroidEntryPoint
 class PersonalInfoActivity : AppCompatActivity(){
     private var binding : ActivityPersonalInfomationBinding? = null
     private  val viewModel : PersonalInfoViewModel by lazy{

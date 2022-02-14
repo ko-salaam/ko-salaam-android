@@ -27,6 +27,7 @@ import com.kosalaamInc.kosalaam.feature.main.myPageFragment.PrayerRoomImageRvAda
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.addressSelect.AddressSelectActivity
 import com.kosalaamInc.kosalaam.model.data.HostRegisterData
 import com.kosalaamInc.kosalaam.model.data.PraySuppliesData
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -35,6 +36,7 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 
+@AndroidEntryPoint
 class HostResistrationActivity : AppCompatActivity(){
 
     companion object{

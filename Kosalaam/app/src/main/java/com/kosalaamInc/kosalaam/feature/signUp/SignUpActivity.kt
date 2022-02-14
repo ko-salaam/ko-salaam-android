@@ -31,10 +31,12 @@ import com.kosalaamInc.kosalaam.feature.login.LoginActivity
 import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.util.LoadingDialog
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.Job
 import kotlin.random.Random
 
 
+@AndroidEntryPoint
 class SignUpActivity : AppCompatActivity() {
 
     var UserSendJob: Job? = null

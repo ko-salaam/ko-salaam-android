@@ -14,5 +14,4 @@ class NullOnEmptyConverterFactory : Converter.Factory() {
             delegate.convert(it)
         }
     }
-
 }

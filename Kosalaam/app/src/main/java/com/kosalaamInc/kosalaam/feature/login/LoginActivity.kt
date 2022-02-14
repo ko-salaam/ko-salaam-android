@@ -29,9 +29,11 @@ import com.kosalaamInc.kosalaam.feature.loginIn.LoginInActivity
 import com.kosalaamInc.kosalaam.feature.main.MainActivity
 import com.kosalaamInc.kosalaam.feature.signUp.SignUpActivity
 import com.kosalaamInc.kosalaam.global.Application
+import dagger.hilt.android.AndroidEntryPoint
 import java.util.*
 
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     companion object {

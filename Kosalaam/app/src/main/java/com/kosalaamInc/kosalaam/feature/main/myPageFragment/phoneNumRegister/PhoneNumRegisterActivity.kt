@@ -27,12 +27,14 @@ import com.kosalaamInc.kosalaam.R
 import com.kosalaamInc.kosalaam.databinding.ActivityPhoneNumRegisterBinding
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.hostResistration.HostResistrationActivity
 import com.kosalaamInc.kosalaam.model.data.UserCertified
+import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONArray
 import java.util.*
 import java.util.concurrent.TimeUnit
 import kotlin.collections.ArrayList
 
 
+@AndroidEntryPoint
 class PhoneNumRegisterActivity : AppCompatActivity() {
 
     // code 전송시 phone num disable

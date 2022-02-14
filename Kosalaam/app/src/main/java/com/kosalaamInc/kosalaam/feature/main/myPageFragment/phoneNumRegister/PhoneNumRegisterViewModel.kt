@@ -12,13 +12,18 @@ import com.kosalaamInc.kosalaam.model.data.UserCertified
 import com.kosalaamInc.kosalaam.model.data.UserData
 import com.kosalaamInc.kosalaam.model.network.response.UserResponse
 import com.kosalaamInc.kosalaam.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
+import javax.inject.Inject
 
-class PhoneNumRegisterViewModel : ViewModel(){
+@HiltViewModel
+class PhoneNumRegisterViewModel @Inject constructor(
+    private val userRepository : UserRepository
+) : ViewModel(){
     private val _userData = MutableLiveData<Boolean>()
     val userData : MutableLiveData<Boolean> get() = _userData
 
@@ -31,7 +36,7 @@ class PhoneNumRegisterViewModel : ViewModel(){
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            UserRepository().putUser("Bearer "+token,UserCertified(isCertificated,phoneNum)).let {
+                            userRepository.putUser("Bearer "+token,UserCertified(isCertificated,phoneNum)).let {
                                 if(it.isSuccessful){
                                     userData.postValue(true)
                                 }

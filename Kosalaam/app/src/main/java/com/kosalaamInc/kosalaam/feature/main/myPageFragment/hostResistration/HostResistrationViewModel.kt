@@ -11,13 +11,18 @@ import com.kosalaamInc.kosalaam.model.data.HostRegisterData
 import com.kosalaamInc.kosalaam.model.data.UserHost
 import com.kosalaamInc.kosalaam.repository.PrayerRoomHostRepository
 import com.kosalaamInc.kosalaam.repository.UserRepository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
+import javax.inject.Inject
 
-class HostResistrationViewModel : ViewModel(){
+@HiltViewModel
+class HostResistrationViewModel @Inject constructor(
+    private val userRepository : UserRepository
+) : ViewModel(){
     private val _postPrayerRoom = MutableLiveData<Boolean>()
     val postPrayerRoom : MutableLiveData<Boolean> get() = _postPrayerRoom
 
@@ -64,7 +69,7 @@ class HostResistrationViewModel : ViewModel(){
 
     }
     suspend fun userHost(token : String){
-        UserRepository().userHost(token, UserHost(true)).let{
+        userRepository.userHost(token, UserHost(true)).let{
             if(it.isSuccessful){
                 postPrayerRoom.postValue(true)
             }

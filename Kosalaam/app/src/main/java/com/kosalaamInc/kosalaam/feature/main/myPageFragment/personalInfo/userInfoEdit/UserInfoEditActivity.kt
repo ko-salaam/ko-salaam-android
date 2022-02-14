@@ -32,6 +32,7 @@ import com.kosalaamInc.kosalaam.feature.main.myPageFragment.personalInfo.userInf
 import com.kosalaamInc.kosalaam.feature.main.myPageFragment.phoneNumRegister.PhoneNumRegisterActivity
 import com.kosalaamInc.kosalaam.model.data.UserData
 import com.kosalaamInc.kosalaam.util.CheckInternet
+import dagger.hilt.android.AndroidEntryPoint
 import okhttp3.MediaType
 import okhttp3.MediaType.Companion.toMediaTypeOrNull
 import okhttp3.MultipartBody
@@ -41,6 +42,7 @@ import java.io.File
 import java.io.IOException
 import java.io.InputStream
 
+@AndroidEntryPoint
 class UserInfoEditActivity : AppCompatActivity() {
 
     companion object {
