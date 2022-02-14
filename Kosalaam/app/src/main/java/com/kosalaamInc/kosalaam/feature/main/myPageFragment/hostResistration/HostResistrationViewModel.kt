@@ -21,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HostResistrationViewModel @Inject constructor(
-    private val userRepository : UserRepository
+    private val userRepository : UserRepository,
+    private val prayerHostRepository : PrayerRoomHostRepository
 ) : ViewModel(){
     private val _postPrayerRoom = MutableLiveData<Boolean>()
     val postPrayerRoom : MutableLiveData<Boolean> get() = _postPrayerRoom
@@ -35,7 +36,7 @@ class HostResistrationViewModel @Inject constructor(
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            PrayerRoomHostRepository().registerPlayerRoom("Bearer "+token,file,body).let {
+                            prayerHostRepository.registerPlayerRoom("Bearer "+token,file,body).let {
                                 if(it.isSuccessful){
                                     Log.d("token2","success1")
                                     Log.d("token2",it.body()!!.id.toString())
@@ -55,7 +56,7 @@ class HostResistrationViewModel @Inject constructor(
     }
 
     suspend fun registerPrayerRoomData(token : String, id : String, data : HostRegisterData ){
-        PrayerRoomHostRepository().registerPlayerRoomdata(token,id,data).let {
+        prayerHostRepository.registerPlayerRoomdata(token,id,data).let {
             if(it.isSuccessful){
                 userHost(token)
                 Log.d("token2","success2")
@@ -84,7 +85,7 @@ class HostResistrationViewModel @Inject constructor(
                         token = task.result!!.token.toString()
                         Log.d("token2",task.result!!.token.toString())
                         CoroutineScope(Dispatchers.IO).launch {
-                            PrayerRoomHostRepository().registerPlayerRoomdataTest("Bearer "+token,body).let {
+                            prayerHostRepository.registerPlayerRoomdataTest("Bearer "+token,body).let {
                                 if(it.isSuccessful){
                                     Log.d("token2","success1")
                                     Log.d("token2",it.body()!!.id.toString())
