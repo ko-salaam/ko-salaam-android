@@ -5,6 +5,7 @@ import android.util.Log
 import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.facebook.internal.Mutable
 import com.kosalaamInc.kosalaam.model.data.RecentSearchData
@@ -92,6 +93,7 @@ class PrayerRoomViewModel @Inject constructor(
     }
 
     fun getAll(): LiveData<List<RecentSearchData>> {
+        Log.d("displayCheck","this one")
         return recentRepository.getAll()
     //return items
     }
@@ -120,17 +122,10 @@ class PrayerRoomViewModel @Inject constructor(
                 pageSize).let {
                 if (it.isSuccessful) {
                     if (it != null) {
-                        Log.d("PrayerRoom Test", "repository Success")
                         restaurantData.postValue(it.body())
                     }
                 } else {
-                    Log.d("PrayerRoom Test", "repository Fail")
-                    Log.d("PrayerRoom domain", domain.toString())
-                    Log.d("PrayerRoom domain", distance.toString())
-                    Log.d("PrayerRoom domain", latitude.toString())
-                    Log.d("PrayerRoom domain", longitude.toString())
-                    Log.d("PrayerRoom domain", pageNum.toString())
-                    Log.d("PrayerRoom domain", domain.toString())
+
                 }
             }
         }

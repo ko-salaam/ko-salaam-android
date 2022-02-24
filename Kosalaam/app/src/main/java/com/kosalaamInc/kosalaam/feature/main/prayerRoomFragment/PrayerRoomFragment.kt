@@ -48,7 +48,13 @@ import net.daum.mf.map.api.MapView
 class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
     //TODO adapter 초기화 다시 고려
-    //TODO
+    //TODO method 역할 정리
+    //TODO category 상태 확인
+    //TODO back bt 다 맛탱이 갔음
+    /* room module 주입으로 getAll에서 일어난 문제가 아닐지 -> 이후로 이상해지긴 함
+     *
+     *
+     */
 
     private var searchText: String = ""
     private var locationRequest: LocationRequest? = null
@@ -58,7 +64,6 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
 
     // filter status
     private var filterMode: Boolean = false // 필터창 확인
-
     private var filterAll : Boolean = false
     private var filterRestaurant : Boolean = false
     private var filterHotel : Boolean = false
@@ -189,9 +194,11 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             back_bt.observe(this@PrayerRoomFragment, Observer {
                 it.getContentIfNotHandled()?.let {
                     if (displayStatus == 3) {
+                        displayStatus=2
                         changeDisplay(2)
                     } else if (displayStatus == 2) {
                         searchText = ""
+                        displayStatus=1
                         pageNum = 0
                         getSearchList(Application.searchKeyword)
                         changeDisplay(1)
@@ -485,7 +492,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             })
         }
     }
-
+    // 진짜 뭐 때문에 recycler view가 저럴까
     private fun changeDisplay(status: Int) {
         if (status == 1) {
             displayStatus = 1
@@ -502,7 +509,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             binding!!.searchMapview.visibility = View.VISIBLE
             binding!!.ivSearchCurrentLocation.visibility = View.VISIBLE
             binding!!.searchBottomSheet.visibility = View.VISIBLE
-            binding!!.rvRecentSearch.visibility = View.GONE
+            binding!!.rvRecentSearch.visibility = View.GONE // 했는데?
             binding!!.tvSearchDelete.visibility = View.GONE
             binding!!.rvSearch.visibility = View.VISIBLE
             binding!!.viewSearch5.visibility = View.VISIBLE
@@ -547,6 +554,7 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
                 filterMode=false
                 binding!!.hsvFilter.visibility=View.GONE
             }
+
             viewModel.getAll().observe(viewLifecycleOwner, Observer {
                 if (displayStatus == 2) {
                     if (it.size == 0) {
@@ -761,11 +769,13 @@ class PrayerRoomFragment : Fragment(), MapView.MapViewEventListener {
             override fun handleOnBackPressed() {
                 if (displayStatus == 3) {
                     hideKeyboard()
+                    displayStatus=2
                     changeDisplay(2)
                 } else if (displayStatus == 2) {
                     searchText = ""
                     pageNum = 0
                     getSearchList(Application.searchKeyword)
+                    displayStatus=1
                     changeDisplay(1)
                 } else if (displayStatus == 1) {
                     Application.searchKeyword = null
