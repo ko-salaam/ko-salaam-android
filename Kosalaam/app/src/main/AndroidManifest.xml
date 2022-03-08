@@ -118,6 +118,8 @@
             android:screenOrientation="portrait"/>
         <activity android:name=".feature.main.myPageFragment.addressSelect.AddressSelectActivity"
             android:screenOrientation="portrait"/>
+        <activity android:name=".feature.loginIn.forgotPassword.ForgotPasswordActivity"
+            android:screenOrientation="portrait"/>
     </application>
 
 </manifest>

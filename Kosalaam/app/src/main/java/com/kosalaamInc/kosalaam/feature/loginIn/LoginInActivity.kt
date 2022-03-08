@@ -52,6 +52,7 @@ class LoginInActivity : AppCompatActivity(){
         binding!!.loginEditPassword.transformationMethod = BiggerDotPasswordTransformationMethod
         binding!!.tvLoginLoginbt.isClickable=false
         initobserve()
+        initClickListener()
     }
     public override fun onStart() {
         super.onStart()
@@ -61,6 +62,11 @@ class LoginInActivity : AppCompatActivity(){
         }
     }
 
+    private fun initClickListener(){
+        binding!!.tvLoginForgotpassword.setOnClickListener {
+           // startActivity(Intent())
+        }
+    }
 
     private fun initobserve(){
         with(viewModel){
